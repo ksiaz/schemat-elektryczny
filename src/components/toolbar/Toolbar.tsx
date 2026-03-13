@@ -1,4 +1,6 @@
 import { useProjectStore } from '../../store/projectStore.ts';
+import { exportToSvg } from '../../utils/exportSvg.ts';
+import { exportProjectToFile, importProjectFromFile } from '../../utils/fileIO.ts';
 import type { SheetFormat } from '../../types/index.ts';
 
 const FORMATS: SheetFormat[] = ['A4', 'A3', 'A2'];
@@ -147,6 +149,52 @@ export function Toolbar() {
         title="Zapisz (Ctrl+S)"
       >
         Zapisz
+      </button>
+
+      <div className="h-6 w-px bg-gray-200" />
+
+      {/* Eksport / Import */}
+      <button
+        onClick={() => exportToSvg(schematicFormat, projectName)}
+        className="px-2 py-1 text-xs rounded hover:bg-gray-100"
+        title="Eksport SVG"
+      >
+        SVG
+      </button>
+      <button
+        onClick={() => {
+          const state = useProjectStore.getState();
+          const data = JSON.stringify({
+            projectName: state.projectName,
+            projectInfo: state.projectInfo,
+            schematicFormat: state.schematicFormat,
+            layoutFormat: state.layoutFormat,
+            nodes: state.nodes,
+            edges: state.edges,
+            layoutNodes: state.layoutNodes,
+            layoutEdges: state.layoutEdges,
+            labelCounters: state.labelCounters,
+          });
+          exportProjectToFile(data, state.projectName);
+        }}
+        className="px-2 py-1 text-xs rounded hover:bg-gray-100"
+        title="Eksport JSON"
+      >
+        JSON
+      </button>
+      <button
+        onClick={async () => {
+          try {
+            const json = await importProjectFromFile();
+            useProjectStore.getState().loadProject(json);
+          } catch {
+            // Uzytkownik anulowal wybor pliku
+          }
+        }}
+        className="px-2 py-1 text-xs rounded hover:bg-gray-100"
+        title="Wczytaj projekt JSON"
+      >
+        Wczytaj
       </button>
     </header>
   );

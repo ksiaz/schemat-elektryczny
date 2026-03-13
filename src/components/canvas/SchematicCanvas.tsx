@@ -14,14 +14,14 @@ import { useCallback } from 'react';
 import { useProjectStore, generateNextLabel } from '../../store/projectStore.ts';
 import { nodeTypes } from '../../nodes/index.ts';
 import { edgeTypes } from '../../edges/index.ts';
-import { getSheetDimensions } from '../../utils/sheetDimensions.ts';
+import { DrawingFrame } from '../drawing-frame/DrawingFrame.tsx';
 import { ELEMENT_DEFINITIONS } from '../../constants/index.ts';
 import type { SchematicNodeData } from '../../types/index.ts';
 import type { Node } from '@xyflow/react';
 
 export function SchematicCanvas() {
   const {
-    nodes, edges, schematicFormat, edgeType, routingMode,
+    nodes, edges, edgeType, routingMode,
     setEdges, addNode, pushHistory,
     setSelectedNodeId, setSelectedEdgeId,
     updateEdgeData,
@@ -29,7 +29,6 @@ export function SchematicCanvas() {
   } = useProjectStore();
 
   const { screenToFlowPosition } = useReactFlow();
-  const sheet = getSheetDimensions(schematicFormat);
 
   // Zaznaczenie wezla lub edge
   useOnSelectionChange({
@@ -169,29 +168,8 @@ export function SchematicCanvas() {
           className="!bg-white !border !border-gray-200"
         />
 
-        {/* Uproszczona ramka arkusza — pelna w Etapie 8 */}
-        <svg
-          style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            width: sheet.widthPx,
-            height: sheet.heightPx,
-            pointerEvents: 'none',
-            overflow: 'visible',
-          }}
-        >
-          <rect
-            x={0} y={0}
-            width={sheet.widthPx} height={sheet.heightPx}
-            fill="white" stroke="#999" strokeWidth="1"
-          />
-          <rect
-            x={sheet.workAreaX} y={sheet.workAreaY}
-            width={sheet.workAreaWidth} height={sheet.workAreaHeight}
-            fill="none" stroke="#ccc" strokeWidth="0.5" strokeDasharray="4,4"
-          />
-        </svg>
+        {/* Ramka rysunkowa z tabelka */}
+        <DrawingFrame />
       </ReactFlow>
     </div>
   );

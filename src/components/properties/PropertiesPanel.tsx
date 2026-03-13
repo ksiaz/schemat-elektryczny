@@ -64,6 +64,7 @@ export function PropertiesPanel() {
     selectedNodeId, selectedEdgeId,
     nodes, edges,
     updateNodeData, updateEdgeData,
+    projectInfo,
   } = useProjectStore();
 
   const selectedNode = selectedNodeId
@@ -129,9 +130,35 @@ export function PropertiesPanel() {
   // --- Panel dla wezla ---
   if (!selectedNode) {
     return (
-      <aside className="w-60 bg-gray-50 border-l border-gray-200 p-3">
-        <p className="text-sm text-gray-400 italic">
-          Zaznacz element na schemacie, aby zobaczyć jego właściwości.
+      <aside className="w-60 bg-gray-50 border-l border-gray-200 p-3 overflow-y-auto">
+        <h2 className="text-sm font-bold text-gray-700 mb-2">Ramka rysunkowa</h2>
+        <div className="space-y-2">
+          {([
+            ['projectName', 'Nazwa projektu'],
+            ['drawingNumber', 'Nr rysunku'],
+            ['revision', 'Rewizja'],
+            ['designer', 'Projektant'],
+            ['date', 'Data'],
+            ['scale', 'Skala'],
+          ] as const).map(([key, label]) => (
+            <div key={key}>
+              <label className="block text-xs text-gray-500 mb-0.5">{label}</label>
+              <input
+                type="text"
+                value={projectInfo[key]}
+                onChange={(e) => {
+                  useProjectStore.setState({
+                    projectInfo: { ...projectInfo, [key]: e.target.value },
+                    isDirty: true,
+                  });
+                }}
+                className="w-full px-1.5 py-1 text-xs border border-gray-300 rounded focus:border-blue-500 focus:outline-none"
+              />
+            </div>
+          ))}
+        </div>
+        <p className="text-[10px] text-gray-400 mt-3 italic">
+          Zaznacz element na schemacie, aby edytować jego właściwości.
         </p>
       </aside>
     );
