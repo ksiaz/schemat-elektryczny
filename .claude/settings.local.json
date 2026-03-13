@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Skill(claude-api)",
+      "Read(//home/ksiaz/Pobrane/**)",
+      "Read(//home/ksiaz/Downloads/**)",
+      "Read(//home/ksiaz/**)",
+      "Bash(npm install:*)",
+      "Bash(git init:*)"
+    ]
+  }
+}
