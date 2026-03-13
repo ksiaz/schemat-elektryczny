@@ -13,6 +13,7 @@ import '@xyflow/react/dist/style.css';
 import { useCallback } from 'react';
 import { useProjectStore, generateNextLabel } from '../../store/projectStore.ts';
 import { nodeTypes } from '../../nodes/index.ts';
+import { edgeTypes } from '../../edges/index.ts';
 import { getSheetDimensions } from '../../utils/sheetDimensions.ts';
 import { ELEMENT_DEFINITIONS } from '../../constants/index.ts';
 import type { SchematicNodeData } from '../../types/index.ts';
@@ -20,7 +21,7 @@ import type { Node } from '@xyflow/react';
 
 export function SchematicCanvas() {
   const {
-    nodes, edges, schematicFormat,
+    nodes, edges, schematicFormat, edgeType,
     setEdges, addNode, pushHistory,
     setSelectedNodeId,
     onNodesChange, onEdgesChange,
@@ -36,11 +37,16 @@ export function SchematicCanvas() {
     },
   });
 
-  // Polaczenia
+  // Polaczenia — typ edge z toolbara
   const onConnect = useCallback((connection: Connection) => {
     pushHistory();
-    setEdges(addEdge(connection, useProjectStore.getState().edges));
-  }, [pushHistory, setEdges]);
+    const newEdge = {
+      ...connection,
+      type: edgeType,
+      data: {},
+    };
+    setEdges(addEdge(newEdge, useProjectStore.getState().edges));
+  }, [pushHistory, setEdges, edgeType]);
 
   // Drag & drop z sidebar
   const onDragOver = useCallback((event: React.DragEvent) => {
@@ -127,6 +133,8 @@ export function SchematicCanvas() {
         onDragOver={onDragOver}
         onDrop={onDrop}
         nodeTypes={nodeTypes}
+        edgeTypes={edgeTypes}
+        defaultEdgeOptions={{ type: 'multilineAc' }}
         fitView
         snapToGrid
         snapGrid={[10, 10]}

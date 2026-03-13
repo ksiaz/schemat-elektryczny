@@ -66,6 +66,10 @@ interface ProjectState {
   selectedNodeId: string | null;
   setSelectedNodeId: (id: string | null) => void;
 
+  // Typ polaczenia (wybierany w toolbarze)
+  edgeType: 'multilineAc' | 'dcLine' | 'cable';
+  setEdgeType: (type: 'multilineAc' | 'dcLine' | 'cable') => void;
+
   // Autonumeracja
   labelCounters: Record<string, number>;
 }
@@ -106,6 +110,7 @@ export const useProjectStore = create<ProjectState>((set, get) => ({
   layoutFuture: [],
 
   selectedNodeId: null,
+  edgeType: 'multilineAc',
   labelCounters: {},
 
   setNodes: (nodes) => set({ nodes, isDirty: true }),
@@ -242,6 +247,7 @@ export const useProjectStore = create<ProjectState>((set, get) => ({
   },
 
   setSelectedNodeId: (id) => set({ selectedNodeId: id }),
+  setEdgeType: (type) => set({ edgeType: type }),
 }));
 
 // --- Auto-zapis ---
