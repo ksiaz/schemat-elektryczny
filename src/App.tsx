@@ -3,11 +3,12 @@ import { ReactFlowProvider } from '@xyflow/react';
 import { Toolbar } from './components/toolbar/Toolbar.tsx';
 import { Sidebar } from './components/sidebar/Sidebar.tsx';
 import { SchematicCanvas } from './components/canvas/SchematicCanvas.tsx';
+import { LayoutCanvas } from './components/canvas/LayoutCanvas.tsx';
 import { PropertiesPanel } from './components/properties/PropertiesPanel.tsx';
 import { useProjectStore, startAutosave, stopAutosave } from './store/projectStore.ts';
 
 function App() {
-  const { undo, redo, saveProject, deleteSelectedNodes } = useProjectStore();
+  const { undo, redo, saveProject, deleteSelectedNodes, activeSheet } = useProjectStore();
 
   // Auto-zapis
   useEffect(() => {
@@ -57,7 +58,7 @@ function App() {
         <Toolbar />
         <div className="flex flex-1 overflow-hidden">
           <Sidebar />
-          <SchematicCanvas />
+          {activeSheet === 'schematic' ? <SchematicCanvas /> : <LayoutCanvas />}
           <PropertiesPanel />
         </div>
       </div>

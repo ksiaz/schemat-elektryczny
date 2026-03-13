@@ -1,5 +1,7 @@
 import { ELEMENT_DEFINITIONS } from '../../constants/index.ts';
-import type { ElementCategory } from '../../types/index.ts';
+import { LAYOUT_ELEMENT_DEFINITIONS } from '../../constants/layoutElements.ts';
+import { useProjectStore } from '../../store/projectStore.ts';
+import type { ElementCategory, ElementDefinition } from '../../types/index.ts';
 
 const CATEGORY_NAMES: Record<ElementCategory, string> = {
   dc: 'Strona DC',
@@ -12,30 +14,41 @@ const CATEGORY_NAMES: Record<ElementCategory, string> = {
   wiring: 'Linie i szyny',
 };
 
-const groupedElements = ELEMENT_DEFINITIONS.reduce<Record<string, typeof ELEMENT_DEFINITIONS>>((groups, el) => {
-  const cat = el.category;
-  if (!groups[cat]) groups[cat] = [];
-  groups[cat].push(el);
-  return groups;
-}, {});
+function groupByCategory(elements: ElementDefinition[]) {
+  return elements.reduce<Record<string, ElementDefinition[]>>((groups, el) => {
+    const cat = el.category;
+    if (!groups[cat]) groups[cat] = [];
+    groups[cat].push(el);
+    return groups;
+  }, {});
+}
 
 export function Sidebar() {
+  const activeSheet = useProjectStore((s) => s.activeSheet);
+  const isLayout = activeSheet === 'layout';
+
+  const elements = isLayout ? LAYOUT_ELEMENT_DEFINITIONS : ELEMENT_DEFINITIONS;
+  const groupedElements = groupByCategory(elements);
+  const dataType = isLayout ? 'application/layout-element' : 'application/schematic-element';
+
   const onDragStart = (event: React.DragEvent, elementId: string) => {
-    event.dataTransfer.setData('application/schematic-element', elementId);
+    event.dataTransfer.setData(dataType, elementId);
     event.dataTransfer.effectAllowed = 'move';
   };
 
   return (
     <aside className="w-56 bg-gray-50 border-r border-gray-200 overflow-y-auto p-3">
-      <h2 className="text-sm font-bold text-gray-700 mb-3">Elementy</h2>
+      <h2 className="text-sm font-bold text-gray-700 mb-3">
+        {isLayout ? 'Elementy lokalizacji' : 'Elementy schematu'}
+      </h2>
 
-      {Object.entries(groupedElements).map(([category, elements]) => (
+      {Object.entries(groupedElements).map(([category, elems]) => (
         <div key={category} className="mb-4">
           <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">
             {CATEGORY_NAMES[category as ElementCategory] ?? category}
           </h3>
           <div className="space-y-1">
-            {elements.map((el) => (
+            {elems.map((el) => (
               <div
                 key={el.id}
                 draggable

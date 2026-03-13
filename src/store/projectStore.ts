@@ -53,6 +53,13 @@ interface ProjectState {
   updateNodeData: (nodeId: string, data: Partial<SchematicNodeData>) => void;
   updateEdgeData: (edgeId: string, data: Record<string, unknown>) => void;
 
+  // Akcje — layout
+  setLayoutNodes: (nodes: Node[]) => void;
+  setLayoutEdges: (edges: Edge[]) => void;
+  onLayoutNodesChange: (changes: NodeChange[]) => void;
+  onLayoutEdgesChange: (changes: EdgeChange[]) => void;
+  pushLayoutHistory: () => void;
+
   // Zaznaczenie edge
   selectedEdgeId: string | null;
   setSelectedEdgeId: (id: string | null) => void;
@@ -284,6 +291,34 @@ export const useProjectStore = create<ProjectState>((set, get) => ({
     } catch {
       console.error('Blad wczytywania projektu');
     }
+  },
+
+  // --- Akcje layout ---
+  setLayoutNodes: (layoutNodes) => set({ layoutNodes, isDirty: true }),
+  setLayoutEdges: (layoutEdges) => set({ layoutEdges, isDirty: true }),
+
+  onLayoutNodesChange: (changes) => {
+    set((state) => ({
+      layoutNodes: applyNodeChanges(changes, state.layoutNodes),
+      isDirty: true,
+    }));
+  },
+
+  onLayoutEdgesChange: (changes) => {
+    set((state) => ({
+      layoutEdges: applyEdgeChanges(changes, state.layoutEdges),
+      isDirty: true,
+    }));
+  },
+
+  pushLayoutHistory: () => {
+    set((state) => ({
+      layoutPast: [
+        ...state.layoutPast.slice(-MAX_HISTORY + 1),
+        { nodes: state.layoutNodes as Node<SchematicNodeData>[], edges: state.layoutEdges },
+      ],
+      layoutFuture: [],
+    }));
   },
 
   setSelectedNodeId: (id) => set({ selectedNodeId: id }),

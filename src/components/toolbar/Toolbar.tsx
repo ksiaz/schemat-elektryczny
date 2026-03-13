@@ -7,11 +7,14 @@ export function Toolbar() {
   const {
     projectName, setProjectName,
     schematicFormat, setSchematicFormat,
+    activeSheet, setActiveSheet,
     undo, redo, saveProject,
     schematicPast, schematicFuture, isDirty,
     edgeType, setEdgeType,
     routingMode, setRoutingMode,
   } = useProjectStore();
+
+  const isLayout = activeSheet === 'layout';
 
   return (
     <header className="h-12 bg-white border-b border-gray-200 flex items-center gap-4 px-4">
@@ -25,6 +28,28 @@ export function Toolbar() {
       />
 
       {isDirty && <span className="text-xs text-orange-500">●</span>}
+
+      <div className="h-6 w-px bg-gray-200" />
+
+      {/* Zakladki: Schemat / Lokalizacja */}
+      <div className="flex items-center gap-1">
+        <button
+          onClick={() => setActiveSheet('schematic')}
+          className={`px-3 py-1 text-xs rounded ${
+            !isLayout ? 'bg-gray-800 text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+          }`}
+        >
+          Schemat
+        </button>
+        <button
+          onClick={() => setActiveSheet('layout')}
+          className={`px-3 py-1 text-xs rounded ${
+            isLayout ? 'bg-amber-700 text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+          }`}
+        >
+          Lokalizacja
+        </button>
+      </div>
 
       <div className="h-6 w-px bg-gray-200" />
 
