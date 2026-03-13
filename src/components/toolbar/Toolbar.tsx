@@ -1,6 +1,8 @@
+import { useState } from 'react';
 import { useProjectStore } from '../../store/projectStore.ts';
 import { exportToSvg } from '../../utils/exportSvg.ts';
 import { exportProjectToFile, importProjectFromFile } from '../../utils/fileIO.ts';
+import { TemplateDialog } from './TemplateDialog.tsx';
 import type { SheetFormat } from '../../types/index.ts';
 
 const FORMATS: SheetFormat[] = ['A4', 'A3', 'A2'];
@@ -17,6 +19,7 @@ export function Toolbar() {
   } = useProjectStore();
 
   const isLayout = activeSheet === 'layout';
+  const [templateOpen, setTemplateOpen] = useState(false);
 
   return (
     <header className="h-12 bg-white border-b border-gray-200 flex items-center gap-4 px-4">
@@ -196,6 +199,19 @@ export function Toolbar() {
       >
         Wczytaj
       </button>
+
+      <div className="h-6 w-px bg-gray-200" />
+
+      {/* Szablony */}
+      <button
+        onClick={() => setTemplateOpen(true)}
+        className="px-2 py-1 text-xs rounded bg-indigo-50 text-indigo-700 hover:bg-indigo-100"
+        title="Wczytaj szablon instalacji"
+      >
+        Szablony
+      </button>
+
+      <TemplateDialog open={templateOpen} onClose={() => setTemplateOpen(false)} />
     </header>
   );
 }
