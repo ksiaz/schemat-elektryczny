@@ -6,7 +6,9 @@
       "Read(//home/ksiaz/Downloads/**)",
       "Read(//home/ksiaz/**)",
       "Bash(npm install:*)",
-      "Bash(git init:*)"
+      "Bash(git init:*)",
+      "Bash(npm run:*)",
+      "Bash(git add:*)"
     ]
   }
 }
