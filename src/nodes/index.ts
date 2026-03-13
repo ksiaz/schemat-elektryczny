@@ -3,6 +3,7 @@ import { RcdNode } from './ac/RcdNode.tsx';
 import { McbNode } from './ac/McbNode.tsx';
 import { AcBusbarNode } from './ac/AcBusbarNode.tsx';
 import { GroundNode } from './ac/GroundNode.tsx';
+import { EnclosureNode } from './enclosures/EnclosureNode.tsx';
 
 export const nodeTypes = {
   inverter: InverterNode,
@@ -10,4 +11,5 @@ export const nodeTypes = {
   mcb: McbNode,
   acBusbar: AcBusbarNode,
   ground: GroundNode,
+  enclosure: EnclosureNode,
 } as const;

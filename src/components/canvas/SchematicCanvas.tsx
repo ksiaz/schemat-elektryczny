@@ -84,6 +84,35 @@ export function SchematicCanvas() {
       },
     };
 
+    // Rozdzielnice sa wieksze — ustaw rozmiar
+    if (definition.nodeType === 'enclosure') {
+      newNode.style = { width: 220, height: 160 };
+    }
+
+    // Sprawdz czy drop laduje na rozdzielnicy — jesli tak, ustaw parentId
+    const currentNodes = useProjectStore.getState().nodes;
+    const enclosure = currentNodes.find((n) => {
+      if (n.type !== 'enclosure') return false;
+      const w = (n.style?.width as number) ?? 220;
+      const h = (n.style?.height as number) ?? 160;
+      return (
+        position.x > n.position.x &&
+        position.x < n.position.x + w &&
+        position.y > n.position.y &&
+        position.y < n.position.y + h
+      );
+    });
+
+    if (enclosure && definition.nodeType !== 'enclosure') {
+      // Pozycja relatywna do rodzica
+      newNode.position = {
+        x: position.x - enclosure.position.x,
+        y: position.y - enclosure.position.y,
+      };
+      newNode.parentId = enclosure.id;
+      newNode.extent = 'parent';
+    }
+
     addNode(newNode);
   }, [screenToFlowPosition, addNode]);
 
