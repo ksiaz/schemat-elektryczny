@@ -10,6 +10,7 @@ export function Toolbar() {
     undo, redo, saveProject,
     schematicPast, schematicFuture, isDirty,
     edgeType, setEdgeType,
+    routingMode, setRoutingMode,
   } = useProjectStore();
 
   return (
@@ -61,6 +62,29 @@ export function Toolbar() {
             className={`px-2 py-0.5 text-xs rounded ${
               edgeType === type
                 ? 'bg-green-600 text-white'
+                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+            }`}
+          >
+            {label}
+          </button>
+        ))}
+      </div>
+
+      <div className="h-6 w-px bg-gray-200" />
+
+      {/* Tryb trasowania */}
+      <div className="flex items-center gap-1">
+        <span className="text-xs text-gray-500">Trasa:</span>
+        {([
+          ['auto', 'Auto'],
+          ['manual', 'Ręczna'],
+        ] as const).map(([mode, label]) => (
+          <button
+            key={mode}
+            onClick={() => setRoutingMode(mode)}
+            className={`px-2 py-0.5 text-xs rounded ${
+              routingMode === mode
+                ? 'bg-purple-600 text-white'
                 : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
             }`}
           >

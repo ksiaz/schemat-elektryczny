@@ -21,9 +21,10 @@ import type { Node } from '@xyflow/react';
 
 export function SchematicCanvas() {
   const {
-    nodes, edges, schematicFormat, edgeType,
+    nodes, edges, schematicFormat, edgeType, routingMode,
     setEdges, addNode, pushHistory,
     setSelectedNodeId, setSelectedEdgeId,
+    updateEdgeData,
     onNodesChange, onEdgesChange,
   } = useProjectStore();
 
@@ -123,6 +124,21 @@ export function SchematicCanvas() {
     addNode(newNode);
   }, [screenToFlowPosition, addNode]);
 
+  // Dwuklik na edge — dodaj punkt zalamania (tryb reczny)
+  const onEdgeDoubleClick = useCallback((_event: React.MouseEvent, edge: { id: string; data?: Record<string, unknown> }) => {
+    if (routingMode !== 'manual') return;
+
+    const flowPosition = screenToFlowPosition({
+      x: _event.clientX,
+      y: _event.clientY,
+    });
+
+    const existingWaypoints = (edge.data?.waypoints as Array<{ x: number; y: number }>) ?? [];
+    const newWaypoints = [...existingWaypoints, { x: flowPosition.x, y: flowPosition.y }];
+
+    updateEdgeData(edge.id, { waypoints: newWaypoints });
+  }, [routingMode, screenToFlowPosition, updateEdgeData]);
+
   return (
     <div className="flex-1 relative">
       <ReactFlow
@@ -133,6 +149,7 @@ export function SchematicCanvas() {
         onConnect={onConnect}
         onDragOver={onDragOver}
         onDrop={onDrop}
+        onEdgeDoubleClick={onEdgeDoubleClick}
         nodeTypes={nodeTypes}
         edgeTypes={edgeTypes}
         defaultEdgeOptions={{ type: 'multilineAc' }}

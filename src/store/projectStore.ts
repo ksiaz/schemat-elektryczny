@@ -76,6 +76,10 @@ interface ProjectState {
   edgeType: 'multilineAc' | 'dcLine' | 'cable';
   setEdgeType: (type: 'multilineAc' | 'dcLine' | 'cable') => void;
 
+  // Tryb trasowania polaczen
+  routingMode: 'auto' | 'manual';
+  setRoutingMode: (mode: 'auto' | 'manual') => void;
+
   // Autonumeracja
   labelCounters: Record<string, number>;
 }
@@ -118,6 +122,7 @@ export const useProjectStore = create<ProjectState>((set, get) => ({
   selectedNodeId: null,
   selectedEdgeId: null,
   edgeType: 'multilineAc',
+  routingMode: 'auto',
   labelCounters: {},
 
   setNodes: (nodes) => set({ nodes, isDirty: true }),
@@ -283,6 +288,7 @@ export const useProjectStore = create<ProjectState>((set, get) => ({
 
   setSelectedNodeId: (id) => set({ selectedNodeId: id }),
   setEdgeType: (type) => set({ edgeType: type }),
+  setRoutingMode: (mode) => set({ routingMode: mode }),
 }));
 
 // --- Auto-zapis ---

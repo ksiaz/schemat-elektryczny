@@ -104,6 +104,23 @@ export function PropertiesPanel() {
               />
             </div>
           ))}
+
+          {/* Punkty zalamania */}
+          {Array.isArray(edgeData.waypoints) && (edgeData.waypoints as unknown[]).length > 0 && (
+            <div className="pt-2 border-t border-gray-200">
+              <div className="flex items-center justify-between">
+                <span className="text-xs text-gray-500">
+                  Punkty załamania: {(edgeData.waypoints as unknown[]).length}
+                </span>
+                <button
+                  onClick={() => updateEdgeData(selectedEdge.id, { waypoints: [] })}
+                  className="text-xs text-red-500 hover:text-red-700"
+                >
+                  Wyczyść trasę
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       </aside>
     );
