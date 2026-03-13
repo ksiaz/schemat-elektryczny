@@ -50,6 +50,12 @@ interface ProjectState {
   addNode: (node: Node<SchematicNodeData>) => void;
   deleteSelectedNodes: () => void;
   pushHistory: () => void;
+  updateNodeData: (nodeId: string, data: Partial<SchematicNodeData>) => void;
+  updateEdgeData: (edgeId: string, data: Record<string, unknown>) => void;
+
+  // Zaznaczenie edge
+  selectedEdgeId: string | null;
+  setSelectedEdgeId: (id: string | null) => void;
 
   // Undo/redo
   undo: () => void;
@@ -110,6 +116,7 @@ export const useProjectStore = create<ProjectState>((set, get) => ({
   layoutFuture: [],
 
   selectedNodeId: null,
+  selectedEdgeId: null,
   edgeType: 'multilineAc',
   labelCounters: {},
 
@@ -152,6 +159,34 @@ export const useProjectStore = create<ProjectState>((set, get) => ({
       isDirty: true,
     });
   },
+
+  updateNodeData: (nodeId, data) => {
+    const state = get();
+    state.pushHistory();
+    set({
+      nodes: state.nodes.map((n) =>
+        n.id === nodeId
+          ? { ...n, data: { ...n.data, ...data } }
+          : n
+      ),
+      isDirty: true,
+    });
+  },
+
+  updateEdgeData: (edgeId, data) => {
+    const state = get();
+    state.pushHistory();
+    set({
+      edges: state.edges.map((e) =>
+        e.id === edgeId
+          ? { ...e, data: { ...e.data, ...data } }
+          : e
+      ),
+      isDirty: true,
+    });
+  },
+
+  setSelectedEdgeId: (id) => set({ selectedEdgeId: id }),
 
   pushHistory: () => {
     set((state) => ({

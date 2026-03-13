@@ -23,17 +23,18 @@ export function SchematicCanvas() {
   const {
     nodes, edges, schematicFormat, edgeType,
     setEdges, addNode, pushHistory,
-    setSelectedNodeId,
+    setSelectedNodeId, setSelectedEdgeId,
     onNodesChange, onEdgesChange,
   } = useProjectStore();
 
   const { screenToFlowPosition } = useReactFlow();
   const sheet = getSheetDimensions(schematicFormat);
 
-  // Zaznaczenie wezla
+  // Zaznaczenie wezla lub edge
   useOnSelectionChange({
-    onChange: ({ nodes: selectedNodes }) => {
+    onChange: ({ nodes: selectedNodes, edges: selectedEdges }) => {
       setSelectedNodeId(selectedNodes.length === 1 ? selectedNodes[0].id : null);
+      setSelectedEdgeId(selectedEdges.length === 1 ? selectedEdges[0].id : null);
     },
   });
 
