@@ -1,4 +1,68 @@
+import { useEffect } from 'react';
+import { ReactFlowProvider } from '@xyflow/react';
+import { Toolbar } from './components/toolbar/Toolbar.tsx';
+import { Sidebar } from './components/sidebar/Sidebar.tsx';
+import { SchematicCanvas } from './components/canvas/SchematicCanvas.tsx';
+import { PropertiesPanel } from './components/properties/PropertiesPanel.tsx';
+import { useProjectStore, startAutosave, stopAutosave } from './store/projectStore.ts';
+
 function App() {
-  return <div className="h-screen bg-gray-100 flex items-center justify-center text-gray-500">Edytor schematow PV</div>
+  const { undo, redo, saveProject, deleteSelectedNodes } = useProjectStore();
+
+  // Auto-zapis
+  useEffect(() => {
+    startAutosave();
+    return () => stopAutosave();
+  }, []);
+
+  // Wczytaj projekt z localStorage przy starcie
+  useEffect(() => {
+    const saved = localStorage.getItem('schemat-pv-project');
+    if (saved) {
+      useProjectStore.getState().loadProject(saved);
+    }
+  }, []);
+
+  // Skroty klawiaturowe
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      const tag = (e.target as HTMLElement).tagName;
+      if (tag === 'INPUT' || tag === 'TEXTAREA') return;
+
+      if (e.ctrlKey && e.key === 'z') {
+        e.preventDefault();
+        undo();
+      }
+      if (e.ctrlKey && e.key === 'y') {
+        e.preventDefault();
+        redo();
+      }
+      if (e.ctrlKey && e.key === 's') {
+        e.preventDefault();
+        saveProject();
+      }
+      if (e.key === 'Delete') {
+        e.preventDefault();
+        deleteSelectedNodes();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [undo, redo, saveProject, deleteSelectedNodes]);
+
+  return (
+    <ReactFlowProvider>
+      <div className="h-screen flex flex-col bg-white">
+        <Toolbar />
+        <div className="flex flex-1 overflow-hidden">
+          <Sidebar />
+          <SchematicCanvas />
+          <PropertiesPanel />
+        </div>
+      </div>
+    </ReactFlowProvider>
+  );
 }
-export default App
+
+export default App;
