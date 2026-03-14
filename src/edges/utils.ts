@@ -1,13 +1,12 @@
 // Proste ortogonalne sciezki — pionowo, poziomo, pionowo
-// Styl jak na profesjonalnych schematach elektrycznych
 
 export interface Waypoint {
   x: number;
   y: number;
 }
 
-// Sciezka: source → pionowo do midY → poziomo do targetX → pionowo do target
-// midY jest w polowie miedzy source a target (lub odskok jesli blisko siebie)
+const EXIT_OFFSET = 20; // odskok od elementu przed skretem
+
 export function buildOrthogonalPath(
   sourceX: number,
   sourceY: number,
@@ -15,7 +14,7 @@ export function buildOrthogonalPath(
   targetY: number,
   waypoints: Waypoint[] = [],
 ): string {
-  // Reczne waypoints — uzyj bezposrednio
+  // Reczne waypoints
   if (waypoints.length > 0) {
     const pts = [{ x: sourceX, y: sourceY }, ...waypoints, { x: targetX, y: targetY }];
     let d = `M ${pts[0].x} ${pts[0].y}`;
@@ -28,19 +27,38 @@ export function buildOrthogonalPath(
   const dx = Math.abs(targetX - sourceX);
   const dy = targetY - sourceY;
 
-  // Prosta pionowa — elementy nad soba
+  // Prosta pionowa
   if (dx < 5) {
     return `M ${sourceX} ${sourceY} L ${targetX} ${targetY}`;
   }
 
-  // Prosta pozioma — elementy obok siebie
+  // Prosta pozioma
   if (Math.abs(dy) < 5) {
     return `M ${sourceX} ${sourceY} L ${targetX} ${targetY}`;
   }
 
-  // Standardowe L: pionowo w dol do polowy, poziomo, pionowo do celu
-  const midY = sourceY + dy / 2;
-  return `M ${sourceX} ${sourceY} L ${sourceX} ${midY} L ${targetX} ${midY} L ${targetX} ${targetY}`;
+  // Target nizej — normalne: w dol, poziomo, w dol
+  if (dy > EXIT_OFFSET * 2) {
+    const midY = sourceY + dy / 2;
+    return `M ${sourceX} ${sourceY} L ${sourceX} ${midY} L ${targetX} ${midY} L ${targetX} ${targetY}`;
+  }
+
+  // Target wyzej — normalne: w gore, poziomo, w gore
+  if (dy < -EXIT_OFFSET * 2) {
+    const midY = sourceY + dy / 2;
+    return `M ${sourceX} ${sourceY} L ${sourceX} ${midY} L ${targetX} ${midY} L ${targetX} ${targetY}`;
+  }
+
+  // Blisko siebie — odskok: source wychodzi w dol (lub gore), potem poziomo, potem target
+  // Decyzja kierunku: jesli target jest troche nizej/na tym samym poziomie,
+  // source wychodzi w DOL, target wchodzi z GORY
+  if (dy >= 0) {
+    const exitY = Math.max(sourceY, targetY) + EXIT_OFFSET;
+    return `M ${sourceX} ${sourceY} L ${sourceX} ${exitY} L ${targetX} ${exitY} L ${targetX} ${targetY}`;
+  } else {
+    const exitY = Math.min(sourceY, targetY) - EXIT_OFFSET;
+    return `M ${sourceX} ${sourceY} L ${sourceX} ${exitY} L ${targetX} ${exitY} L ${targetX} ${targetY}`;
+  }
 }
 
 // Punkt srodkowy sciezki (do etykiety)
