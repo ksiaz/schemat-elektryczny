@@ -1,14 +1,14 @@
 import { BaseEdge, type EdgeProps } from '@xyflow/react';
 import { buildOrthogonalPath, getMidpoint } from './utils.ts';
+import { useNodeRects } from './useNodeRects.ts';
 
 export function DcPlusEdge({
-  id, sourceX, sourceY, targetX, targetY,
-  data, selected,
+  id, sourceX, sourceY, targetX, targetY, data, selected,
 }: EdgeProps) {
   const edgeData = (data ?? {}) as Record<string, unknown>;
-  const path = buildOrthogonalPath(sourceX, sourceY, targetX, targetY);
+  const obstacles = useNodeRects();
+  const path = buildOrthogonalPath(sourceX, sourceY, targetX, targetY, [], obstacles);
   const mid = getMidpoint(sourceX, sourceY, targetX, targetY);
-
   const parts = [edgeData.cableType, edgeData.cableSection, edgeData.cableLength].filter(Boolean);
   const label = parts.length > 0 ? parts.join(' ') : '';
 
@@ -21,7 +21,6 @@ export function DcPlusEdge({
           <text textAnchor="middle" dominantBaseline="central" fontSize="8" fill="#FF0000" fontFamily="monospace">{String(label)}</text>
         </g>
       )}
-      <text x={sourceX + 5} y={sourceY + 12} fontSize="7" fill="#FF0000" fontWeight="bold">DC+</text>
     </g>
   );
 }
