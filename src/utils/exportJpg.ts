@@ -17,9 +17,9 @@ export async function exportToJpg(_format: string, projectName: string) {
     const dataUrl = await toJpeg(el, {
       quality: 0.95,
       backgroundColor: '#ffffff',
-      width: el.offsetWidth * 2,
-      height: el.offsetHeight * 2,
-      style: { transform: 'scale(2)', transformOrigin: 'top left' },
+      width: el.offsetWidth * 4,
+      height: el.offsetHeight * 4,
+      style: { transform: 'scale(4)', transformOrigin: 'top left' },
       filter: (node) => {
         // Ukryj minimap, controls, panel
         if (node instanceof HTMLElement) {
