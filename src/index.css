@@ -49,9 +49,13 @@ body {
   overflow: visible;
 }
 
-/* Kable ponad wezlami — nie przechodzą "pod" rozdzielnicami */
-.react-flow__edges {
+/* Wezly ponad przewodami — aparaty nie sa zaslanianie przez kable */
+.react-flow__nodes {
   z-index: 10 !important;
+}
+
+.react-flow__edges {
+  z-index: 1 !important;
 }
 
 .react-flow__edge {
