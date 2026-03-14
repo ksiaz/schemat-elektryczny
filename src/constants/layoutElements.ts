@@ -157,6 +157,20 @@ export const LAYOUT_ELEMENT_DEFINITIONS: ElementDefinition[] = [
     ],
   },
   {
+    id: 'free_line',
+    name: 'Linia swobodna',
+    category: 'wiring',
+    designation: '',
+    nodeType: 'freeLine',
+    defaultLabel: '',
+    parameters: [
+      { key: 'rotation', label: 'Obrót (°)', type: 'number', defaultValue: 0 },
+      { key: 'color', label: 'Kolor', type: 'select', options: ['#333', '#666', '#000', '#8B4513', '#FF0000', '#0000CD'], defaultValue: '#333' },
+      { key: 'lineWidth', label: 'Grubość', type: 'number', defaultValue: 2 },
+      { key: 'style', label: 'Styl', type: 'select', options: ['ciągła', 'kreskowana'], defaultValue: 'ciągła' },
+    ],
+  },
+  {
     id: 'compass',
     name: 'Wskaźnik N-S',
     category: 'wiring',

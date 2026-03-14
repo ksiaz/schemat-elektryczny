@@ -83,6 +83,8 @@ export function LayoutCanvas() {
     } else if (definition.nodeType === 'layoutLine') {
       const isH = parameters.orientation === 'pozioma';
       newNode.style = isH ? { width: 200, height: 4 } : { width: 4, height: 200 };
+    } else if (definition.nodeType === 'freeLine') {
+      newNode.style = { width: 150, height: 10 };
     } else if (definition.nodeType === 'ruler') {
       const isH = parameters.orientation === 'pozioma';
       newNode.style = isH ? { width: 50, height: 20 } : { width: 20, height: 50 };
