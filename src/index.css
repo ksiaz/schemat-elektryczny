@@ -49,6 +49,11 @@ body {
   overflow: visible;
 }
 
+/* Handle precyzyjne pozycjonowanie — left w px musi trafiac dokladnie */
+.react-flow__handle {
+  transform: translate(-50%, -50%) !important;
+}
+
 /* Wezly ponad przewodami — aparaty nie sa zaslanianie przez kable */
 .react-flow__nodes {
   z-index: 5 !important;
