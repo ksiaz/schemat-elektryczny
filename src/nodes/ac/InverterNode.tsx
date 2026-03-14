@@ -16,7 +16,7 @@ export function InverterNode({ data, selected }: NodeProps<InverterNodeType>) {
       <Handle type="target" position={Position.Top} id="mppt2-plus" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.DC, left: '65%' }} />
       <Handle type="target" position={Position.Top} id="mppt2-minus" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.N, left: '80%' }} />
 
-      <svg width="100" height="80" viewBox="0 0 100 80">
+      <svg width="150" height="120" viewBox="0 0 100 80">
         <rect x="4" y="4" width="92" height="72" fill="none" stroke="#333" strokeWidth="1.5" />
         {/* MPPT etykiety z +/- */}
         <text x="25" y="14" textAnchor="middle" fontSize="6" fill="#999" fontFamily="monospace">MPPT1</text>

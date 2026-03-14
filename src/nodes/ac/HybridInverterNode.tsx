@@ -19,7 +19,7 @@ export function HybridInverterNode({ data, selected }: NodeProps<HybridInverterN
       <Handle type="target" position={Position.Left} id="bat-plus" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.DC, top: '30%' }} />
       <Handle type="target" position={Position.Left} id="bat-minus" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.N, top: '40%' }} />
 
-      <svg width="130" height="95" viewBox="0 0 130 95">
+      <svg width="195" height="143" viewBox="0 0 130 95">
         <rect x="4" y="4" width="122" height="87" fill="none" stroke="#333" strokeWidth="1.5" />
 
         {/* MPPT etykiety z +/- */}
