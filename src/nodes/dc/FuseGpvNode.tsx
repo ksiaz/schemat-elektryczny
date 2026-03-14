@@ -4,7 +4,7 @@ import { WIRE_COLORS } from '../../constants/index.ts';
 
 type FuseGpvNodeType = Node<SchematicNodeData, 'fuseGpv'>;
 
-// Bezpiecznik gPV DC: 2 zaciski (wejscie + wyjscie)
+// Bezpiecznik gPV — przelotowy (1 wejscie DC, 1 wyjscie DC)
 export function FuseGpvNode({ data, selected }: NodeProps<FuseGpvNodeType>) {
   return (
     <div className={`flex flex-col items-center ${selected ? 'ring-2 ring-blue-500' : ''}`}>
