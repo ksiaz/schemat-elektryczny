@@ -13,7 +13,7 @@ export function MeterNode({ data, selected }: NodeProps<MeterNodeType>) {
       <Handle type="target" position={Position.Left} id="in-left" className="!bg-gray-700 !w-2 !h-2" />
 
       <svg width="60" height="44" viewBox="0 0 60 44">
-        <rect x="2" y="2" width="56" height="40" fill="#252540" stroke="white" strokeWidth="1.5" />
+        <rect x="2" y="2" width="56" height="40" fill="none" stroke="white" strokeWidth="1.5" />
         <text x="30" y="20" textAnchor="middle" fontSize="12" fill="white" fontWeight="bold" fontFamily="monospace">kWh</text>
         {isBidirectional && (
           <g>

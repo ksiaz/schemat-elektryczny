@@ -23,7 +23,7 @@ export function EnclosureNode({ data, selected }: NodeProps<EnclosureNodeType>) 
       {/* Tytul rozdzielnicy — lewy gorny rog */}
       <div
         className="absolute top-0 left-2 px-1 text-xs font-bold text-gray-300"
-        style={{ transform: 'translateY(-50%)', background: '#1e1e30' }}
+        style={{ transform: 'translateY(-50%)', background: 'inherit' }}
       >
         {data.label}
       </div>

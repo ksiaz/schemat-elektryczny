@@ -13,7 +13,7 @@ export function InverterNode({ data, selected }: NodeProps<InverterNodeType>) {
 
       <svg width="80" height="80" viewBox="0 0 80 80">
         {/* Prostokat obudowy */}
-        <rect x="4" y="4" width="72" height="72" fill="#252540" stroke="white" strokeWidth="1.5" />
+        <rect x="4" y="4" width="72" height="72" fill="none" stroke="white" strokeWidth="1.5" />
 
         {/* Sinusoida AC u gory */}
         <path d="M 20,25 Q 30,15 40,25 Q 50,35 60,25" fill="none" stroke="white" strokeWidth="1.2" />

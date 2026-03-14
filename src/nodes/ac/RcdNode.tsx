@@ -11,7 +11,7 @@ export function RcdNode({ data, selected }: NodeProps<RcdNodeType>) {
       <Handle type="target" position={Position.Left} id="in-left" className="!bg-gray-700 !w-2 !h-2" />
 
       <svg width="60" height="40" viewBox="0 0 60 40">
-        <rect x="2" y="2" width="56" height="36" fill="#252540" stroke="white" strokeWidth="1.5" />
+        <rect x="2" y="2" width="56" height="36" fill="none" stroke="white" strokeWidth="1.5" />
         <text x="30" y="24" textAnchor="middle" fontSize="12" fill="white" fontWeight="bold" fontFamily="monospace">RCD</text>
       </svg>
 

@@ -13,7 +13,7 @@ export function PvStringNode({ data, selected }: NodeProps<PvStringNodeType>) {
     <div className={`flex flex-row items-center gap-2 ${selected ? 'ring-2 ring-blue-500' : ''}`}>
       {/* Prostokat z trojkatem — symbol generatora PV */}
       <svg width="80" height="60" viewBox="0 0 80 60">
-        <rect x="2" y="2" width="76" height="56" fill="#252540" stroke="white" strokeWidth="1.5" />
+        <rect x="2" y="2" width="76" height="56" fill="none" stroke="white" strokeWidth="1.5" />
         {/* Trojkat — symbol generatora */}
         <polygon points="20,48 60,48 40,12" fill="none" stroke="white" strokeWidth="1.2" />
         {/* Kreski promieniowania (gora trojkata) */}
