@@ -1,18 +1,31 @@
-import { Position, type NodeProps, type Node } from '@xyflow/react';
+import { Handle, Position, type NodeProps, type Node } from '@xyflow/react';
 import type { SchematicNodeData } from '../../types/index.ts';
-import { AcHandles } from './AcHandles.tsx';
+import { WIRE_COLORS } from '../../constants/index.ts';
 
 type McbNodeType = Node<SchematicNodeData, 'mcb'>;
 
-// Wylacznik nadpradowy MCB — styk ruchomy, 5 handli AC (L1/L2/L3/N/PE)
+// MCB — ilosc zaciskow wg biegunow (1P/2P/3P/4P)
+const POLES_MAP: Record<string, { id: string; color: string }[]> = {
+  '1P': [{ id: 'L1', color: WIRE_COLORS.L1 }],
+  '2P': [{ id: 'L1', color: WIRE_COLORS.L1 }, { id: 'N', color: WIRE_COLORS.N }],
+  '3P': [{ id: 'L1', color: WIRE_COLORS.L1 }, { id: 'L2', color: WIRE_COLORS.L2 }, { id: 'L3', color: WIRE_COLORS.L3 }],
+  '4P': [{ id: 'L1', color: WIRE_COLORS.L1 }, { id: 'L2', color: WIRE_COLORS.L2 }, { id: 'L3', color: WIRE_COLORS.L3 }, { id: 'N', color: WIRE_COLORS.N }],
+};
+
 export function McbNode({ data, selected }: NodeProps<McbNodeType>) {
+  const poles = String(data.parameters.poles || '4P');
+  const wires = POLES_MAP[poles] ?? POLES_MAP['4P'];
   const label = data.parameters.curve
     ? `${String(data.parameters.curve)}${String(data.parameters.ratingCurrent ?? '')}A`
     : `${String(data.parameters.ratingCurrent ?? '')}A`;
 
   return (
     <div className={`flex flex-col items-center ${selected ? 'ring-2 ring-blue-500' : ''}`}>
-      <AcHandles type="target" position={Position.Top} prefix="in" />
+      {/* Zaciski wejsciowe — ilosc wg biegunow */}
+      {wires.map((w, i) => (
+        <Handle key={`in-${w.id}`} type="target" position={Position.Top} id={`in-${w.id}`}
+          className="!w-1.5 !h-1.5" style={{ backgroundColor: w.color, left: `${20 + i * (60 / Math.max(wires.length - 1, 1))}%` }} />
+      ))}
 
       <svg width="70" height="50" viewBox="0 0 70 50">
         <line x1="35" y1="0" x2="35" y2="14" stroke="#333" strokeWidth="1.5" />
@@ -22,9 +35,13 @@ export function McbNode({ data, selected }: NodeProps<McbNodeType>) {
       </svg>
 
       <div className="text-xs font-bold text-gray-800">{data.label}</div>
-      <div className="text-[10px] text-gray-500">{label}</div>
+      <div className="text-[10px] text-gray-500">{label} {poles}</div>
 
-      <AcHandles type="source" position={Position.Bottom} prefix="out" />
+      {/* Zaciski wyjsciowe */}
+      {wires.map((w, i) => (
+        <Handle key={`out-${w.id}`} type="source" position={Position.Bottom} id={`out-${w.id}`}
+          className="!w-1.5 !h-1.5" style={{ backgroundColor: w.color, left: `${20 + i * (60 / Math.max(wires.length - 1, 1))}%` }} />
+      ))}
     </div>
   );
 }

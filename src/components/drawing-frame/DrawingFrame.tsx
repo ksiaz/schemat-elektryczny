@@ -24,7 +24,7 @@ export function DrawingFrame() {
       <rect
         x={0} y={0}
         width={sheet.widthPx} height={sheet.heightPx}
-        fill="white" stroke="#333" strokeWidth="1"
+        fill="none" stroke="#333" strokeWidth="1"
       />
 
       {/* Margines wewnetrzny */}
