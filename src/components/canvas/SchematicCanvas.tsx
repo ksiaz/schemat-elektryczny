@@ -7,6 +7,7 @@ import {
   useOnSelectionChange,
   useReactFlow,
   addEdge,
+  ConnectionMode,
   type Connection,
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
@@ -154,6 +155,7 @@ export function SchematicCanvas() {
         nodeTypes={nodeTypes}
         edgeTypes={edgeTypes}
         defaultEdgeOptions={{ type: 'multilineAc' }}
+        connectionMode={ConnectionMode.Loose}
         fitView
         snapToGrid
         snapGrid={[20, 20]}
