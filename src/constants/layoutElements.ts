@@ -130,6 +130,26 @@ export const LAYOUT_ELEMENT_DEFINITIONS: ElementDefinition[] = [
     ],
   },
   {
+    id: 'compass',
+    name: 'Wskaźnik N-S',
+    category: 'wiring',
+    designation: '',
+    nodeType: 'compass',
+    defaultLabel: '',
+    parameters: [
+      { key: 'rotation', label: 'Obrót (°)', type: 'number', defaultValue: 0 },
+    ],
+  },
+  {
+    id: 'legend',
+    name: 'Legenda',
+    category: 'wiring',
+    designation: '',
+    nodeType: 'legend',
+    defaultLabel: 'LEGENDA',
+    parameters: [],
+  },
+  {
     id: 'ruler_v',
     name: 'Miara pionowa',
     category: 'wiring',

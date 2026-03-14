@@ -5,6 +5,8 @@ import { DeviceIconNode } from './layout/DeviceIconNode.tsx';
 import { CableRouteNode } from './layout/CableRouteNode.tsx';
 import { LineNode } from './layout/LineNode.tsx';
 import { RulerNode } from './layout/RulerNode.tsx';
+import { CompassNode } from './layout/CompassNode.tsx';
+import { LegendNode } from './layout/LegendNode.tsx';
 
 export const layoutNodeTypes = {
   building: BuildingNode,
@@ -14,4 +16,6 @@ export const layoutNodeTypes = {
   cableRoute: CableRouteNode,
   layoutLine: LineNode,
   ruler: RulerNode,
+  compass: CompassNode,
+  legend: LegendNode,
 } as const;
