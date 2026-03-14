@@ -16,6 +16,7 @@ import { ZugL1Node } from './ac/ZugL1Node.tsx';
 import { ZugL2Node } from './ac/ZugL2Node.tsx';
 import { ZugL3Node } from './ac/ZugL3Node.tsx';
 import { CtNode } from './ac/CtNode.tsx';
+import { MeterOsdNode } from './ac/MeterOsdNode.tsx';
 import { WirePointNode } from './ac/WirePointNode.tsx';
 import { TextLabelNode } from './ac/TextLabelNode.tsx';
 import { DistBlockNode } from './ac/DistBlockNode.tsx';
@@ -51,6 +52,7 @@ export const nodeTypes = {
   zugL2: ZugL2Node,
   zugL3: ZugL3Node,
   ct: CtNode,
+  meterOsd: MeterOsdNode,
   wirePoint: WirePointNode,
   textLabel: TextLabelNode,
   distBlock: DistBlockNode,

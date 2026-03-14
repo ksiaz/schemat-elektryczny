@@ -379,6 +379,15 @@ export const ELEMENT_DEFINITIONS: ElementDefinition[] = [
     parameters: [],
   },
   {
+    id: 'meter_osd',
+    name: 'Licznik OSD kWh',
+    category: 'ac',
+    designation: 'P',
+    nodeType: 'meterOsd',
+    defaultLabel: 'kWh',
+    parameters: [],
+  },
+  {
     id: 'wire_point_l1',
     name: 'Punkt L1',
     category: 'wiring',
