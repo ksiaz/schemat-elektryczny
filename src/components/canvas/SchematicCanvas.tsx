@@ -133,13 +133,12 @@ export function SchematicCanvas() {
   const onEdgeDoubleClick = useCallback((_event: React.MouseEvent, edge: { id: string; data?: Record<string, unknown> }) => {
     if (routingMode !== 'manual') return;
 
-    const flowPosition = screenToFlowPosition({
-      x: _event.clientX,
-      y: _event.clientY,
-    });
+    const GRID = 10;
+    const raw = screenToFlowPosition({ x: _event.clientX, y: _event.clientY });
+    const snapped = { x: Math.round(raw.x / GRID) * GRID, y: Math.round(raw.y / GRID) * GRID };
 
     const existingWaypoints = (edge.data?.waypoints as Array<{ x: number; y: number }>) ?? [];
-    const newWaypoints = [...existingWaypoints, { x: flowPosition.x, y: flowPosition.y }];
+    const newWaypoints = [...existingWaypoints, snapped];
 
     updateEdgeData(edge.id, { waypoints: newWaypoints });
   }, [routingMode, screenToFlowPosition, updateEdgeData]);
