@@ -36,3 +36,20 @@ body {
 .react-flow__attribution {
   display: none;
 }
+
+/* Wezly — ciemne tlo, bez domyslnego bialego */
+.react-flow__node {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Krawedzie — widoczne na ciemnym tle */
+.react-flow__edge-path {
+  stroke-opacity: 0.9;
+}
+
+/* Zaznaczony wezel */
+.react-flow__node.selected {
+  background: transparent !important;
+}
