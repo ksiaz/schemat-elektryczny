@@ -49,6 +49,20 @@ body {
   overflow: visible;
 }
 
+/* Rozdzielnica — caly node wrapper nie przechwytuje klikniec */
+.react-flow__node:has(.enclosure-node) {
+  pointer-events: none !important;
+}
+
+/* Tylko zaciski, resize i tytul sa klikalne */
+.react-flow__node:has(.enclosure-node) .react-flow__handle {
+  pointer-events: all !important;
+}
+
+.enclosure-node [style*="pointer-events: all"] {
+  pointer-events: all !important;
+}
+
 /* Handle precyzyjne pozycjonowanie — left w px musi trafiac dokladnie */
 .react-flow__handle {
   transform: translate(-50%, -50%) !important;

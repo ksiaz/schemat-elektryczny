@@ -7,7 +7,7 @@ type EnclosureNodeType = Node<SchematicNodeData, 'enclosure'>;
 export function EnclosureNode({ data, selected }: NodeProps<EnclosureNodeType>) {
   return (
     <div
-      className="relative w-full h-full"
+      className="enclosure-node relative w-full h-full"
       style={{
         border: `2px dashed ${selected ? '#3b82f6' : '#888'}`,
         borderRadius: '4px',
