@@ -25,22 +25,28 @@ export function McbNode({ data, selected }: NodeProps<McbNodeType>) {
           className="!w-1.5 !h-1.5" style={{ backgroundColor: w.color, left: w.offset }} />
       ))}
 
-      <svg width="80" height="50" viewBox="0 0 80 50">
-        {/* Krzywka na kazdy biegun */}
+      <svg width="80" height="55" viewBox="0 0 80 55">
         {wires.map((w) => (
           <g key={w.id}>
-            <line x1={w.offset} y1="0" x2={w.offset} y2="12" stroke={w.color} strokeWidth="1.5" />
-            <line x1={w.offset} y1="12" x2={w.offset + 10} y2="30" stroke="#333" strokeWidth="2" />
-            <circle cx={w.offset} cy="34" r="2" fill="#333" />
-            <line x1={w.offset} y1="36" x2={w.offset} y2="50" stroke={w.color} strokeWidth="1.5" />
+            {/* Linia wejsciowa */}
+            <line x1={w.offset} y1="0" x2={w.offset} y2="10" stroke={w.color} strokeWidth="1.5" />
+            {/* Styk ruchomy */}
+            <line x1={w.offset} y1="10" x2={w.offset + 10} y2="28" stroke="#333" strokeWidth="2" />
+            {/* Wyzwalacz termiczny — prostokat na styku */}
+            <rect x={w.offset + 6} y={w.offset === 20 ? 18 : 18} width="5" height="4" fill="none" stroke="#333" strokeWidth="0.8" />
+            {/* Wyzwalacz elektromagnetyczny — polkole */}
+            <path d={`M ${w.offset - 3},32 A 4,4 0 0,1 ${w.offset + 5},32`} fill="none" stroke="#333" strokeWidth="0.8" />
+            {/* Styk dolny */}
+            <circle cx={w.offset} cy="35" r="2" fill="#333" />
+            <line x1={w.offset} y1="37" x2={w.offset} y2="55" stroke={w.color} strokeWidth="1.5" />
           </g>
         ))}
 
         {/* Linia sprzegajaca */}
         {wires.length > 1 && (
           <line
-            x1={wires[0].offset + 5} y1="22"
-            x2={wires[wires.length - 1].offset + 5} y2="22"
+            x1={wires[0].offset + 5} y1="20"
+            x2={wires[wires.length - 1].offset + 5} y2="20"
             stroke="#333" strokeWidth="0.8" strokeDasharray="3,2"
           />
         )}
