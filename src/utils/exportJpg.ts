@@ -24,7 +24,7 @@ export async function exportToJpg(_format: string, projectName: string) {
         // Ukryj minimap, controls, panel
         if (node instanceof HTMLElement) {
           const cls = node.className?.toString() || '';
-          if (cls.includes('react-flow__minimap') || cls.includes('react-flow__controls') || cls.includes('react-flow__panel')) {
+          if (cls.includes('react-flow__minimap') || cls.includes('react-flow__controls') || cls.includes('react-flow__panel') || cls.includes('react-flow__background')) {
             return false;
           }
         }
