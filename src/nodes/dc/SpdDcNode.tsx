@@ -4,41 +4,47 @@ import { WIRE_COLORS } from '../../constants/index.ts';
 
 type SpdDcNodeType = Node<SchematicNodeData, 'spdDc'>;
 
-// SPD DC: wiele punktow polaczeniowych DC+ i DC- z kazdej strony
-// Kazdy punkt moze byc zrodlem lub celem — source na wszystkich
+// SPD DC: 2x DC+ i 2x DC- u gory z oznaczeniami, symbol pod spodem, PE na dole
 export function SpdDcNode({ data, selected }: NodeProps<SpdDcNodeType>) {
   return (
     <div className={`flex flex-col items-center ${selected ? 'ring-2 ring-blue-500' : ''}`}>
-      {/* GORA: DC+ i DC- */}
-      <Handle type="source" position={Position.Top} id="top-dc-plus" className="!w-3 !h-3" style={{ backgroundColor: WIRE_COLORS.DC, left: '30%' }} />
-      <Handle type="source" position={Position.Top} id="top-dc-minus" className="!w-3 !h-3" style={{ backgroundColor: WIRE_COLORS.N, left: '70%' }} />
+      {/* 4 zaciski u gory: +  +  -  - */}
+      <Handle type="source" position={Position.Top} id="dc-plus-1" className="!w-3 !h-3" style={{ backgroundColor: WIRE_COLORS.DC, left: '15%' }} />
+      <Handle type="source" position={Position.Top} id="dc-plus-2" className="!w-3 !h-3" style={{ backgroundColor: WIRE_COLORS.DC, left: '35%' }} />
+      <Handle type="source" position={Position.Top} id="dc-minus-1" className="!w-3 !h-3" style={{ backgroundColor: WIRE_COLORS.N, left: '65%' }} />
+      <Handle type="source" position={Position.Top} id="dc-minus-2" className="!w-3 !h-3" style={{ backgroundColor: WIRE_COLORS.N, left: '85%' }} />
 
-      {/* DOL: DC+ i DC- */}
-      <Handle type="source" position={Position.Bottom} id="bot-dc-plus" className="!w-3 !h-3" style={{ backgroundColor: WIRE_COLORS.DC, left: '30%' }} />
-      <Handle type="source" position={Position.Bottom} id="bot-dc-minus" className="!w-3 !h-3" style={{ backgroundColor: WIRE_COLORS.N, left: '70%' }} />
+      <svg width="90" height="70" viewBox="0 0 90 70">
+        {/* Oznaczenia + + - - pod zaciskami */}
+        <text x="14" y="10" textAnchor="middle" fontSize="11" fill="#FF0000" fontWeight="bold">+</text>
+        <text x="32" y="10" textAnchor="middle" fontSize="11" fill="#FF0000" fontWeight="bold">+</text>
+        <text x="58" y="10" textAnchor="middle" fontSize="11" fill="#0000CD" fontWeight="bold">−</text>
+        <text x="76" y="10" textAnchor="middle" fontSize="11" fill="#0000CD" fontWeight="bold">−</text>
 
-      {/* LEWO: DC+ */}
-      <Handle type="source" position={Position.Left} id="left-dc-plus" className="!w-3 !h-3" style={{ backgroundColor: WIRE_COLORS.DC, top: '35%' }} />
-      {/* PRAWO: DC- */}
-      <Handle type="source" position={Position.Right} id="right-dc-minus" className="!w-3 !h-3" style={{ backgroundColor: WIRE_COLORS.N, top: '35%' }} />
+        {/* Linie od zaciskow do obudowy */}
+        <line x1="14" y1="12" x2="14" y2="20" stroke="#FF0000" strokeWidth="1" />
+        <line x1="32" y1="12" x2="32" y2="20" stroke="#FF0000" strokeWidth="1" />
+        <line x1="58" y1="12" x2="58" y2="20" stroke="#0000CD" strokeWidth="1" />
+        <line x1="76" y1="12" x2="76" y2="20" stroke="#0000CD" strokeWidth="1" />
 
-      {/* PE — uziom na dole srodek lub lewy bok */}
-      <Handle type="source" position={Position.Left} id="pe" className="!w-3 !h-3" style={{ backgroundColor: WIRE_COLORS.PE, top: '65%' }} />
+        {/* Prostokat SPD */}
+        <rect x="5" y="20" width="80" height="34" fill="none" stroke="#333" strokeWidth="1.5" rx="1" />
 
-      <svg width="50" height="50" viewBox="0 0 50 50">
-        <line x1="15" y1="0" x2="15" y2="6" stroke="#FF0000" strokeWidth="1" />
-        <line x1="35" y1="0" x2="35" y2="6" stroke="#0000CD" strokeWidth="1" />
-        <rect x="5" y="6" width="40" height="34" fill="none" stroke="#333" strokeWidth="1.5" rx="1" />
-        <polyline points="28,12 22,22 28,22 20,34" fill="none" stroke="#333" strokeWidth="1.5" strokeLinecap="round" />
-        <polygon points="20,34 23,30 22,33" fill="#333" />
-        <line x1="15" y1="40" x2="15" y2="50" stroke="#FF0000" strokeWidth="1" />
-        <line x1="35" y1="40" x2="35" y2="50" stroke="#0000CD" strokeWidth="1" />
+        {/* Blyskawica */}
+        <polyline points="50,26 42,38 50,38 40,50" fill="none" stroke="#333" strokeWidth="1.8" strokeLinecap="round" />
+        <polygon points="40,50 44,45 42,49" fill="#333" />
+
+        {/* Linia PE */}
+        <line x1="45" y1="54" x2="45" y2="70" stroke="#228B22" strokeWidth="1.5" />
       </svg>
 
       <div className="text-xs font-bold text-gray-800">{data.label}</div>
       {data.parameters.spdType && (
         <div className="text-[10px] text-gray-500">{String(data.parameters.spdType)}</div>
       )}
+
+      {/* PE na dole */}
+      <Handle type="source" position={Position.Bottom} id="pe" className="!w-3 !h-3" style={{ backgroundColor: WIRE_COLORS.PE }} />
     </div>
   );
 }
