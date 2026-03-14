@@ -379,6 +379,15 @@ export const ELEMENT_DEFINITIONS: ElementDefinition[] = [
     parameters: [],
   },
   {
+    id: 'phase_monitor',
+    name: 'Kontrolka faz',
+    category: 'ac',
+    designation: '',
+    nodeType: 'phaseMonitor',
+    defaultLabel: 'KF',
+    parameters: [],
+  },
+  {
     id: 'meter_osd',
     name: 'Licznik OSD kWh',
     category: 'ac',
