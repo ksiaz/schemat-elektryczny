@@ -160,6 +160,19 @@ export const useProjectStore = create<ProjectState>((set, get) => ({
 
   deleteSelectedNodes: () => {
     const state = get();
+
+    // Usun zaznaczony edge
+    if (state.selectedEdgeId) {
+      state.pushHistory();
+      set({
+        edges: state.edges.filter((e) => e.id !== state.selectedEdgeId),
+        selectedEdgeId: null,
+        isDirty: true,
+      });
+      return;
+    }
+
+    // Usun zaznaczony node (+ powiazane edge)
     if (!state.selectedNodeId) return;
     state.pushHistory();
     set({
