@@ -11,6 +11,8 @@ export const LAYOUT_ELEMENT_DEFINITIONS: ElementDefinition[] = [
     defaultLabel: 'Budynek',
     parameters: [
       { key: 'floors', label: 'Piętra', type: 'number', defaultValue: 1 },
+      { key: 'lineWidth', label: 'Grubość linii', type: 'number', defaultValue: 3 },
+      { key: 'color', label: 'Kolor', type: 'select', options: ['#8B4513', '#333', '#666', '#000'], defaultValue: '#8B4513' },
     ],
   },
   {
@@ -22,6 +24,7 @@ export const LAYOUT_ELEMENT_DEFINITIONS: ElementDefinition[] = [
     defaultLabel: 'Dach',
     parameters: [
       { key: 'roofType', label: 'Typ', type: 'select', options: ['dwuspadowy', 'płaski', 'jednospadowy'] },
+      { key: 'color', label: 'Kolor', type: 'select', options: ['#8B4513', '#333', '#666', '#000'], defaultValue: '#8B4513' },
     ],
   },
   {
