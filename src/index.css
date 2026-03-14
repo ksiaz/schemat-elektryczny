@@ -43,6 +43,21 @@ body {
   border: none !important;
   box-shadow: none !important;
   padding: 0 !important;
+  color: #e0e0e0;
+}
+
+/* SVG w wezlach — widoczne linie */
+.react-flow__node svg {
+  overflow: visible;
+}
+
+.react-flow__node svg line,
+.react-flow__node svg rect,
+.react-flow__node svg circle,
+.react-flow__node svg polygon,
+.react-flow__node svg polyline,
+.react-flow__node svg path {
+  vector-effect: non-scaling-stroke;
 }
 
 /* Krawedzie — widoczne na ciemnym tle */
