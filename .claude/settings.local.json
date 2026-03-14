@@ -31,7 +31,8 @@
       "Bash(find src/nodes -name \"*.tsx\" -exec sed -i 's/!w-1.5 !h-1.5/!w-3 !h-3/g' {} +\nfind src/nodes -name \"*.tsx\" -exec sed -i 's/!w-2 !h-2/!w-3 !h-3/g' {} +\necho \"All handles enlarged\")",
       "Bash(find /home/ksiaz -maxdepth 3 -name \"*.json\" -newer /home/ksiaz/schemat-elektryczny/package.json -not -path \"*/node_modules/*\" -not -path \"*/.claude/*\" 2>/dev/null | head -10)",
       "Bash(find /home/ksiaz/Pobrane -name \"*.json\" -newer /home/ksiaz/schemat-elektryczny/package.json 2>/dev/null; ls -la /home/ksiaz/Pobrane/*.png /home/ksiaz/Pobrane/*.jpg 2>/dev/null | tail -10)",
-      "Bash(find src/nodes -name \"*.tsx\" -exec sed -i 's/!w-3 !h-3/!w-1.5 !h-1.5/g' {} +\nnpm run build 2>&1 | tail -3)"
+      "Bash(find src/nodes -name \"*.tsx\" -exec sed -i 's/!w-3 !h-3/!w-1.5 !h-1.5/g' {} +\nnpm run build 2>&1 | tail -3)",
+      "Bash(find /home/ksiaz/Pobrane -name \"*nowy*\" -o -name \"*projekt*jpg\" 2>/dev/null | head -5)"
     ]
   }
 }
