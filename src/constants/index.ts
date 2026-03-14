@@ -366,6 +366,61 @@ export const ELEMENT_DEFINITIONS: ElementDefinition[] = [
     parameters: [],
   },
   {
+    id: 'wire_point_l1',
+    name: 'Punkt L1',
+    category: 'wiring',
+    designation: '',
+    nodeType: 'wirePoint',
+    defaultLabel: '',
+    parameters: [
+      { key: 'wireType', label: 'Żyła', type: 'select', options: ['L1', 'L2', 'L3', 'N', 'PE'], defaultValue: 'L1' },
+    ],
+  },
+  {
+    id: 'wire_point_l2',
+    name: 'Punkt L2',
+    category: 'wiring',
+    designation: '',
+    nodeType: 'wirePoint',
+    defaultLabel: '',
+    parameters: [
+      { key: 'wireType', label: 'Żyła', type: 'select', options: ['L1', 'L2', 'L3', 'N', 'PE'], defaultValue: 'L2' },
+    ],
+  },
+  {
+    id: 'wire_point_l3',
+    name: 'Punkt L3',
+    category: 'wiring',
+    designation: '',
+    nodeType: 'wirePoint',
+    defaultLabel: '',
+    parameters: [
+      { key: 'wireType', label: 'Żyła', type: 'select', options: ['L1', 'L2', 'L3', 'N', 'PE'], defaultValue: 'L3' },
+    ],
+  },
+  {
+    id: 'wire_point_n',
+    name: 'Punkt N',
+    category: 'wiring',
+    designation: '',
+    nodeType: 'wirePoint',
+    defaultLabel: '',
+    parameters: [
+      { key: 'wireType', label: 'Żyła', type: 'select', options: ['L1', 'L2', 'L3', 'N', 'PE'], defaultValue: 'N' },
+    ],
+  },
+  {
+    id: 'wire_point_pe',
+    name: 'Punkt PE',
+    category: 'wiring',
+    designation: '',
+    nodeType: 'wirePoint',
+    defaultLabel: '',
+    parameters: [
+      { key: 'wireType', label: 'Żyła', type: 'select', options: ['L1', 'L2', 'L3', 'N', 'PE'], defaultValue: 'PE' },
+    ],
+  },
+  {
     id: 'dist_block',
     name: 'Blok rozdzielczy 4P',
     category: 'ac',
