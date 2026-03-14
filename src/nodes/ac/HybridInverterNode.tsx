@@ -10,14 +10,14 @@ export function HybridInverterNode({ data, selected }: NodeProps<HybridInverterN
   return (
     <div className={`flex flex-col items-center ${selected ? 'ring-2 ring-blue-500' : ''}`}>
       {/* MPPT1 +/- */}
-      <Handle type="target" position={Position.Top} id="mppt1-plus" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.DC, left: '15%' }} />
-      <Handle type="target" position={Position.Top} id="mppt1-minus" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.N, left: '28%' }} />
+      <Handle type="target" position={Position.Top} id="mppt1-plus" className="!w-3 !h-3" style={{ backgroundColor: WIRE_COLORS.DC, left: '15%' }} />
+      <Handle type="target" position={Position.Top} id="mppt1-minus" className="!w-3 !h-3" style={{ backgroundColor: WIRE_COLORS.N, left: '28%' }} />
       {/* MPPT2 +/- */}
-      <Handle type="target" position={Position.Top} id="mppt2-plus" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.DC, left: '52%' }} />
-      <Handle type="target" position={Position.Top} id="mppt2-minus" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.N, left: '65%' }} />
+      <Handle type="target" position={Position.Top} id="mppt2-plus" className="!w-3 !h-3" style={{ backgroundColor: WIRE_COLORS.DC, left: '52%' }} />
+      <Handle type="target" position={Position.Top} id="mppt2-minus" className="!w-3 !h-3" style={{ backgroundColor: WIRE_COLORS.N, left: '65%' }} />
       {/* Bateria +/- po lewej */}
-      <Handle type="target" position={Position.Left} id="bat-plus" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.DC, top: '30%' }} />
-      <Handle type="target" position={Position.Left} id="bat-minus" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.N, top: '40%' }} />
+      <Handle type="target" position={Position.Left} id="bat-plus" className="!w-3 !h-3" style={{ backgroundColor: WIRE_COLORS.DC, top: '30%' }} />
+      <Handle type="target" position={Position.Left} id="bat-minus" className="!w-3 !h-3" style={{ backgroundColor: WIRE_COLORS.N, top: '40%' }} />
 
       <svg width="130" height="95" viewBox="0 0 130 95">
         <rect x="4" y="4" width="122" height="87" fill="none" stroke="#333" strokeWidth="1.5" />
@@ -55,20 +55,20 @@ export function HybridInverterNode({ data, selected }: NodeProps<HybridInverterN
       )}
 
       {/* COM — komunikacja */}
-      <Handle type="source" position={Position.Right} id="com" className="!w-2 !h-2" style={{ backgroundColor: "#999", top: "30%" }} />
+      <Handle type="source" position={Position.Right} id="com" className="!w-3 !h-3" style={{ backgroundColor: "#999", top: "30%" }} />
 
       {/* PE obudowy */}
-      <Handle type="source" position={Position.Left} id="pe-housing" className="!w-2 !h-2" style={{ backgroundColor: "#228B22", top: "85%" }} />
+      <Handle type="source" position={Position.Left} id="pe-housing" className="!w-3 !h-3" style={{ backgroundColor: "#228B22", top: "85%" }} />
 
       {/* Grid AC — dol */}
       <AcHandles type="source" position={Position.Bottom} prefix="grid" />
 
       {/* Backup AC — prawy bok */}
-      <Handle type="source" position={Position.Right} id="backup-L1" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.L1, top: '55%' }} />
-      <Handle type="source" position={Position.Right} id="backup-L2" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.L2, top: '62%' }} />
-      <Handle type="source" position={Position.Right} id="backup-L3" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.L3, top: '69%' }} />
-      <Handle type="source" position={Position.Right} id="backup-N" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.N, top: '76%' }} />
-      <Handle type="source" position={Position.Right} id="backup-PE" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.PE, top: '83%' }} />
+      <Handle type="source" position={Position.Right} id="backup-L1" className="!w-3 !h-3" style={{ backgroundColor: WIRE_COLORS.L1, top: '55%' }} />
+      <Handle type="source" position={Position.Right} id="backup-L2" className="!w-3 !h-3" style={{ backgroundColor: WIRE_COLORS.L2, top: '62%' }} />
+      <Handle type="source" position={Position.Right} id="backup-L3" className="!w-3 !h-3" style={{ backgroundColor: WIRE_COLORS.L3, top: '69%' }} />
+      <Handle type="source" position={Position.Right} id="backup-N" className="!w-3 !h-3" style={{ backgroundColor: WIRE_COLORS.N, top: '76%' }} />
+      <Handle type="source" position={Position.Right} id="backup-PE" className="!w-3 !h-3" style={{ backgroundColor: WIRE_COLORS.PE, top: '83%' }} />
     </div>
   );
 }

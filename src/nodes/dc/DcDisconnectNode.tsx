@@ -7,7 +7,7 @@ type DcDisconnectNodeType = Node<SchematicNodeData, 'dcDisconnect'>;
 export function DcDisconnectNode({ data, selected }: NodeProps<DcDisconnectNodeType>) {
   return (
     <div className={`flex flex-col items-center ${selected ? 'ring-2 ring-blue-500 ring-offset-2' : ''}`}>
-      <Handle type="target" position={Position.Top} id="in" className="!bg-red-500 !w-2 !h-2" />
+      <Handle type="target" position={Position.Top} id="in" className="!bg-red-500 !w-3 !h-3" />
 
       <svg width="30" height="55" viewBox="0 0 30 55">
         <line x1="15" y1="0" x2="15" y2="14" stroke="#333" strokeWidth="1.5" />
@@ -22,7 +22,7 @@ export function DcDisconnectNode({ data, selected }: NodeProps<DcDisconnectNodeT
         <div className="text-[10px] text-gray-500">{String(data.parameters.ratingCurrent)}A</div>
       )}
 
-      <Handle type="source" position={Position.Bottom} id="out" className="!bg-red-500 !w-2 !h-2" />
+      <Handle type="source" position={Position.Bottom} id="out" className="!bg-red-500 !w-3 !h-3" />
     </div>
   );
 }

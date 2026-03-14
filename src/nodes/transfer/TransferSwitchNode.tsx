@@ -8,8 +8,8 @@ type TransferSwitchNodeType = Node<SchematicNodeData, 'transferSwitch'>;
 export function TransferSwitchNode({ data, selected }: NodeProps<TransferSwitchNodeType>) {
   return (
     <div className={`flex flex-col items-center ${selected ? 'ring-2 ring-blue-500 ring-offset-2' : ''}`}>
-      <Handle type="target" position={Position.Top} id="in-1" className="!bg-gray-700 !w-2 !h-2" style={{ left: '30%' }} />
-      <Handle type="target" position={Position.Top} id="in-2" className="!bg-gray-700 !w-2 !h-2" style={{ left: '70%' }} />
+      <Handle type="target" position={Position.Top} id="in-1" className="!bg-gray-700 !w-3 !h-3" style={{ left: '30%' }} />
+      <Handle type="target" position={Position.Top} id="in-2" className="!bg-gray-700 !w-3 !h-3" style={{ left: '70%' }} />
 
       <svg width="60" height="55" viewBox="0 0 60 55">
         {/* Dwa wejscia */}
@@ -33,7 +33,7 @@ export function TransferSwitchNode({ data, selected }: NodeProps<TransferSwitchN
         </div>
       )}
 
-      <Handle type="source" position={Position.Bottom} id="out" className="!bg-gray-700 !w-2 !h-2" />
+      <Handle type="source" position={Position.Bottom} id="out" className="!bg-gray-700 !w-3 !h-3" />
     </div>
   );
 }

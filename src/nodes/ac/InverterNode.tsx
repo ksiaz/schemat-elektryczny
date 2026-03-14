@@ -10,11 +10,11 @@ export function InverterNode({ data, selected }: NodeProps<InverterNodeType>) {
   return (
     <div className={`flex flex-col items-center ${selected ? 'ring-2 ring-blue-500' : ''}`}>
       {/* MPPT1: + i - */}
-      <Handle type="target" position={Position.Top} id="mppt1-plus" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.DC, left: '20%' }} />
-      <Handle type="target" position={Position.Top} id="mppt1-minus" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.N, left: '35%' }} />
+      <Handle type="target" position={Position.Top} id="mppt1-plus" className="!w-3 !h-3" style={{ backgroundColor: WIRE_COLORS.DC, left: '20%' }} />
+      <Handle type="target" position={Position.Top} id="mppt1-minus" className="!w-3 !h-3" style={{ backgroundColor: WIRE_COLORS.N, left: '35%' }} />
       {/* MPPT2: + i - */}
-      <Handle type="target" position={Position.Top} id="mppt2-plus" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.DC, left: '65%' }} />
-      <Handle type="target" position={Position.Top} id="mppt2-minus" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.N, left: '80%' }} />
+      <Handle type="target" position={Position.Top} id="mppt2-plus" className="!w-3 !h-3" style={{ backgroundColor: WIRE_COLORS.DC, left: '65%' }} />
+      <Handle type="target" position={Position.Top} id="mppt2-minus" className="!w-3 !h-3" style={{ backgroundColor: WIRE_COLORS.N, left: '80%' }} />
 
       <svg width="100" height="80" viewBox="0 0 100 80">
         <rect x="4" y="4" width="92" height="72" fill="none" stroke="#333" strokeWidth="1.5" />
@@ -40,8 +40,8 @@ export function InverterNode({ data, selected }: NodeProps<InverterNodeType>) {
         <div className="text-[10px] text-gray-500">{String(data.parameters.power)} kW</div>
       )}
 
-      <Handle type="source" position={Position.Right} id="com" className="!w-2 !h-2" style={{ backgroundColor: "#999", top: "50%" }} />
-      <Handle type="source" position={Position.Left} id="pe-housing" className="!w-2 !h-2" style={{ backgroundColor: "#228B22", top: "50%" }} />
+      <Handle type="source" position={Position.Right} id="com" className="!w-3 !h-3" style={{ backgroundColor: "#999", top: "50%" }} />
+      <Handle type="source" position={Position.Left} id="pe-housing" className="!w-3 !h-3" style={{ backgroundColor: "#228B22", top: "50%" }} />
       <AcHandles type="source" position={Position.Bottom} prefix="out" />
     </div>
   );

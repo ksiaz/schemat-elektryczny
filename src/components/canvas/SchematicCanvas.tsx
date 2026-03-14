@@ -159,6 +159,7 @@ export function SchematicCanvas() {
         edgeTypes={edgeTypes}
         defaultEdgeOptions={{ type: 'multilineAc', zIndex: 1000 }}
         connectionMode={ConnectionMode.Loose}
+        isValidConnection={() => true}
         fitView
         snapToGrid
         snapGrid={[10, 10]}
