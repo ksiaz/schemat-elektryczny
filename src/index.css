@@ -37,19 +37,21 @@ body {
   display: none;
 }
 
-/* Wezly — ciemne tlo, bez domyslnego bialego */
+/* Wezly — ciemne tlo */
 .react-flow__node {
-  background: transparent !important;
-  border: none !important;
-  box-shadow: none !important;
+  background: #252540 !important;
+  border: 1px solid #3a3a5c !important;
+  border-radius: 4px !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3) !important;
+  padding: 4px !important;
+}
+
+.react-flow__node.selected {
+  border-color: #3b82f6 !important;
+  box-shadow: 0 0 0 2px rgba(59,130,246,0.5) !important;
 }
 
 /* Krawedzie — widoczne na ciemnym tle */
 .react-flow__edge-path {
   stroke-opacity: 0.9;
-}
-
-/* Zaznaczony wezel */
-.react-flow__node.selected {
-  background: transparent !important;
 }
