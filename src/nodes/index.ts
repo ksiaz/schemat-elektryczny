@@ -19,6 +19,7 @@ import { CtNode } from './ac/CtNode.tsx';
 import { MeterOsdNode } from './ac/MeterOsdNode.tsx';
 import { PhaseMonitorNode } from './ac/PhaseMonitorNode.tsx';
 import { WirePointNode } from './ac/WirePointNode.tsx';
+import { JunctionPointNode } from './ac/JunctionPointNode.tsx';
 import { TextLabelNode } from './ac/TextLabelNode.tsx';
 import { DistBlockNode } from './ac/DistBlockNode.tsx';
 import { BusbarNode } from './ac/BusbarNode.tsx';
@@ -56,6 +57,7 @@ export const nodeTypes = {
   meterOsd: MeterOsdNode,
   phaseMonitor: PhaseMonitorNode,
   wirePoint: WirePointNode,
+  junctionPoint: JunctionPointNode,
   textLabel: TextLabelNode,
   distBlock: DistBlockNode,
   busbar: BusbarNode,

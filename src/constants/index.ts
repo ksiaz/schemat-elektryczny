@@ -452,6 +452,15 @@ export const ELEMENT_DEFINITIONS: ElementDefinition[] = [
     ],
   },
   {
+    id: 'junction_point',
+    name: 'Punkt połączeniowy',
+    category: 'wiring',
+    designation: '',
+    nodeType: 'junctionPoint',
+    defaultLabel: '',
+    parameters: [],
+  },
+  {
     id: 'dist_block',
     name: 'Blok rozdzielczy 4P',
     category: 'ac',
