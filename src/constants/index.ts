@@ -461,6 +461,7 @@ export const ELEMENT_DEFINITIONS: ElementDefinition[] = [
     parameters: [
       { key: 'curve', label: 'Krzywa', type: 'select', options: ['B', 'C', 'D'] },
       { key: 'ratingCurrent', label: 'In', type: 'number', unit: 'A', defaultValue: 25 },
+      { key: 'orientation', label: 'Orientacja', type: 'select', options: ['pionowa', 'pozioma'], defaultValue: 'pionowa' },
     ],
   },
   {
