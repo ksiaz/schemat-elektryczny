@@ -54,22 +54,10 @@ export function DistBlockNode({ data, selected }: NodeProps<DistBlockNodeType>) 
         ))}
       </svg>
 
-      {/* 4x4 wyjscia na dole — pogrupowane po biegunach */}
+      {/* 4 wyjscia na dole — po jednym na biegun */}
       {POLES.map((p) => (
-        <Handle key={`out1-${p.id}`} type="source" position={Position.Bottom} id={`out1-${p.id}`}
-          className="!w-1.5 !h-1.5" style={{ backgroundColor: p.color, left: p.x - 10 }} />
-      ))}
-      {POLES.map((p) => (
-        <Handle key={`out2-${p.id}`} type="source" position={Position.Bottom} id={`out2-${p.id}`}
+        <Handle key={`out-${p.id}`} type="source" position={Position.Bottom} id={`out-${p.id}`}
           className="!w-1.5 !h-1.5" style={{ backgroundColor: p.color, left: p.x }} />
-      ))}
-      {POLES.map((p) => (
-        <Handle key={`out3-${p.id}`} type="source" position={Position.Bottom} id={`out3-${p.id}`}
-          className="!w-1.5 !h-1.5" style={{ backgroundColor: p.color, left: p.x + 10 }} />
-      ))}
-      {POLES.map((p) => (
-        <Handle key={`out4-${p.id}`} type="source" position={Position.Bottom} id={`out4-${p.id}`}
-          className="!w-1.5 !h-1.5" style={{ backgroundColor: p.color, left: p.x + 20 }} />
       ))}
     </div>
   );
