@@ -161,29 +161,51 @@ export const useProjectStore = create<ProjectState>((set, get) => ({
 
   deleteSelectedNodes: () => {
     const state = get();
+    const isLayout = state.activeSheet === 'layout';
 
     // Usun zaznaczony edge
     if (state.selectedEdgeId) {
-      state.pushHistory();
-      set({
-        edges: state.edges.filter((e) => e.id !== state.selectedEdgeId),
-        selectedEdgeId: null,
-        isDirty: true,
-      });
+      if (isLayout) {
+        state.pushLayoutHistory();
+        set({
+          layoutEdges: state.layoutEdges.filter((e) => e.id !== state.selectedEdgeId),
+          selectedEdgeId: null,
+          isDirty: true,
+        });
+      } else {
+        state.pushHistory();
+        set({
+          edges: state.edges.filter((e) => e.id !== state.selectedEdgeId),
+          selectedEdgeId: null,
+          isDirty: true,
+        });
+      }
       return;
     }
 
     // Usun zaznaczony node (+ powiazane edge)
     if (!state.selectedNodeId) return;
-    state.pushHistory();
-    set({
-      nodes: state.nodes.filter((n) => n.id !== state.selectedNodeId),
-      edges: state.edges.filter(
-        (e) => e.source !== state.selectedNodeId && e.target !== state.selectedNodeId
-      ),
-      selectedNodeId: null,
-      isDirty: true,
-    });
+    if (isLayout) {
+      state.pushLayoutHistory();
+      set({
+        layoutNodes: state.layoutNodes.filter((n) => n.id !== state.selectedNodeId),
+        layoutEdges: state.layoutEdges.filter(
+          (e) => e.source !== state.selectedNodeId && e.target !== state.selectedNodeId
+        ),
+        selectedNodeId: null,
+        isDirty: true,
+      });
+    } else {
+      state.pushHistory();
+      set({
+        nodes: state.nodes.filter((n) => n.id !== state.selectedNodeId),
+        edges: state.edges.filter(
+          (e) => e.source !== state.selectedNodeId && e.target !== state.selectedNodeId
+        ),
+        selectedNodeId: null,
+        isDirty: true,
+      });
+    }
   },
 
   updateNodeData: (nodeId, data) => {
