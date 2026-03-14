@@ -45,8 +45,6 @@ export function SmartMeterNode({ data, selected }: NodeProps<SmartMeterNodeType>
       <Handle type="source" position={Position.Right} id="ct-L2" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.L2, top: 30 }} />
       <Handle type="source" position={Position.Right} id="ct-L3" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.L3, top: 40 }} />
 
-      {/* COM — do falownika */}
-      <Handle type="source" position={Position.Bottom} id="com" className="!w-1.5 !h-1.5" style={{ backgroundColor: '#999', left: 30 }} />
     </div>
   );
 }
