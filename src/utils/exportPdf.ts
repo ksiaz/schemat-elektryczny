@@ -3,6 +3,14 @@ import { toJpeg } from 'html-to-image';
 import { getSheetDimensions } from './sheetDimensions.ts';
 import type { SheetFormat } from '../types/index.ts';
 
+function shouldExclude(node: Element): boolean {
+  const cls = node.getAttribute?.('class') || '';
+  return cls.includes('react-flow__minimap') ||
+    cls.includes('react-flow__controls') ||
+    cls.includes('react-flow__panel') ||
+    cls.includes('react-flow__background');
+}
+
 export async function exportToPdf(format: SheetFormat, projectName: string) {
   const el = document.querySelector('.react-flow') as HTMLElement | null;
   if (!el) return;
@@ -15,15 +23,7 @@ export async function exportToPdf(format: SheetFormat, projectName: string) {
     width: el.offsetWidth * 4,
     height: el.offsetHeight * 4,
     style: { transform: 'scale(4)', transformOrigin: 'top left' },
-    filter: (node) => {
-      if (node instanceof HTMLElement) {
-        const cls = node.className?.toString() || '';
-        if (cls.includes('react-flow__minimap') || cls.includes('react-flow__controls') || cls.includes('react-flow__panel') || cls.includes('react-flow__background')) {
-          return false;
-        }
-      }
-      return true;
-    },
+    filter: (node) => !shouldExclude(node as Element),
   });
 
   const doc = new jsPDF({
