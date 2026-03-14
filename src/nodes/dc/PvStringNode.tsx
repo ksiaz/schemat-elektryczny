@@ -28,10 +28,10 @@ export function PvStringNode({ data, selected }: NodeProps<PvStringNodeType>) {
       </div>
 
       {/* DC+ czerwony, DC- niebieski */}
-      <Handle type="source" position={Position.Bottom} id="dc-plus" className="!w-3 !h-3" style={{ backgroundColor: WIRE_COLORS.DC, left: '25%' }} />
-      <Handle type="source" position={Position.Bottom} id="dc-minus" className="!w-3 !h-3" style={{ backgroundColor: WIRE_COLORS.N, left: '50%' }} />
+      <Handle type="source" position={Position.Bottom} id="dc-plus" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.DC, left: '25%' }} />
+      <Handle type="source" position={Position.Bottom} id="dc-minus" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.N, left: '50%' }} />
       {/* PE — uziemienie ramy */}
-      <Handle type="source" position={Position.Bottom} id="pe" className="!w-3 !h-3" style={{ backgroundColor: WIRE_COLORS.PE, left: '75%' }} />
+      <Handle type="source" position={Position.Bottom} id="pe" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.PE, left: '75%' }} />
     </div>
   );
 }

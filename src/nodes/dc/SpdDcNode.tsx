@@ -9,10 +9,10 @@ export function SpdDcNode({ data, selected }: NodeProps<SpdDcNodeType>) {
   return (
     <div className={`flex flex-col items-center ${selected ? 'ring-2 ring-blue-500' : ''}`}>
       {/* 4 zaciski u gory: +  +  -  - */}
-      <Handle type="source" position={Position.Top} id="dc-plus-1" className="!w-3 !h-3" style={{ backgroundColor: WIRE_COLORS.DC, left: '15%' }} />
-      <Handle type="source" position={Position.Top} id="dc-plus-2" className="!w-3 !h-3" style={{ backgroundColor: WIRE_COLORS.DC, left: '35%' }} />
-      <Handle type="source" position={Position.Top} id="dc-minus-1" className="!w-3 !h-3" style={{ backgroundColor: WIRE_COLORS.N, left: '65%' }} />
-      <Handle type="source" position={Position.Top} id="dc-minus-2" className="!w-3 !h-3" style={{ backgroundColor: WIRE_COLORS.N, left: '85%' }} />
+      <Handle type="source" position={Position.Top} id="dc-plus-1" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.DC, left: '15%' }} />
+      <Handle type="source" position={Position.Top} id="dc-plus-2" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.DC, left: '35%' }} />
+      <Handle type="source" position={Position.Top} id="dc-minus-1" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.N, left: '65%' }} />
+      <Handle type="source" position={Position.Top} id="dc-minus-2" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.N, left: '85%' }} />
 
       <svg width="90" height="70" viewBox="0 0 90 70">
         {/* Oznaczenia + + - - pod zaciskami */}
@@ -44,7 +44,7 @@ export function SpdDcNode({ data, selected }: NodeProps<SpdDcNodeType>) {
       )}
 
       {/* PE na dole */}
-      <Handle type="source" position={Position.Bottom} id="pe" className="!w-3 !h-3" style={{ backgroundColor: WIRE_COLORS.PE }} />
+      <Handle type="source" position={Position.Bottom} id="pe" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.PE }} />
     </div>
   );
 }

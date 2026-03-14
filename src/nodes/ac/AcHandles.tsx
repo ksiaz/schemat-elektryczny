@@ -27,7 +27,7 @@ export function AcHandles({ type, position, prefix }: AcHandlesProps) {
           type={type}
           position={position}
           id={`${prefix}-${wire.id}`}
-          className="!w-3 !h-3"
+          className="!w-1.5 !h-1.5"
           style={{
             backgroundColor: wire.color,
             left: `${15 + i * 17.5}%`,

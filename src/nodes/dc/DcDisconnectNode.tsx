@@ -8,8 +8,8 @@ type DcDisconnectNodeType = Node<SchematicNodeData, 'dcDisconnect'>;
 export function DcDisconnectNode({ data, selected }: NodeProps<DcDisconnectNodeType>) {
   return (
     <div className={`flex flex-col items-center ${selected ? 'ring-2 ring-blue-500' : ''}`}>
-      <Handle type="target" position={Position.Top} id="in-dc-plus" className="!w-3 !h-3" style={{ backgroundColor: WIRE_COLORS.DC, left: '30%' }} />
-      <Handle type="target" position={Position.Top} id="in-dc-minus" className="!w-3 !h-3" style={{ backgroundColor: WIRE_COLORS.N, left: '70%' }} />
+      <Handle type="target" position={Position.Top} id="in-dc-plus" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.DC, left: '30%' }} />
+      <Handle type="target" position={Position.Top} id="in-dc-minus" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.N, left: '70%' }} />
 
       <svg width="50" height="55" viewBox="0 0 50 55">
         <line x1="25" y1="0" x2="25" y2="14" stroke="#333" strokeWidth="1.5" />
@@ -24,8 +24,8 @@ export function DcDisconnectNode({ data, selected }: NodeProps<DcDisconnectNodeT
         <div className="text-[10px] text-gray-500">{String(data.parameters.ratingCurrent)}A</div>
       )}
 
-      <Handle type="source" position={Position.Bottom} id="out-dc-plus" className="!w-3 !h-3" style={{ backgroundColor: WIRE_COLORS.DC, left: '30%' }} />
-      <Handle type="source" position={Position.Bottom} id="out-dc-minus" className="!w-3 !h-3" style={{ backgroundColor: WIRE_COLORS.N, left: '70%' }} />
+      <Handle type="source" position={Position.Bottom} id="out-dc-plus" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.DC, left: '30%' }} />
+      <Handle type="source" position={Position.Bottom} id="out-dc-minus" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.N, left: '70%' }} />
     </div>
   );
 }

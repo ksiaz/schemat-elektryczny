@@ -9,10 +9,10 @@ export function SpdAcNode({ data, selected }: NodeProps<SpdAcNodeType>) {
   return (
     <div className={`flex flex-col items-center ${selected ? 'ring-2 ring-blue-500' : ''}`}>
       {/* 4 zaciski wejsciowe: L1, L2, L3, N */}
-      <Handle type="target" position={Position.Top} id="in-L1" className="!w-3 !h-3" style={{ backgroundColor: WIRE_COLORS.L1, left: '15%' }} />
-      <Handle type="target" position={Position.Top} id="in-L2" className="!w-3 !h-3" style={{ backgroundColor: WIRE_COLORS.L2, left: '35%' }} />
-      <Handle type="target" position={Position.Top} id="in-L3" className="!w-3 !h-3" style={{ backgroundColor: WIRE_COLORS.L3, left: '55%' }} />
-      <Handle type="target" position={Position.Top} id="in-N" className="!w-3 !h-3" style={{ backgroundColor: WIRE_COLORS.N, left: '75%' }} />
+      <Handle type="target" position={Position.Top} id="in-L1" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.L1, left: '15%' }} />
+      <Handle type="target" position={Position.Top} id="in-L2" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.L2, left: '35%' }} />
+      <Handle type="target" position={Position.Top} id="in-L3" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.L3, left: '55%' }} />
+      <Handle type="target" position={Position.Top} id="in-N" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.N, left: '75%' }} />
 
       <svg width="70" height="55" viewBox="0 0 70 55">
         <line x1="35" y1="0" x2="35" y2="6" stroke="#333" strokeWidth="1.5" />
@@ -28,7 +28,7 @@ export function SpdAcNode({ data, selected }: NodeProps<SpdAcNodeType>) {
       )}
 
       {/* Uziom (PE) na dole — 1 zacisk */}
-      <Handle type="source" position={Position.Bottom} id="out-PE" className="!w-3 !h-3" style={{ backgroundColor: WIRE_COLORS.PE }} />
+      <Handle type="source" position={Position.Bottom} id="out-PE" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.PE }} />
     </div>
   );
 }

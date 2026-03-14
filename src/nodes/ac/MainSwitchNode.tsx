@@ -19,7 +19,7 @@ export function MainSwitchNode({ data, selected }: NodeProps<MainSwitchNodeType>
     <div className={`flex flex-col items-center ${selected ? 'ring-2 ring-blue-500' : ''}`}>
       {wires.map((w, i) => (
         <Handle key={`in-${w.id}`} type="target" position={Position.Top} id={`in-${w.id}`}
-          className="!w-3 !h-3" style={{ backgroundColor: w.color, left: `${20 + i * (60 / Math.max(wires.length - 1, 1))}%` }} />
+          className="!w-1.5 !h-1.5" style={{ backgroundColor: w.color, left: `${20 + i * (60 / Math.max(wires.length - 1, 1))}%` }} />
       ))}
 
       <svg width="70" height="50" viewBox="0 0 70 50">
@@ -37,7 +37,7 @@ export function MainSwitchNode({ data, selected }: NodeProps<MainSwitchNodeType>
 
       {wires.map((w, i) => (
         <Handle key={`out-${w.id}`} type="source" position={Position.Bottom} id={`out-${w.id}`}
-          className="!w-3 !h-3" style={{ backgroundColor: w.color, left: `${20 + i * (60 / Math.max(wires.length - 1, 1))}%` }} />
+          className="!w-1.5 !h-1.5" style={{ backgroundColor: w.color, left: `${20 + i * (60 / Math.max(wires.length - 1, 1))}%` }} />
       ))}
     </div>
   );

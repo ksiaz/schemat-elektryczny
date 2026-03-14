@@ -9,10 +9,10 @@ export function BatteryNode({ data, selected }: NodeProps<BatteryNodeType>) {
   return (
     <div className={`flex flex-col items-center ${selected ? 'ring-2 ring-blue-500' : ''}`}>
       {/* DC+, DC- na gorze (do falownika) */}
-      <Handle type="source" position={Position.Top} id="dc-plus" className="!w-3 !h-3" style={{ backgroundColor: WIRE_COLORS.DC, left: '25%' }} />
-      <Handle type="source" position={Position.Top} id="dc-minus" className="!w-3 !h-3" style={{ backgroundColor: WIRE_COLORS.N, left: '50%' }} />
+      <Handle type="source" position={Position.Top} id="dc-plus" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.DC, left: '25%' }} />
+      <Handle type="source" position={Position.Top} id="dc-minus" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.N, left: '50%' }} />
       {/* COM — komunikacja */}
-      <Handle type="source" position={Position.Top} id="com" className="!w-3 !h-3" style={{ backgroundColor: '#999', left: '75%' }} />
+      <Handle type="source" position={Position.Top} id="com" className="!w-1.5 !h-1.5" style={{ backgroundColor: '#999', left: '75%' }} />
 
       <svg width="80" height="55" viewBox="0 0 80 55">
         <rect x="4" y="4" width="72" height="47" fill="none" stroke="#333" strokeWidth="1.5" rx="2" />
@@ -36,7 +36,7 @@ export function BatteryNode({ data, selected }: NodeProps<BatteryNodeType>) {
       )}
 
       {/* PE obudowy — dol */}
-      <Handle type="source" position={Position.Bottom} id="pe-housing" className="!w-3 !h-3" style={{ backgroundColor: WIRE_COLORS.PE }} />
+      <Handle type="source" position={Position.Bottom} id="pe-housing" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.PE }} />
     </div>
   );
 }
