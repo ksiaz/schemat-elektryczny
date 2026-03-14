@@ -6,6 +6,7 @@ import {
   MiniMap,
   useReactFlow,
   useOnSelectionChange,
+  ConnectionMode,
   type Connection,
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
@@ -115,6 +116,8 @@ export function LayoutCanvas() {
         nodeTypes={layoutNodeTypes}
         edgeTypes={edgeTypes}
         defaultEdgeOptions={{ type: 'straightLine' }}
+        connectionMode={ConnectionMode.Loose}
+        isValidConnection={() => true}
         fitView
         snapToGrid
         snapGrid={[50, 50]}
