@@ -23,6 +23,7 @@ import { WirePointNode } from './ac/WirePointNode.tsx';
 import { JunctionPointNode } from './ac/JunctionPointNode.tsx';
 import { SingleLineMcbNode } from './ac/SingleLineMcbNode.tsx';
 import { IsolatorNode } from './ac/IsolatorNode.tsx';
+import { InfoFrameNode } from './ac/InfoFrameNode.tsx';
 import { TextLabelNode } from './ac/TextLabelNode.tsx';
 import { DistBlockNode } from './ac/DistBlockNode.tsx';
 import { BusbarNode } from './ac/BusbarNode.tsx';
@@ -64,6 +65,7 @@ export const nodeTypes = {
   junctionPoint: JunctionPointNode,
   singleLineMcb: SingleLineMcbNode,
   isolator: IsolatorNode,
+  infoFrame: InfoFrameNode,
   textLabel: TextLabelNode,
   distBlock: DistBlockNode,
   busbar: BusbarNode,

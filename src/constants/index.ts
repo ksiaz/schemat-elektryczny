@@ -488,6 +488,15 @@ export const ELEMENT_DEFINITIONS: ElementDefinition[] = [
     ],
   },
   {
+    id: 'info_frame',
+    name: 'Ramka informacyjna',
+    category: 'wiring',
+    designation: '',
+    nodeType: 'infoFrame',
+    defaultLabel: '',
+    parameters: [],
+  },
+  {
     id: 'junction_point',
     name: 'Punkt połączeniowy',
     category: 'wiring',
