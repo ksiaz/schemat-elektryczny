@@ -72,7 +72,7 @@ export const ELEMENT_DEFINITIONS: ElementDefinition[] = [
       { key: 'groundType', label: 'Typ', type: 'select', options: ['pionowy', 'poziomy'] },
     ],
   },
-  // --- Rozdzielnice (Etap 2) ---
+  // --- Rozdzielnice (prostokat kreskowany z tytulem) ---
   {
     id: 'main_enclosure',
     name: 'Rozdzielnica główna',
@@ -80,11 +80,7 @@ export const ELEMENT_DEFINITIONS: ElementDefinition[] = [
     designation: 'RG',
     nodeType: 'enclosure',
     defaultLabel: 'RG',
-    parameters: [
-      { key: 'modules', label: 'Moduły', type: 'number', defaultValue: 24 },
-      { key: 'ip', label: 'IP', type: 'select', options: ['IP20', 'IP30', 'IP44', 'IP55', 'IP65'] },
-      { key: 'manufacturer', label: 'Producent', type: 'text' },
-    ],
+    parameters: [],
   },
   {
     id: 'sub_enclosure',
@@ -93,11 +89,7 @@ export const ELEMENT_DEFINITIONS: ElementDefinition[] = [
     designation: 'RP',
     nodeType: 'enclosure',
     defaultLabel: 'RP',
-    parameters: [
-      { key: 'modules', label: 'Moduły', type: 'number', defaultValue: 12 },
-      { key: 'ip', label: 'IP', type: 'select', options: ['IP20', 'IP30', 'IP44', 'IP55', 'IP65'] },
-      { key: 'manufacturer', label: 'Producent', type: 'text' },
-    ],
+    parameters: [],
   },
   {
     id: 'pv_dc_enclosure',
@@ -106,10 +98,7 @@ export const ELEMENT_DEFINITIONS: ElementDefinition[] = [
     designation: 'RPV-DC',
     nodeType: 'enclosure',
     defaultLabel: 'RPV-DC',
-    parameters: [
-      { key: 'modules', label: 'Moduły', type: 'number', defaultValue: 6 },
-      { key: 'ip', label: 'IP', type: 'select', options: ['IP20', 'IP30', 'IP44', 'IP55', 'IP65'] },
-    ],
+    parameters: [],
   },
   {
     id: 'pv_ac_enclosure',
@@ -118,10 +107,7 @@ export const ELEMENT_DEFINITIONS: ElementDefinition[] = [
     designation: 'RPV-AC',
     nodeType: 'enclosure',
     defaultLabel: 'RPV-AC',
-    parameters: [
-      { key: 'modules', label: 'Moduły', type: 'number', defaultValue: 12 },
-      { key: 'ip', label: 'IP', type: 'select', options: ['IP20', 'IP30', 'IP44', 'IP55', 'IP65'] },
-    ],
+    parameters: [],
   },
   // --- Strona DC (Etap 5) ---
   {
