@@ -63,7 +63,7 @@ export function LayoutCanvas() {
     const definition = LAYOUT_ELEMENT_DEFINITIONS.find((d) => d.id === elementId);
     if (!definition) return;
 
-    const GRID = 12.5; // 0.5m = 25px
+    const GRID = 5; // 0.5m = 25px
     const raw = screenToFlowPosition({ x: event.clientX, y: event.clientY });
     const position = { x: Math.round(raw.x / GRID) * GRID, y: Math.round(raw.y / GRID) * GRID };
 
@@ -120,7 +120,7 @@ export function LayoutCanvas() {
         isValidConnection={() => true}
         fitView
         snapToGrid
-        snapGrid={[12.5, 12.5]}
+        snapGrid={[5, 5]}
         minZoom={0.2}
         maxZoom={4}
         style={{ width: '100%', height: '100%' }}
