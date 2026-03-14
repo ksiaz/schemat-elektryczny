@@ -12,6 +12,10 @@ import { FireButtonNode } from './ac/FireButtonNode.tsx';
 import { Socket32Node } from './ac/Socket32Node.tsx';
 import { ZugNNode } from './ac/ZugNNode.tsx';
 import { Zug2NNode } from './ac/Zug2NNode.tsx';
+import { ZugL1Node } from './ac/ZugL1Node.tsx';
+import { ZugL2Node } from './ac/ZugL2Node.tsx';
+import { ZugL3Node } from './ac/ZugL3Node.tsx';
+import { CtNode } from './ac/CtNode.tsx';
 import { TextLabelNode } from './ac/TextLabelNode.tsx';
 import { DistBlockNode } from './ac/DistBlockNode.tsx';
 import { BusbarNode } from './ac/BusbarNode.tsx';
@@ -41,6 +45,10 @@ export const nodeTypes = {
   socket32: Socket32Node,
   zugN: ZugNNode,
   zug2N: Zug2NNode,
+  zugL1: ZugL1Node,
+  zugL2: ZugL2Node,
+  zugL3: ZugL3Node,
+  ct: CtNode,
   textLabel: TextLabelNode,
   distBlock: DistBlockNode,
   busbar: BusbarNode,
