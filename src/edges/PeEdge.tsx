@@ -1,16 +1,13 @@
-import { BaseEdge, getSmoothStepPath, type EdgeProps } from '@xyflow/react';
+import { BaseEdge, type EdgeProps } from '@xyflow/react';
+import { buildOrthogonalPath, getMidpoint } from './utils.ts';
 
 export function PeEdge({
   id, sourceX, sourceY, targetX, targetY,
-  sourcePosition, targetPosition, data, selected,
+  data, selected,
 }: EdgeProps) {
   const edgeData = (data ?? {}) as Record<string, unknown>;
-  const [path, labelX, labelY] = getSmoothStepPath({
-    sourceX, sourceY, targetX, targetY,
-    sourcePosition, targetPosition,
-    borderRadius: 10,
-    offset: 30,
-  });
+  const path = buildOrthogonalPath(sourceX, sourceY, targetX, targetY);
+  const mid = getMidpoint(sourceX, sourceY, targetX, targetY);
 
   const parts = [edgeData.cableType, edgeData.cableSection, edgeData.cableLength].filter(Boolean);
   const label = parts.length > 0 ? parts.join(' ') : '';
@@ -20,7 +17,7 @@ export function PeEdge({
       <BaseEdge id={`${id}-green`} path={path} style={{ stroke: '#228B22', strokeWidth: selected ? 3 : 2 }} />
       <BaseEdge id={`${id}-yellow`} path={path} style={{ stroke: '#FFD700', strokeWidth: selected ? 3 : 2, strokeDasharray: '6,4' }} />
       {label && (
-        <g transform={`translate(${labelX}, ${labelY - 10})`}>
+        <g transform={`translate(${mid.x}, ${mid.y - 10})`}>
           <rect x={-25} y={-7} width={50} height={14} fill="white" stroke="#228B22" strokeWidth="0.5" rx="2" />
           <text textAnchor="middle" dominantBaseline="central" fontSize="8" fill="#228B22" fontFamily="monospace">{String(label)}</text>
         </g>
