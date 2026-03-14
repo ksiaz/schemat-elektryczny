@@ -84,7 +84,10 @@ export function Toolbar() {
       <div className="flex items-center gap-1">
         <span className="text-xs text-gray-500">Linia:</span>
         {([
-          ['multilineAc', 'AC 5-żył'],
+          ['acL1', 'L1'],
+          ['acL2', 'L2'],
+          ['acL3', 'L3'],
+          ['acN', 'N'],
           ['dcLine', 'DC'],
           ['cable', 'Kabel'],
           ['dcPlus', 'DC+'],

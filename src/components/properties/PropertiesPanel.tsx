@@ -4,7 +4,22 @@ import type { ParameterDefinition } from '../../types/index.ts';
 
 // Pola edycji przewodu (wspolne dla edge'ow)
 const EDGE_FIELDS: Record<string, ParameterDefinition[]> = {
-  multilineAc: [
+  acL1: [
+    { key: 'cableType', label: 'Typ kabla', type: 'text' },
+    { key: 'cableSection', label: 'Przekrój', type: 'text' },
+    { key: 'cableLength', label: 'Długość', type: 'text' },
+  ],
+  acL2: [
+    { key: 'cableType', label: 'Typ kabla', type: 'text' },
+    { key: 'cableSection', label: 'Przekrój', type: 'text' },
+    { key: 'cableLength', label: 'Długość', type: 'text' },
+  ],
+  acL3: [
+    { key: 'cableType', label: 'Typ kabla', type: 'text' },
+    { key: 'cableSection', label: 'Przekrój', type: 'text' },
+    { key: 'cableLength', label: 'Długość', type: 'text' },
+  ],
+  acN: [
     { key: 'cableType', label: 'Typ kabla', type: 'text' },
     { key: 'cableSection', label: 'Przekrój', type: 'text' },
     { key: 'cableLength', label: 'Długość', type: 'text' },

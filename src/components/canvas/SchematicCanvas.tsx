@@ -155,7 +155,7 @@ export function SchematicCanvas() {
         onEdgeDoubleClick={onEdgeDoubleClick}
         nodeTypes={nodeTypes}
         edgeTypes={edgeTypes}
-        defaultEdgeOptions={{ type: 'multilineAc' }}
+        defaultEdgeOptions={{ type: 'cable' }}
         connectionMode={ConnectionMode.Loose}
         isValidConnection={() => true}
         fitView

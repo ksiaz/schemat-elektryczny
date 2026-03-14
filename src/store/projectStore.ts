@@ -80,8 +80,8 @@ interface ProjectState {
   setSelectedNodeId: (id: string | null) => void;
 
   // Typ polaczenia (wybierany w toolbarze)
-  edgeType: 'multilineAc' | 'dcLine' | 'cable' | 'dcPlus' | 'dcMinus' | 'pe';
-  setEdgeType: (type: 'multilineAc' | 'dcLine' | 'cable' | 'dcPlus' | 'dcMinus' | 'pe') => void;
+  edgeType: 'acL1' | 'acL2' | 'acL3' | 'acN' | 'dcLine' | 'cable' | 'dcPlus' | 'dcMinus' | 'pe';
+  setEdgeType: (type: 'acL1' | 'acL2' | 'acL3' | 'acN' | 'dcLine' | 'cable' | 'dcPlus' | 'dcMinus' | 'pe') => void;
 
   // Tryb trasowania polaczen
   routingMode: 'auto' | 'manual';
@@ -128,7 +128,7 @@ export const useProjectStore = create<ProjectState>((set, get) => ({
 
   selectedNodeId: null,
   selectedEdgeId: null,
-  edgeType: 'multilineAc',
+  edgeType: 'cable',
   routingMode: 'auto',
   labelCounters: {},
 
