@@ -65,8 +65,8 @@ export const ELEMENT_DEFINITIONS: ElementDefinition[] = [
     ],
   },
   {
-    id: 'mcb',
-    name: 'Wyłącznik MCB',
+    id: 'mcb_3p',
+    name: 'Wyłącznik MCB 3P',
     category: 'ac',
     designation: 'F',
     nodeType: 'mcb',
@@ -74,7 +74,20 @@ export const ELEMENT_DEFINITIONS: ElementDefinition[] = [
     parameters: [
       { key: 'curve', label: 'Krzywa', type: 'select', options: ['B', 'C', 'D'] },
       { key: 'ratingCurrent', label: 'In', type: 'number', unit: 'A', defaultValue: 16 },
-      { key: 'poles', label: 'Bieguny', type: 'select', options: ['1P', '2P', '3P', '4P'] },
+      { key: 'poles', label: 'Bieguny', type: 'select', options: ['1P', '2P', '3P', '4P'], defaultValue: '3P' },
+    ],
+  },
+  {
+    id: 'mcb_1p',
+    name: 'Wyłącznik MCB 1P',
+    category: 'ac',
+    designation: 'F',
+    nodeType: 'mcb',
+    defaultLabel: 'F3',
+    parameters: [
+      { key: 'curve', label: 'Krzywa', type: 'select', options: ['B', 'C', 'D'] },
+      { key: 'ratingCurrent', label: 'In', type: 'number', unit: 'A', defaultValue: 16 },
+      { key: 'poles', label: 'Bieguny', type: 'select', options: ['1P', '2P', '3P', '4P'], defaultValue: '1P' },
     ],
   },
   {
