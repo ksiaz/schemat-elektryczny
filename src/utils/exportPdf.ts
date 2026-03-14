@@ -15,6 +15,15 @@ export async function exportToPdf(format: SheetFormat, projectName: string) {
     width: el.offsetWidth * 2,
     height: el.offsetHeight * 2,
     style: { transform: 'scale(2)', transformOrigin: 'top left' },
+    filter: (node) => {
+      if (node instanceof HTMLElement) {
+        const cls = node.className?.toString() || '';
+        if (cls.includes('react-flow__minimap') || cls.includes('react-flow__controls') || cls.includes('react-flow__panel')) {
+          return false;
+        }
+      }
+      return true;
+    },
   });
 
   const doc = new jsPDF({
