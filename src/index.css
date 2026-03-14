@@ -63,6 +63,19 @@ body {
   pointer-events: all !important;
 }
 
+/* Handle — widoczne tylko przy hover na elemencie */
+.react-flow__handle {
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+.react-flow__node:hover .react-flow__handle,
+.react-flow__node.selected .react-flow__handle,
+.react-flow__handle.connectingto,
+.react-flow__handle.connectingfrom {
+  opacity: 1;
+}
+
 /* Handle precyzyjne pozycjonowanie — left w px musi trafiac dokladnie */
 .react-flow__handle {
   transform: translate(-50%, -50%) !important;
