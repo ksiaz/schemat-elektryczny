@@ -10,7 +10,7 @@ export function RoofNode({ data, selected }: NodeProps<RoofNodeType>) {
 
   return (
     <div
-      className={`w-full h-full relative ${selected ? 'ring-1 ring-blue-400' : ''}`}
+      className={`roof-node w-full h-full relative ${selected ? 'ring-1 ring-blue-400' : ''}`}
       style={{ minWidth: 100, minHeight: 40 }}
     >
       <NodeResizer

@@ -12,7 +12,7 @@ export function BuildingNode({ data, selected }: NodeProps<BuildingNodeType>) {
 
   return (
     <div
-      className="w-full h-full relative"
+      className="building-node w-full h-full relative"
       style={{
         border: `${lineWidth}px solid ${selected ? '#3b82f6' : color}`,
         minWidth: 20,
@@ -29,7 +29,7 @@ export function BuildingNode({ data, selected }: NodeProps<BuildingNodeType>) {
       />
 
       {data.label && (
-        <div className="absolute top-0 left-1 text-[9px] font-bold" style={{ color }}>
+        <div className="absolute top-0 left-1 text-[9px] font-bold" style={{ color, pointerEvents: 'all', cursor: 'grab' }}>
           {data.label}
         </div>
       )}

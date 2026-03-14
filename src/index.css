@@ -76,6 +76,17 @@ body {
   opacity: 1;
 }
 
+/* Budynek i dach — nie przechwytuja klikniec wewnatrz */
+.react-flow__node:has(.building-node),
+.react-flow__node:has(.roof-node) {
+  pointer-events: none !important;
+}
+
+.building-node [style*="pointer-events: all"],
+.roof-node [style*="pointer-events: all"] {
+  pointer-events: all !important;
+}
+
 /* Handle precyzyjne pozycjonowanie — left w px musi trafiac dokladnie */
 .react-flow__handle {
   transform: translate(-50%, -50%) !important;
