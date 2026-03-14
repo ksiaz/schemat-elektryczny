@@ -4,7 +4,7 @@ import { WIRE_COLORS } from '../../constants/index.ts';
 
 type PvStringNodeType = Node<SchematicNodeData, 'pvString'>;
 
-// Panel/String PV — prostokat z trojkatem + zaciski DC+ (czerwony) i DC- (niebieski)
+// Panel/String PV — DC+ (czerwony), DC- (niebieski), PE/rama (zielony)
 export function PvStringNode({ data, selected }: NodeProps<PvStringNodeType>) {
   const panelCount = data.parameters.panelCount || '';
   const model = data.parameters.model || '';
@@ -28,8 +28,10 @@ export function PvStringNode({ data, selected }: NodeProps<PvStringNodeType>) {
       </div>
 
       {/* DC+ czerwony, DC- niebieski */}
-      <Handle type="source" position={Position.Bottom} id="dc-plus" className="!w-2 !h-2" style={{ backgroundColor: WIRE_COLORS.DC, left: '35%' }} />
-      <Handle type="source" position={Position.Bottom} id="dc-minus" className="!w-2 !h-2" style={{ backgroundColor: WIRE_COLORS.N, left: '65%' }} />
+      <Handle type="source" position={Position.Bottom} id="dc-plus" className="!w-2 !h-2" style={{ backgroundColor: WIRE_COLORS.DC, left: '25%' }} />
+      <Handle type="source" position={Position.Bottom} id="dc-minus" className="!w-2 !h-2" style={{ backgroundColor: WIRE_COLORS.N, left: '50%' }} />
+      {/* PE — uziemienie ramy */}
+      <Handle type="source" position={Position.Bottom} id="pe" className="!w-2 !h-2" style={{ backgroundColor: WIRE_COLORS.PE, left: '75%' }} />
     </div>
   );
 }
