@@ -452,6 +452,29 @@ export const ELEMENT_DEFINITIONS: ElementDefinition[] = [
     ],
   },
   {
+    id: 'single_line_mcb',
+    name: 'Zabezpieczenie jednokreskowe',
+    category: 'ac',
+    designation: 'F',
+    nodeType: 'singleLineMcb',
+    defaultLabel: 'F',
+    parameters: [
+      { key: 'curve', label: 'Krzywa', type: 'select', options: ['B', 'C', 'D'] },
+      { key: 'ratingCurrent', label: 'In', type: 'number', unit: 'A', defaultValue: 25 },
+    ],
+  },
+  {
+    id: 'isolator_3pn',
+    name: 'Rozłącznik izolacyjny 3P+N',
+    category: 'ac',
+    designation: 'QS',
+    nodeType: 'isolator',
+    defaultLabel: 'QS',
+    parameters: [
+      { key: 'ratingCurrent', label: 'In', type: 'number', unit: 'A', defaultValue: 63 },
+    ],
+  },
+  {
     id: 'junction_point',
     name: 'Punkt połączeniowy',
     category: 'wiring',
