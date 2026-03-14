@@ -25,6 +25,9 @@ export function McbNode({ data, selected }: NodeProps<McbNodeType>) {
           className="!w-1.5 !h-1.5" style={{ backgroundColor: w.color, left: w.offset }} />
       ))}
 
+      <div className="text-xs font-bold text-gray-800">{data.label}</div>
+      <div className="text-[10px] text-gray-500">{label} {poles}</div>
+
       <svg width="80" height="82" viewBox="0 0 80 82">
         {wires.map((w) => (
           <g key={w.id}>
@@ -51,9 +54,6 @@ export function McbNode({ data, selected }: NodeProps<McbNodeType>) {
           />
         )}
       </svg>
-
-      <div className="text-xs font-bold text-gray-800">{data.label}</div>
-      <div className="text-[10px] text-gray-500">{label} {poles}</div>
 
       {wires.map((w) => (
         <Handle key={`out-${w.id}`} type="source" position={Position.Bottom} id={`out-${w.id}`}
