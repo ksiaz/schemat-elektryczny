@@ -6,7 +6,6 @@ import {
   MiniMap,
   useReactFlow,
   useOnSelectionChange,
-  addEdge,
   type Connection,
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
@@ -38,7 +37,16 @@ export function LayoutCanvas() {
 
   const onConnect = useCallback((connection: Connection) => {
     pushLayoutHistory();
-    setLayoutEdges(addEdge({ ...connection, type: 'cable' }, useProjectStore.getState().layoutEdges));
+    const newEdge = {
+      id: `le-${connection.source}-${connection.target}-${Date.now()}`,
+      source: connection.source,
+      target: connection.target,
+      sourceHandle: connection.sourceHandle,
+      targetHandle: connection.targetHandle,
+      type: 'straightLine',
+      data: {},
+    };
+    setLayoutEdges([...useProjectStore.getState().layoutEdges, newEdge]);
   }, [pushLayoutHistory, setLayoutEdges]);
 
   const onDragOver = useCallback((event: React.DragEvent) => {
@@ -106,7 +114,7 @@ export function LayoutCanvas() {
         onDrop={onDrop}
         nodeTypes={layoutNodeTypes}
         edgeTypes={edgeTypes}
-        defaultEdgeOptions={{ type: 'cable' }}
+        defaultEdgeOptions={{ type: 'straightLine' }}
         fitView
         snapToGrid
         snapGrid={[50, 50]}
