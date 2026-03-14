@@ -10,6 +10,8 @@ import { LegendNode } from './layout/LegendNode.tsx';
 import { FreeLineNode } from './layout/FreeLineNode.tsx';
 import { CornerPointNode } from './layout/CornerPointNode.tsx';
 import { DoorNode } from './layout/DoorNode.tsx';
+import { DcRouteNode } from './layout/DcRouteNode.tsx';
+import { PeRouteNode } from './layout/PeRouteNode.tsx';
 
 export const layoutNodeTypes = {
   building: BuildingNode,
@@ -24,4 +26,6 @@ export const layoutNodeTypes = {
   freeLine: FreeLineNode,
   cornerPoint: CornerPointNode,
   door: DoorNode,
+  dcRoute: DcRouteNode,
+  peRoute: PeRouteNode,
 } as const;

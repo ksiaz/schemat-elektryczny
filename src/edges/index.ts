@@ -8,6 +8,8 @@ import { AcL2Edge } from './AcL2Edge.tsx';
 import { AcL3Edge } from './AcL3Edge.tsx';
 import { AcNEdge } from './AcNEdge.tsx';
 import { StraightLineEdge } from './StraightLineEdge.tsx';
+import { DcRouteEdge } from './DcRouteEdge.tsx';
+import { PeRouteEdge } from './PeRouteEdge.tsx';
 
 export const edgeTypes = {
   multilineAc: CableEdge,  // kompatybilnosc wsteczna — stare rysunki
@@ -21,4 +23,6 @@ export const edgeTypes = {
   acL3: AcL3Edge,
   acN: AcNEdge,
   straightLine: StraightLineEdge,
+  dcRoute: DcRouteEdge,
+  peRoute: PeRouteEdge,
 } as const;

@@ -38,13 +38,21 @@ export function LayoutCanvas() {
 
   const onConnect = useCallback((connection: Connection) => {
     pushLayoutHistory();
+
+    // Typ edge zalezy od source node
+    const sourceNode = useProjectStore.getState().layoutNodes.find(n => n.id === connection.source);
+    const sourceType = sourceNode?.type || '';
+    let edgeType = 'straightLine';
+    if (sourceType === 'dcRoute') edgeType = 'dcRoute';
+    else if (sourceType === 'peRoute') edgeType = 'peRoute';
+
     const newEdge = {
       id: `le-${connection.source}-${connection.target}-${Date.now()}`,
       source: connection.source,
       target: connection.target,
       sourceHandle: connection.sourceHandle,
       targetHandle: connection.targetHandle,
-      type: 'straightLine',
+      type: edgeType,
       data: {},
     };
     setLayoutEdges([...useProjectStore.getState().layoutEdges, newEdge]);
