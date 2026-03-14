@@ -129,10 +129,8 @@ export function SchematicCanvas() {
     addNode(newNode);
   }, [screenToFlowPosition, addNode]);
 
-  // Dwuklik na edge — dodaj punkt zalamania (tryb reczny)
+  // Dwuklik na edge — dodaj punkt zalamania
   const onEdgeDoubleClick = useCallback((_event: React.MouseEvent, edge: { id: string; data?: Record<string, unknown> }) => {
-    if (routingMode !== 'manual') return;
-
     const GRID = 10;
     const raw = screenToFlowPosition({ x: _event.clientX, y: _event.clientY });
     const snapped = { x: Math.round(raw.x / GRID) * GRID, y: Math.round(raw.y / GRID) * GRID };

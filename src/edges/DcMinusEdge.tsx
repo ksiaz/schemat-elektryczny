@@ -1,12 +1,14 @@
 import { BaseEdge, type EdgeProps } from '@xyflow/react';
-import { buildOrthogonalPath, getMidpoint } from './utils.ts';
+import { buildOrthogonalPath, getMidpoint, type Waypoint } from './utils.ts';
+import { DraggableWaypoint } from './DraggableWaypoint.tsx';
 
 export function DcMinusEdge({
   id, sourceX, sourceY, targetX, targetY, data, selected,
 }: EdgeProps) {
   const d = (data ?? {}) as Record<string, unknown>;
-  const path = buildOrthogonalPath(sourceX, sourceY, targetX, targetY);
-  const mid = getMidpoint(sourceX, sourceY, targetX, targetY);
+  const waypoints = (d.waypoints ?? []) as Waypoint[];
+  const path = buildOrthogonalPath(sourceX, sourceY, targetX, targetY, waypoints);
+  const mid = getMidpoint(sourceX, sourceY, targetX, targetY, waypoints);
   const label = [d.cableType, d.cableSection, d.cableLength].filter(Boolean).join(' ');
 
   return (
@@ -18,6 +20,9 @@ export function DcMinusEdge({
           <text textAnchor="middle" dominantBaseline="central" fontSize="8" fill="#0000CD" fontFamily="monospace">{String(label)}</text>
         </g>
       )}
+      {selected && waypoints.map((wp, i) => (
+        <DraggableWaypoint key={i} edgeId={id} waypointIndex={i} waypoints={waypoints} x={wp.x} y={wp.y} />
+      ))}
     </g>
   );
 }
