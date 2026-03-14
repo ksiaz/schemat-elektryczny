@@ -9,12 +9,17 @@ const PANEL_H = 50;  // 1m = 50px
 
 export function PvPanelLayoutNode({ data, selected }: NodeProps<PvPanelLayoutNodeType>) {
   const count = Number(data.parameters.count) || 10;
-  const cols = Number(data.parameters.cols) || count; // ile w rzedzie
+  const cols = Number(data.parameters.cols) || count;
   const rotation = Number(data.parameters.rotation) || 0;
+  const vertical = data.parameters.panelOrientation === 'pionowo';
   const rows = Math.ceil(count / cols);
 
-  const totalW = cols * PANEL_W + 4;
-  const totalH = rows * PANEL_H + 4;
+  // Pionowo: panel 1m x 2m (50x100), poziomo: 2m x 1m (100x50)
+  const pw = vertical ? PANEL_H : PANEL_W;
+  const ph = vertical ? PANEL_W : PANEL_H;
+
+  const totalW = cols * pw + 4;
+  const totalH = rows * ph + 4;
 
   return (
     <div className={`flex flex-col items-center ${selected ? 'ring-1 ring-blue-400' : ''}`} style={{ cursor: 'move' }}>
@@ -30,10 +35,10 @@ export function PvPanelLayoutNode({ data, selected }: NodeProps<PvPanelLayoutNod
           return (
             <g key={i}>
               <rect
-                x={col * PANEL_W + 2}
-                y={row * PANEL_H + 2}
-                width={PANEL_W - 2}
-                height={PANEL_H - 2}
+                x={col * pw + 2}
+                y={row * ph + 2}
+                width={pw - 2}
+                height={ph - 2}
                 fill="#1e3a5f"
                 fillOpacity="0.7"
                 stroke="#0f2440"
@@ -42,10 +47,10 @@ export function PvPanelLayoutNode({ data, selected }: NodeProps<PvPanelLayoutNod
               />
               {/* Przekatna — symbol celi PV */}
               <line
-                x1={col * PANEL_W + 2}
-                y1={row * PANEL_H + 2}
-                x2={col * PANEL_W + PANEL_W}
-                y2={row * PANEL_H + PANEL_H}
+                x1={col * pw + 2}
+                y1={row * ph + 2}
+                x2={col * pw + pw}
+                y2={row * ph + ph}
                 stroke="#0f2440"
                 strokeWidth="0.2"
                 strokeOpacity="0.4"

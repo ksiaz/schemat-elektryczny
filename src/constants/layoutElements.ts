@@ -37,6 +37,7 @@ export const LAYOUT_ELEMENT_DEFINITIONS: ElementDefinition[] = [
     parameters: [
       { key: 'count', label: 'Liczba paneli', type: 'number', defaultValue: 10 },
       { key: 'cols', label: 'Paneli w rzędzie', type: 'number', defaultValue: 10 },
+      { key: 'panelOrientation', label: 'Orientacja panelu', type: 'select', options: ['poziomo', 'pionowo'], defaultValue: 'poziomo' },
       { key: 'rotation', label: 'Obrót (°)', type: 'number', defaultValue: 0 },
       { key: 'model', label: 'Model', type: 'text' },
     ],
