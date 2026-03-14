@@ -1,8 +1,6 @@
 import { useProjectStore } from '../../store/projectStore.ts';
 import { getSheetDimensions } from '../../utils/sheetDimensions.ts';
 
-// Ramka rysunkowa wg PN-EN 61082-1
-// Tabelka w prawym dolnym rogu arkusza
 const TABLE_WIDTH = 180;
 const TABLE_HEIGHT = 56;
 const ROW_HEIGHT = 14;
@@ -20,28 +18,11 @@ export function DrawingFrame() {
       height={sheet.heightPx}
       style={{ position: 'absolute', top: 0, left: 0, pointerEvents: 'none' }}
     >
-      {/* Ramka zewnetrzna */}
-      <rect
-        x={0} y={0}
-        width={sheet.widthPx} height={sheet.heightPx}
-        fill="none" stroke="#333" strokeWidth="1"
-      />
+      <rect x={0} y={0} width={sheet.widthPx} height={sheet.heightPx} fill="none" stroke="#333" strokeWidth="1" />
+      <rect x={sheet.workAreaX} y={sheet.workAreaY} width={sheet.workAreaWidth} height={sheet.workAreaHeight} fill="none" stroke="#333" strokeWidth="0.5" />
 
-      {/* Margines wewnetrzny */}
-      <rect
-        x={sheet.workAreaX} y={sheet.workAreaY}
-        width={sheet.workAreaWidth} height={sheet.workAreaHeight}
-        fill="none" stroke="#333" strokeWidth="0.5"
-      />
-
-      {/* Tabelka rysunkowa — prawy dolny rog */}
       <g>
-        {/* Tlo tabelki */}
-        <rect
-          x={tableX} y={tableY}
-          width={TABLE_WIDTH} height={TABLE_HEIGHT}
-          fill="white" stroke="#333" strokeWidth="0.8"
-        />
+        <rect x={tableX} y={tableY} width={TABLE_WIDTH} height={TABLE_HEIGHT} fill="white" stroke="#333" strokeWidth="0.8" />
 
         {/* Wiersz 1: Nazwa projektu */}
         <line x1={tableX} y1={tableY + ROW_HEIGHT} x2={tableX + TABLE_WIDTH} y2={tableY + ROW_HEIGHT} stroke="#333" strokeWidth="0.5" />
@@ -50,33 +31,27 @@ export function DrawingFrame() {
           {projectInfo.projectName || '—'}
         </text>
 
-        {/* Wiersz 2: Nr rysunku | Rewizja | Data */}
+        {/* Wiersz 2: Adres | Data */}
         <line x1={tableX} y1={tableY + ROW_HEIGHT * 2} x2={tableX + TABLE_WIDTH} y2={tableY + ROW_HEIGHT * 2} stroke="#333" strokeWidth="0.5" />
-        <text x={tableX + 3} y={tableY + ROW_HEIGHT + 10} fontSize="6" fill="#999">Rys.:</text>
-        <text x={tableX + 22} y={tableY + ROW_HEIGHT + 10} fontSize="7" fill="#333">
-          {projectInfo.drawingNumber}
+        <text x={tableX + 3} y={tableY + ROW_HEIGHT + 10} fontSize="6" fill="#999">Adres:</text>
+        <text x={tableX + 28} y={tableY + ROW_HEIGHT + 10} fontSize="7" fill="#333">
+          {projectInfo.address || '—'}
         </text>
-        {/* Separator */}
-        <line x1={tableX + 60} y1={tableY + ROW_HEIGHT} x2={tableX + 60} y2={tableY + ROW_HEIGHT * 2} stroke="#333" strokeWidth="0.5" />
-        <text x={tableX + 63} y={tableY + ROW_HEIGHT + 10} fontSize="6" fill="#999">Rev.:</text>
-        <text x={tableX + 82} y={tableY + ROW_HEIGHT + 10} fontSize="7" fill="#333">
-          {projectInfo.revision}
-        </text>
-        <line x1={tableX + 110} y1={tableY + ROW_HEIGHT} x2={tableX + 110} y2={tableY + ROW_HEIGHT * 2} stroke="#333" strokeWidth="0.5" />
-        <text x={tableX + 113} y={tableY + ROW_HEIGHT + 10} fontSize="6" fill="#999">Data:</text>
-        <text x={tableX + 132} y={tableY + ROW_HEIGHT + 10} fontSize="7" fill="#333">
+        <line x1={tableX + 120} y1={tableY + ROW_HEIGHT} x2={tableX + 120} y2={tableY + ROW_HEIGHT * 2} stroke="#333" strokeWidth="0.5" />
+        <text x={tableX + 123} y={tableY + ROW_HEIGHT + 10} fontSize="6" fill="#999">Data:</text>
+        <text x={tableX + 142} y={tableY + ROW_HEIGHT + 10} fontSize="7" fill="#333">
           {projectInfo.date}
         </text>
 
-        {/* Wiersz 3: Projektant | Skala | Format */}
+        {/* Wiersz 3: Projektant | Skala */}
         <line x1={tableX} y1={tableY + ROW_HEIGHT * 3} x2={tableX + TABLE_WIDTH} y2={tableY + ROW_HEIGHT * 3} stroke="#333" strokeWidth="0.5" />
         <text x={tableX + 3} y={tableY + ROW_HEIGHT * 2 + 10} fontSize="6" fill="#999">Proj.:</text>
         <text x={tableX + 25} y={tableY + ROW_HEIGHT * 2 + 10} fontSize="7" fill="#333">
           {projectInfo.designer || '—'}
         </text>
-        <line x1={tableX + 110} y1={tableY + ROW_HEIGHT * 2} x2={tableX + 110} y2={tableY + ROW_HEIGHT * 3} stroke="#333" strokeWidth="0.5" />
-        <text x={tableX + 113} y={tableY + ROW_HEIGHT * 2 + 10} fontSize="6" fill="#999">Skala:</text>
-        <text x={tableX + 135} y={tableY + ROW_HEIGHT * 2 + 10} fontSize="7" fill="#333">
+        <line x1={tableX + 120} y1={tableY + ROW_HEIGHT * 2} x2={tableX + 120} y2={tableY + ROW_HEIGHT * 3} stroke="#333" strokeWidth="0.5" />
+        <text x={tableX + 123} y={tableY + ROW_HEIGHT * 2 + 10} fontSize="6" fill="#999">Skala:</text>
+        <text x={tableX + 145} y={tableY + ROW_HEIGHT * 2 + 10} fontSize="7" fill="#333">
           {projectInfo.scale}
         </text>
 

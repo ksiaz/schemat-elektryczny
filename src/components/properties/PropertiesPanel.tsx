@@ -165,8 +165,7 @@ export function PropertiesPanel() {
         <div className="space-y-2">
           {([
             ['projectName', 'Nazwa projektu'],
-            ['drawingNumber', 'Nr rysunku'],
-            ['revision', 'Rewizja'],
+            ['address', 'Adres'],
             ['designer', 'Projektant'],
             ['date', 'Data'],
             ['scale', 'Skala'],

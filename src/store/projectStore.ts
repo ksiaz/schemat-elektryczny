@@ -104,6 +104,7 @@ export const useProjectStore = create<ProjectState>((set, get) => ({
   projectName: 'Nowy projekt',
   projectInfo: {
     projectName: '',
+    address: '',
     drawingNumber: 'E-01',
     revision: 'A',
     designer: '',

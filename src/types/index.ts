@@ -33,6 +33,7 @@ export interface SchematicNodeData {
 
 export interface ProjectInfo {
   projectName: string;
+  address: string;
   drawingNumber: string;
   revision: string;
   designer: string;
