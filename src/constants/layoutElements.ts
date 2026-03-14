@@ -158,6 +158,18 @@ export const LAYOUT_ELEMENT_DEFINITIONS: ElementDefinition[] = [
     ],
   },
   {
+    id: 'door',
+    name: 'Drzwi 2D',
+    category: 'enclosure',
+    designation: '',
+    nodeType: 'door',
+    defaultLabel: '',
+    parameters: [
+      { key: 'rotation', label: 'Obrót (°)', type: 'number', defaultValue: 0 },
+      { key: 'doorWidth', label: 'Szerokość (px)', type: 'number', defaultValue: 90 },
+    ],
+  },
+  {
     id: 'corner_point',
     name: 'Punkt narożnikowy',
     category: 'wiring',
