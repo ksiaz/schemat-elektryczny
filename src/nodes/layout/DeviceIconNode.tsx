@@ -6,7 +6,7 @@ type DeviceIconNodeType = Node<SchematicNodeData, 'deviceIcon'>;
 // Ikony urzadzen: falownik, rozdzielnica, uziom, ladowarka
 const DEVICE_ICONS: Record<string, { svg: string; color: string }> = {
   inverter: {
-    svg: '<rect x="5" y="5" width="30" height="30" fill="#333" stroke="black" stroke-width="1.5"/><text x="20" y="22" text-anchor="middle" font-size="8" font-family="monospace">=~</text>',
+    svg: '<rect x="5" y="5" width="30" height="30" fill="none" stroke="#333" stroke-width="1.5"/><text x="20" y="22" text-anchor="middle" font-size="8" font-family="monospace" fill="#333">=~</text>',
     color: '#333',
   },
   enclosure: {
@@ -18,7 +18,7 @@ const DEVICE_ICONS: Record<string, { svg: string; color: string }> = {
     color: '#228B22',
   },
   charger: {
-    svg: '<rect x="5" y="5" width="30" height="30" fill="#333" stroke="black" stroke-width="1.5" rx="3"/><text x="20" y="24" text-anchor="middle" font-size="8" font-weight="bold">EV</text>',
+    svg: '<rect x="5" y="5" width="30" height="30" fill="none" stroke="#333" stroke-width="1.5" rx="3"/><text x="20" y="24" text-anchor="middle" font-size="8" font-weight="bold" fill="#333">EV</text>',
     color: '#333',
   },
   battery: {
