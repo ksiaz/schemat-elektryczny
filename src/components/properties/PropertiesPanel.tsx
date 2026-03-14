@@ -35,7 +35,7 @@ function ParameterInput({
       <select
         value={String(value)}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full px-1.5 py-1 text-xs border border-gray-300 rounded bg-white focus:border-blue-500 focus:outline-none"
+        className="w-full px-1.5 py-1 text-xs border border-[#3a3a5c] rounded bg-[#2a2a45] text-gray-200 focus:border-blue-400 focus:outline-none"
       >
         <option value="">—</option>
         {param.options.map((opt) => (
@@ -81,12 +81,12 @@ export function PropertiesPanel() {
     const edgeData = (selectedEdge.data ?? {}) as Record<string, unknown>;
 
     return (
-      <aside className="w-60 bg-gray-50 border-l border-gray-200 p-3 overflow-y-auto">
-        <h2 className="text-sm font-bold text-gray-700 mb-2">Połączenie</h2>
+      <aside className="w-60 bg-[#252540] border-l border-[#3a3a5c] p-3 overflow-y-auto">
+        <h2 className="text-sm font-bold text-gray-200 mb-2">Połączenie</h2>
 
         <div className="space-y-2">
-          <div className="text-xs text-gray-500">
-            Typ: <span className="font-medium text-gray-700">
+          <div className="text-xs text-gray-400">
+            Typ: <span className="font-medium text-gray-200">
               {selectedEdge.type === 'multilineAc' ? 'AC 5-żyłowy' :
                selectedEdge.type === 'dcLine' ? 'DC jednokreskowy' : 'Kabel'}
             </span>
@@ -94,7 +94,7 @@ export function PropertiesPanel() {
 
           {edgeFields.map((field) => (
             <div key={field.key}>
-              <label className="block text-xs text-gray-500 mb-0.5">
+              <label className="block text-xs text-gray-400 mb-0.5">
                 {field.label}
                 {field.unit && <span className="text-gray-400"> [{field.unit}]</span>}
               </label>
@@ -110,7 +110,7 @@ export function PropertiesPanel() {
           {Array.isArray(edgeData.waypoints) && (edgeData.waypoints as unknown[]).length > 0 && (
             <div className="pt-2 border-t border-gray-200">
               <div className="flex items-center justify-between">
-                <span className="text-xs text-gray-500">
+                <span className="text-xs text-gray-400">
                   Punkty załamania: {(edgeData.waypoints as unknown[]).length}
                 </span>
                 <button
@@ -130,8 +130,8 @@ export function PropertiesPanel() {
   // --- Panel dla wezla ---
   if (!selectedNode) {
     return (
-      <aside className="w-60 bg-gray-50 border-l border-gray-200 p-3 overflow-y-auto">
-        <h2 className="text-sm font-bold text-gray-700 mb-2">Ramka rysunkowa</h2>
+      <aside className="w-60 bg-[#252540] border-l border-[#3a3a5c] p-3 overflow-y-auto">
+        <h2 className="text-sm font-bold text-gray-200 mb-2">Ramka rysunkowa</h2>
         <div className="space-y-2">
           {([
             ['projectName', 'Nazwa projektu'],
@@ -142,7 +142,7 @@ export function PropertiesPanel() {
             ['scale', 'Skala'],
           ] as const).map(([key, label]) => (
             <div key={key}>
-              <label className="block text-xs text-gray-500 mb-0.5">{label}</label>
+              <label className="block text-xs text-gray-400 mb-0.5">{label}</label>
               <input
                 type="text"
                 value={projectInfo[key]}
@@ -169,18 +169,18 @@ export function PropertiesPanel() {
   );
 
   return (
-    <aside className="w-60 bg-gray-50 border-l border-gray-200 p-3 overflow-y-auto">
-      <h2 className="text-sm font-bold text-gray-700 mb-2">Właściwości</h2>
+    <aside className="w-60 bg-[#252540] border-l border-[#3a3a5c] p-3 overflow-y-auto">
+      <h2 className="text-sm font-bold text-gray-200 mb-2">Właściwości</h2>
 
       <div className="space-y-2">
         {/* Typ elementu (read-only) */}
-        <div className="text-xs text-gray-500">
-          Typ: <span className="font-medium text-gray-700">{definition?.name ?? '—'}</span>
+        <div className="text-xs text-gray-400">
+          Typ: <span className="font-medium text-gray-200">{definition?.name ?? '—'}</span>
         </div>
 
         {/* Etykieta — edytowalna */}
         <div>
-          <label className="block text-xs text-gray-500 mb-0.5">Etykieta</label>
+          <label className="block text-xs text-gray-400 mb-0.5">Etykieta</label>
           <input
             type="text"
             value={selectedNode.data.label}
@@ -191,7 +191,7 @@ export function PropertiesPanel() {
 
         {/* Oznaczenie (read-only) */}
         {selectedNode.data.designation && (
-          <div className="text-xs text-gray-500">
+          <div className="text-xs text-gray-400">
             Oznaczenie: <span className="font-mono">{selectedNode.data.designation}</span>
           </div>
         )}
@@ -199,7 +199,7 @@ export function PropertiesPanel() {
         {/* Parametry — edytowalne */}
         {definition?.parameters.map((param) => (
           <div key={param.key}>
-            <label className="block text-xs text-gray-500 mb-0.5">
+            <label className="block text-xs text-gray-400 mb-0.5">
               {param.label}
               {param.unit && <span className="text-gray-400"> [{param.unit}]</span>}
             </label>

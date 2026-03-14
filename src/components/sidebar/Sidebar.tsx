@@ -37,14 +37,14 @@ export function Sidebar() {
   };
 
   return (
-    <aside className="w-56 bg-gray-50 border-r border-gray-200 overflow-y-auto p-3">
-      <h2 className="text-sm font-bold text-gray-700 mb-3">
+    <aside className="w-56 bg-[#252540] border-r border-[#3a3a5c] overflow-y-auto p-3">
+      <h2 className="text-sm font-bold text-gray-200 mb-3">
         {isLayout ? 'Elementy lokalizacji' : 'Elementy schematu'}
       </h2>
 
       {Object.entries(groupedElements).map(([category, elems]) => (
         <div key={category} className="mb-4">
-          <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">
+          <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1">
             {CATEGORY_NAMES[category as ElementCategory] ?? category}
           </h3>
           <div className="space-y-1">
@@ -53,12 +53,12 @@ export function Sidebar() {
                 key={el.id}
                 draggable
                 onDragStart={(e) => onDragStart(e, el.id)}
-                className="flex items-center gap-2 px-2 py-1.5 bg-white border border-gray-200 rounded cursor-grab hover:border-blue-400 hover:bg-blue-50 transition-colors text-sm"
+                className="flex items-center gap-2 px-2 py-1.5 bg-[#2a2a45] border border-[#3a3a5c] rounded cursor-grab hover:border-blue-400 hover:bg-[#3a3a5c] transition-colors text-sm"
               >
-                <span className="text-gray-400 font-mono text-xs w-8">
+                <span className="text-gray-500 font-mono text-xs w-8">
                   {el.designation || '—'}
                 </span>
-                <span className="text-gray-700">{el.name}</span>
+                <span className="text-gray-300">{el.name}</span>
               </div>
             ))}
           </div>
