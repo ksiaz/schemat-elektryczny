@@ -7,7 +7,7 @@ function shouldExclude(node: Element): boolean {
   const cls = node.getAttribute?.('class') || '';
   return cls.includes('react-flow__minimap') ||
     cls.includes('react-flow__controls') ||
-    cls.includes('react-flow__panel') ||
+    
     cls.includes('react-flow__background');
 }
 
