@@ -9,7 +9,18 @@
       "Bash(git init:*)",
       "Bash(npm run:*)",
       "Bash(git add:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "WebSearch",
+      "WebFetch(domain:laczynasnapiecie.pl)",
+      "WebFetch(domain:www.plcs.pl)",
+      "WebFetch(domain:www.rowse-automation.co.uk)",
+      "WebFetch(domain:docplayer.pl)",
+      "WebFetch(domain:symbols.radicasoftware.com)",
+      "WebFetch(domain:electgo.com)",
+      "WebFetch(domain:www.weishoelec.com)",
+      "WebFetch(domain:gallery.proficad.com)",
+      "WebFetch(domain:www.electricaltechnology.org)",
+      "WebFetch(domain:viox.com)"
     ]
   }
 }
