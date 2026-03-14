@@ -10,7 +10,7 @@ import {
   type Connection,
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
-import { useCallback } from 'react';
+import { useCallback, useRef } from 'react';
 import { useProjectStore, generateNextLabel } from '../../store/projectStore.ts';
 import { nodeTypes } from '../../nodes/index.ts';
 import { edgeTypes } from '../../edges/index.ts';
@@ -142,8 +142,21 @@ export function SchematicCanvas() {
     updateEdgeData(edge.id, { waypoints: newWaypoints });
   }, [routingMode, screenToFlowPosition, updateEdgeData]);
 
+  // Plynny zoom — mniejsze skoki scroll wheelem
+  const { zoomTo, getViewport } = useReactFlow();
+  const zoomTimeout = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+
+  const onWheel = useCallback((e: React.WheelEvent) => {
+    e.preventDefault();
+    clearTimeout(zoomTimeout.current);
+    const currentZoom = getViewport().zoom;
+    const delta = e.deltaY > 0 ? -0.03 : 0.03;
+    const newZoom = Math.min(4, Math.max(0.1, currentZoom + delta));
+    zoomTo(newZoom, { duration: 50 });
+  }, [zoomTo, getViewport]);
+
   return (
-    <div className="flex-1 relative">
+    <div className="flex-1 relative" onWheel={onWheel}>
       <ReactFlow
         nodes={nodes}
         edges={edges}
@@ -162,7 +175,8 @@ export function SchematicCanvas() {
         snapToGrid
         snapGrid={[10, 10]}
         defaultViewport={{ x: 0, y: 0, zoom: 1 }}
-        minZoom={0.2}
+        zoomOnScroll={false}
+        minZoom={0.1}
         maxZoom={4}
         style={{ width: '100%', height: '100%' }}
       >
