@@ -292,6 +292,18 @@ export const ELEMENT_DEFINITIONS: ElementDefinition[] = [
     parameters: [],
   },
   {
+    id: 'text_label',
+    name: 'Opis / etykieta',
+    category: 'wiring',
+    designation: '',
+    nodeType: 'textLabel',
+    defaultLabel: 'Opis przewodu',
+    parameters: [
+      { key: 'fontSize', label: 'Rozmiar czcionki', type: 'number', defaultValue: 11 },
+      { key: 'color', label: 'Kolor', type: 'select', options: ['#333', '#FF0000', '#0000CD', '#228B22', '#808080', '#8B4513'], defaultValue: '#333' },
+    ],
+  },
+  {
     id: 'contactor',
     name: 'Stycznik',
     category: 'ac',
