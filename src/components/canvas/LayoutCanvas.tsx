@@ -5,6 +5,7 @@ import {
   Controls,
   MiniMap,
   useReactFlow,
+  useOnSelectionChange,
   addEdge,
   type Connection,
 } from '@xyflow/react';
@@ -23,7 +24,15 @@ export function LayoutCanvas() {
     setLayoutNodes, setLayoutEdges,
     onLayoutNodesChange, onLayoutEdgesChange,
     pushLayoutHistory,
+    setSelectedNodeId, setSelectedEdgeId,
   } = useProjectStore();
+
+  useOnSelectionChange({
+    onChange: ({ nodes: sel, edges: selEdges }) => {
+      setSelectedNodeId(sel.length === 1 ? sel[0].id : null);
+      setSelectedEdgeId(selEdges.length === 1 ? selEdges[0].id : null);
+    },
+  });
 
   const { screenToFlowPosition } = useReactFlow();
 

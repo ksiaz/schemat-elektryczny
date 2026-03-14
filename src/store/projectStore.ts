@@ -188,28 +188,44 @@ export const useProjectStore = create<ProjectState>((set, get) => ({
 
   updateNodeData: (nodeId, data) => {
     const state = get();
-    state.pushHistory();
-    set({
-      nodes: state.nodes.map((n) =>
-        n.id === nodeId
-          ? { ...n, data: { ...n.data, ...data } }
-          : n
-      ),
-      isDirty: true,
-    });
+    if (state.activeSheet === 'layout') {
+      state.pushLayoutHistory();
+      set({
+        layoutNodes: state.layoutNodes.map((n) =>
+          n.id === nodeId ? { ...n, data: { ...n.data, ...data } } : n
+        ),
+        isDirty: true,
+      });
+    } else {
+      state.pushHistory();
+      set({
+        nodes: state.nodes.map((n) =>
+          n.id === nodeId ? { ...n, data: { ...n.data, ...data } } : n
+        ),
+        isDirty: true,
+      });
+    }
   },
 
   updateEdgeData: (edgeId, data) => {
     const state = get();
-    state.pushHistory();
-    set({
-      edges: state.edges.map((e) =>
-        e.id === edgeId
-          ? { ...e, data: { ...e.data, ...data } }
-          : e
-      ),
-      isDirty: true,
-    });
+    if (state.activeSheet === 'layout') {
+      state.pushLayoutHistory();
+      set({
+        layoutEdges: state.layoutEdges.map((e) =>
+          e.id === edgeId ? { ...e, data: { ...e.data, ...data } } : e
+        ),
+        isDirty: true,
+      });
+    } else {
+      state.pushHistory();
+      set({
+        edges: state.edges.map((e) =>
+          e.id === edgeId ? { ...e, data: { ...e.data, ...data } } : e
+        ),
+        isDirty: true,
+      });
+    }
   },
 
   setSelectedEdgeId: (id) => set({ selectedEdgeId: id }),
