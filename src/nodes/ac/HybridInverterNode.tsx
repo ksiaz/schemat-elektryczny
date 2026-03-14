@@ -1,48 +1,49 @@
 import { Handle, Position, type NodeProps, type Node } from '@xyflow/react';
 import type { SchematicNodeData } from '../../types/index.ts';
 import { AcHandles } from './AcHandles.tsx';
+import { WIRE_COLORS } from '../../constants/index.ts';
 
 type HybridInverterNodeType = Node<SchematicNodeData, 'hybridInverter'>;
 
-// Falownik hybrydowy — DC wejscia (MPPT + bateria), 2 wyjscia AC (grid + backup)
+// Falownik hybrydowy — kazdy MPPT +/-, bateria +/-, 2 wyjscia AC (grid + backup)
 export function HybridInverterNode({ data, selected }: NodeProps<HybridInverterNodeType>) {
   return (
     <div className={`flex flex-col items-center ${selected ? 'ring-2 ring-blue-500' : ''}`}>
-      {/* Wejscia DC — gora */}
-      <Handle type="target" position={Position.Top} id="dc-mppt1" className="!bg-red-500 !w-2 !h-2" style={{ left: '25%' }} />
-      <Handle type="target" position={Position.Top} id="dc-mppt2" className="!bg-red-500 !w-2 !h-2" style={{ left: '50%' }} />
-      {/* Bateria — lewy bok */}
-      <Handle type="target" position={Position.Left} id="dc-bat" className="!bg-orange-500 !w-2 !h-2" />
+      {/* MPPT1 +/- */}
+      <Handle type="target" position={Position.Top} id="mppt1-plus" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.DC, left: '15%' }} />
+      <Handle type="target" position={Position.Top} id="mppt1-minus" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.N, left: '28%' }} />
+      {/* MPPT2 +/- */}
+      <Handle type="target" position={Position.Top} id="mppt2-plus" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.DC, left: '52%' }} />
+      <Handle type="target" position={Position.Top} id="mppt2-minus" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.N, left: '65%' }} />
+      {/* Bateria +/- po lewej */}
+      <Handle type="target" position={Position.Left} id="bat-plus" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.DC, top: '30%' }} />
+      <Handle type="target" position={Position.Left} id="bat-minus" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.N, top: '40%' }} />
 
-      <svg width="120" height="90" viewBox="0 0 120 90">
-        {/* Prostokat obudowy */}
-        <rect x="4" y="4" width="112" height="82" fill="none" stroke="#333" strokeWidth="1.5" />
+      <svg width="130" height="95" viewBox="0 0 130 95">
+        <rect x="4" y="4" width="122" height="87" fill="none" stroke="#333" strokeWidth="1.5" />
 
-        {/* Etykiety MPPT */}
-        <text x="30" y="16" textAnchor="middle" fontSize="7" fill="#999" fontFamily="monospace">MPPT1</text>
-        <text x="60" y="16" textAnchor="middle" fontSize="7" fill="#999" fontFamily="monospace">MPPT2</text>
+        {/* MPPT etykiety z +/- */}
+        <text x="25" y="14" textAnchor="middle" fontSize="6" fill="#999" fontFamily="monospace">MPPT1</text>
+        <text x="18" y="22" textAnchor="middle" fontSize="8" fill="#FF0000" fontWeight="bold">+</text>
+        <text x="34" y="22" textAnchor="middle" fontSize="8" fill="#0000CD" fontWeight="bold">-</text>
+        <text x="75" y="14" textAnchor="middle" fontSize="6" fill="#999" fontFamily="monospace">MPPT2</text>
+        <text x="66" y="22" textAnchor="middle" fontSize="8" fill="#FF0000" fontWeight="bold">+</text>
+        <text x="82" y="22" textAnchor="middle" fontSize="8" fill="#0000CD" fontWeight="bold">-</text>
 
-        {/* DC u gory */}
-        <text x="100" y="16" textAnchor="middle" fontSize="10" fill="#333" fontWeight="bold" fontFamily="monospace">DC</text>
+        {/* BAT */}
+        <text x="10" y="35" fontSize="6" fill="#c97706" fontFamily="monospace">BAT</text>
+        <text x="10" y="42" fontSize="7" fill="#FF0000" fontWeight="bold">+</text>
+        <text x="10" y="50" fontSize="7" fill="#0000CD" fontWeight="bold">-</text>
 
-        {/* Linia podzialu */}
-        <line x1="4" y1="45" x2="116" y2="45" stroke="#333" strokeWidth="0.5" strokeDasharray="4,3" />
+        <text x="110" y="22" textAnchor="middle" fontSize="10" fill="#333" fontWeight="bold" fontFamily="monospace">DC</text>
+        <line x1="4" y1="48" x2="126" y2="48" stroke="#333" strokeWidth="0.5" strokeDasharray="4,3" />
 
-        {/* AC u dolu */}
-        <text x="20" y="60" textAnchor="middle" fontSize="10" fill="#333" fontWeight="bold" fontFamily="monospace">AC</text>
+        <text x="25" y="62" fontSize="10" fill="#333" fontWeight="bold" fontFamily="monospace">AC</text>
+        <path d="M 45,60 Q 55,53 65,60 Q 75,67 85,60" fill="none" stroke="#333" strokeWidth="1" />
 
-        {/* Sinusoida */}
-        <path d="M 35,58 Q 45,50 55,58 Q 65,66 75,58" fill="none" stroke="#333" strokeWidth="1" />
-
-        {/* Grid i Backup oznaczenia */}
-        <text x="40" y="80" textAnchor="middle" fontSize="7" fill="#666" fontFamily="monospace">GRID</text>
-        <text x="90" y="80" textAnchor="middle" fontSize="7" fill="#666" fontFamily="monospace">BACKUP</text>
-
-        {/* Linia podzialu AC grid/backup */}
-        <line x1="65" y1="45" x2="65" y2="86" stroke="#333" strokeWidth="0.5" strokeDasharray="2,2" />
-
-        {/* BAT po lewej */}
-        <text x="10" y="38" textAnchor="middle" fontSize="7" fill="#c97706" fontFamily="monospace" transform="rotate(-90, 10, 38)">BAT</text>
+        <text x="40" y="82" textAnchor="middle" fontSize="7" fill="#666" fontFamily="monospace">GRID</text>
+        <text x="100" y="82" textAnchor="middle" fontSize="7" fill="#666" fontFamily="monospace">BACKUP</text>
+        <line x1="70" y1="48" x2="70" y2="91" stroke="#333" strokeWidth="0.5" strokeDasharray="2,2" />
       </svg>
 
       <div className="text-xs font-bold text-gray-800 mt-1">{data.label}</div>
@@ -53,17 +54,15 @@ export function HybridInverterNode({ data, selected }: NodeProps<HybridInverterN
         <div className="text-[10px] text-gray-500">{String(data.parameters.power)} kW</div>
       )}
 
-      {/* Wyjscie AC Grid — lewy dol, 5 handli */}
-      <div className="flex gap-0.5 mt-1">
-        <AcHandles type="source" position={Position.Bottom} prefix="grid" />
-      </div>
+      {/* Grid AC — dol */}
+      <AcHandles type="source" position={Position.Bottom} prefix="grid" />
 
-      {/* Wyjscie AC Backup — prawy bok */}
-      <Handle type="source" position={Position.Right} id="backup-L1" className="!w-1.5 !h-1.5" style={{ backgroundColor: '#808080', top: '60%' }} />
-      <Handle type="source" position={Position.Right} id="backup-L2" className="!w-1.5 !h-1.5" style={{ backgroundColor: '#1a1a1a', top: '65%' }} />
-      <Handle type="source" position={Position.Right} id="backup-L3" className="!w-1.5 !h-1.5" style={{ backgroundColor: '#8B4513', top: '70%' }} />
-      <Handle type="source" position={Position.Right} id="backup-N" className="!w-1.5 !h-1.5" style={{ backgroundColor: '#0000CD', top: '75%' }} />
-      <Handle type="source" position={Position.Right} id="backup-PE" className="!w-1.5 !h-1.5" style={{ backgroundColor: '#228B22', top: '80%' }} />
+      {/* Backup AC — prawy bok */}
+      <Handle type="source" position={Position.Right} id="backup-L1" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.L1, top: '55%' }} />
+      <Handle type="source" position={Position.Right} id="backup-L2" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.L2, top: '62%' }} />
+      <Handle type="source" position={Position.Right} id="backup-L3" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.L3, top: '69%' }} />
+      <Handle type="source" position={Position.Right} id="backup-N" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.N, top: '76%' }} />
+      <Handle type="source" position={Position.Right} id="backup-PE" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.PE, top: '83%' }} />
     </div>
   );
 }
