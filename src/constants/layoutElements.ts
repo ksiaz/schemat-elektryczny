@@ -47,7 +47,7 @@ export const LAYOUT_ELEMENT_DEFINITIONS: ElementDefinition[] = [
     nodeType: 'deviceIcon',
     defaultLabel: 'Falownik',
     parameters: [
-      { key: 'deviceType', label: 'Typ ikony', type: 'select', options: ['inverter', 'enclosure', 'ground', 'charger'], defaultValue: 'inverter' },
+      { key: 'deviceType', label: 'Typ ikony', type: 'select', options: ['inverter', 'enclosure', 'ground', 'charger', 'battery', 'fire'], defaultValue: 'inverter' },
     ],
   },
   {
@@ -58,7 +58,7 @@ export const LAYOUT_ELEMENT_DEFINITIONS: ElementDefinition[] = [
     nodeType: 'deviceIcon',
     defaultLabel: 'Rozdzielnica',
     parameters: [
-      { key: 'deviceType', label: 'Typ ikony', type: 'select', options: ['inverter', 'enclosure', 'ground', 'charger'], defaultValue: 'enclosure' },
+      { key: 'deviceType', label: 'Typ ikony', type: 'select', options: ['inverter', 'enclosure', 'ground', 'charger', 'battery', 'fire'], defaultValue: 'enclosure' },
     ],
   },
   {
@@ -69,7 +69,7 @@ export const LAYOUT_ELEMENT_DEFINITIONS: ElementDefinition[] = [
     nodeType: 'deviceIcon',
     defaultLabel: 'Uziom',
     parameters: [
-      { key: 'deviceType', label: 'Typ ikony', type: 'select', options: ['inverter', 'enclosure', 'ground', 'charger'], defaultValue: 'ground' },
+      { key: 'deviceType', label: 'Typ ikony', type: 'select', options: ['inverter', 'enclosure', 'ground', 'charger', 'battery', 'fire'], defaultValue: 'ground' },
     ],
   },
   {
@@ -80,7 +80,29 @@ export const LAYOUT_ELEMENT_DEFINITIONS: ElementDefinition[] = [
     nodeType: 'deviceIcon',
     defaultLabel: 'EV',
     parameters: [
-      { key: 'deviceType', label: 'Typ ikony', type: 'select', options: ['inverter', 'enclosure', 'ground', 'charger'], defaultValue: 'charger' },
+      { key: 'deviceType', label: 'Typ ikony', type: 'select', options: ['inverter', 'enclosure', 'ground', 'charger', 'battery', 'fire'], defaultValue: 'charger' },
+    ],
+  },
+  {
+    id: 'device_icon_battery',
+    name: 'Magazyn energii (ikona)',
+    category: 'inverter',
+    designation: '',
+    nodeType: 'deviceIcon',
+    defaultLabel: 'BAT',
+    parameters: [
+      { key: 'deviceType', label: 'Typ ikony', type: 'select', options: ['inverter', 'enclosure', 'ground', 'charger', 'battery', 'fire'], defaultValue: 'battery' },
+    ],
+  },
+  {
+    id: 'device_icon_fire',
+    name: 'Przycisk PPOŻ (ikona)',
+    category: 'ac',
+    designation: '',
+    nodeType: 'deviceIcon',
+    defaultLabel: 'PPOŻ',
+    parameters: [
+      { key: 'deviceType', label: 'Typ ikony', type: 'select', options: ['inverter', 'enclosure', 'ground', 'charger', 'battery', 'fire'], defaultValue: 'fire' },
     ],
   },
   {
