@@ -7,7 +7,9 @@ export function DcPlusEdge({
   const edgeData = (data ?? {}) as Record<string, unknown>;
   const [path, labelX, labelY] = getSmoothStepPath({
     sourceX, sourceY, targetX, targetY,
-    sourcePosition, targetPosition, borderRadius: 8,
+    sourcePosition, targetPosition,
+    borderRadius: 10,
+    offset: 30,
   });
 
   const parts = [edgeData.cableType, edgeData.cableSection, edgeData.cableLength].filter(Boolean);

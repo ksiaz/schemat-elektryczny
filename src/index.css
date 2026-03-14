@@ -48,3 +48,12 @@ body {
 .react-flow__node svg {
   overflow: visible;
 }
+
+/* Kable ponad wezlami — nie przechodzą "pod" rozdzielnicami */
+.react-flow__edges {
+  z-index: 10 !important;
+}
+
+.react-flow__edge {
+  pointer-events: all;
+}
