@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useProjectStore } from '../../store/projectStore.ts';
 import { exportToSvg } from '../../utils/exportSvg.ts';
+import { exportToJpg } from '../../utils/exportJpg.ts';
+import { exportToPdf } from '../../utils/exportPdf.ts';
 import { exportProjectToFile, importProjectFromFile } from '../../utils/fileIO.ts';
 import { TemplateDialog } from './TemplateDialog.tsx';
 import type { SheetFormat } from '../../types/index.ts';
@@ -160,6 +162,20 @@ export function Toolbar() {
       <div className="h-6 w-px bg-gray-200" />
 
       {/* Eksport / Import */}
+      <button
+        onClick={() => exportToPdf(schematicFormat, projectName)}
+        className="px-2 py-1 text-xs text-gray-600 rounded hover:bg-gray-200"
+        title="Eksport PDF"
+      >
+        PDF
+      </button>
+      <button
+        onClick={() => exportToJpg(schematicFormat, projectName)}
+        className="px-2 py-1 text-xs text-gray-600 rounded hover:bg-gray-200"
+        title="Eksport JPG"
+      >
+        JPG
+      </button>
       <button
         onClick={() => exportToSvg(schematicFormat, projectName)}
         className="px-2 py-1 text-xs text-gray-600 rounded hover:bg-gray-200"
