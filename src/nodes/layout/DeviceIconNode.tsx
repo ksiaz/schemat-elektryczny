@@ -29,7 +29,7 @@ export function DeviceIconNode({ data, selected }: NodeProps<DeviceIconNodeType>
 
   return (
     <div className={`flex flex-col items-center ${selected ? 'ring-2 ring-blue-500 ring-offset-2' : ''}`}>
-      <Handle type="target" position={Position.Top} id="in" className="!bg-gray-500 !w-1.5 !h-1.5" />
+      <Handle type="source" position={Position.Top} id="in" className="!bg-gray-500 !w-1.5 !h-1.5" />
 
       <svg width="40" height="40" viewBox="0 0 40 40" dangerouslySetInnerHTML={{ __html: icon.svg }} />
 

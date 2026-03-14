@@ -21,7 +21,7 @@ export function McbNode({ data, selected }: NodeProps<McbNodeType>) {
   return (
     <div className={`flex flex-col items-center ${selected ? 'ring-2 ring-blue-500' : ''}`} style={{ width: 80 }}>
       {wires.map((w) => (
-        <Handle key={`in-${w.id}`} type="target" position={Position.Top} id={`in-${w.id}`}
+        <Handle key={`in-${w.id}`} type="source" position={Position.Top} id={`in-${w.id}`}
           className="!w-1.5 !h-1.5" style={{ backgroundColor: w.color, left: w.offset }} />
       ))}
 

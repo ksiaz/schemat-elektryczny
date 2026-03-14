@@ -49,17 +49,17 @@ export function TransferSwitchNode({ data, selected }: NodeProps<TransferSwitchN
       {data.parameters.ratingCurrent && <div className="text-[10px] text-gray-500">{String(data.parameters.ratingCurrent)}A</div>}
 
       {/* Dol: L1-I obok L1-II, L2-I obok L2-II, L3-I obok L3-II, N-I obok N-II */}
-      <Handle type="target" position={Position.Bottom} id="in1-L1" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.L1, left: 10 }} />
-      <Handle type="target" position={Position.Bottom} id="in2-L1" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.L1, left: 30 }} />
+      <Handle type="source" position={Position.Bottom} id="in1-L1" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.L1, left: 10 }} />
+      <Handle type="source" position={Position.Bottom} id="in2-L1" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.L1, left: 30 }} />
 
-      <Handle type="target" position={Position.Bottom} id="in1-L2" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.L2, left: 50 }} />
-      <Handle type="target" position={Position.Bottom} id="in2-L2" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.L2, left: 70 }} />
+      <Handle type="source" position={Position.Bottom} id="in1-L2" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.L2, left: 50 }} />
+      <Handle type="source" position={Position.Bottom} id="in2-L2" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.L2, left: 70 }} />
 
-      <Handle type="target" position={Position.Bottom} id="in1-L3" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.L3, left: 90 }} />
-      <Handle type="target" position={Position.Bottom} id="in2-L3" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.L3, left: 110 }} />
+      <Handle type="source" position={Position.Bottom} id="in1-L3" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.L3, left: 90 }} />
+      <Handle type="source" position={Position.Bottom} id="in2-L3" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.L3, left: 110 }} />
 
-      <Handle type="target" position={Position.Bottom} id="in1-N" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.N, left: 130 }} />
-      <Handle type="target" position={Position.Bottom} id="in2-N" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.N, left: 150 }} />
+      <Handle type="source" position={Position.Bottom} id="in1-N" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.N, left: 130 }} />
+      <Handle type="source" position={Position.Bottom} id="in2-N" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.N, left: 150 }} />
     </div>
   );
 }

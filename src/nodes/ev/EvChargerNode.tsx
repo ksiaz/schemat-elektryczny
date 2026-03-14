@@ -7,7 +7,7 @@ type EvChargerNodeType = Node<SchematicNodeData, 'evCharger'>;
 export function EvChargerNode({ data, selected }: NodeProps<EvChargerNodeType>) {
   return (
     <div className={`flex flex-col items-center ${selected ? 'ring-2 ring-blue-500 ring-offset-2' : ''}`}>
-      <Handle type="target" position={Position.Top} id="in" className="!bg-gray-700 !w-1.5 !h-1.5" />
+      <Handle type="source" position={Position.Top} id="in" className="!bg-gray-700 !w-1.5 !h-1.5" />
 
       <svg width="50" height="50" viewBox="0 0 50 50">
         <rect x="5" y="5" width="40" height="40" fill="none" stroke="#333" strokeWidth="1.5" rx="3" />

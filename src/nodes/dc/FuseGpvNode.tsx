@@ -7,7 +7,7 @@ type FuseGpvNodeType = Node<SchematicNodeData, 'fuseGpv'>;
 export function FuseGpvNode({ data, selected }: NodeProps<FuseGpvNodeType>) {
   return (
     <div className={`flex flex-col items-center ${selected ? 'ring-2 ring-blue-500' : ''}`} style={{ width: 40 }}>
-      <Handle type="target" position={Position.Top} id="in" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.DC, left: 20 }} />
+      <Handle type="source" position={Position.Top} id="in" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.DC, left: 20 }} />
       <svg width="20" height="50" viewBox="0 0 20 50">
         <line x1="10" y1="0" x2="10" y2="10" stroke="#333" strokeWidth="1.5" />
         <rect x="3" y="10" width="14" height="30" fill="none" stroke="#333" strokeWidth="1.5" />

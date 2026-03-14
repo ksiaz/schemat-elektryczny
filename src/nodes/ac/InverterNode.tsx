@@ -9,10 +9,10 @@ export function InverterNode({ data, selected }: NodeProps<InverterNodeType>) {
   return (
     <div className={`flex flex-col items-center ${selected ? 'ring-2 ring-blue-500' : ''}`} style={{ width: 150 }}>
       {/* MPPT1 +/- i MPPT2 +/- — stale pozycje co 30px */}
-      <Handle type="target" position={Position.Top} id="mppt1-plus" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.DC, left: 30 }} />
-      <Handle type="target" position={Position.Top} id="mppt1-minus" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.N, left: 50 }} />
-      <Handle type="target" position={Position.Top} id="mppt2-plus" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.DC, left: 100 }} />
-      <Handle type="target" position={Position.Top} id="mppt2-minus" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.N, left: 120 }} />
+      <Handle type="source" position={Position.Top} id="mppt1-plus" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.DC, left: 30 }} />
+      <Handle type="source" position={Position.Top} id="mppt1-minus" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.N, left: 50 }} />
+      <Handle type="source" position={Position.Top} id="mppt2-plus" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.DC, left: 100 }} />
+      <Handle type="source" position={Position.Top} id="mppt2-minus" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.N, left: 120 }} />
 
       <svg width="150" height="120" viewBox="0 0 100 80">
         <rect x="4" y="4" width="92" height="72" fill="none" stroke="#333" strokeWidth="1.5" />

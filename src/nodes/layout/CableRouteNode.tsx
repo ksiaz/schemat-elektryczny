@@ -9,8 +9,8 @@ export function CableRouteNode({ data, selected }: NodeProps<CableRouteNodeType>
 
   return (
     <div className={`flex flex-col items-center ${selected ? 'ring-2 ring-blue-500 ring-offset-2' : ''}`}>
-      <Handle type="target" position={Position.Top} id="in" className="!w-1.5 !h-1.5" style={{ backgroundColor: color }} />
-      <Handle type="target" position={Position.Left} id="in-left" className="!w-1.5 !h-1.5" style={{ backgroundColor: color }} />
+      <Handle type="source" position={Position.Top} id="in" className="!w-1.5 !h-1.5" style={{ backgroundColor: color }} />
+      <Handle type="source" position={Position.Left} id="in-left" className="!w-1.5 !h-1.5" style={{ backgroundColor: color }} />
 
       <div
         className="w-4 h-4 rounded-full border-2"

@@ -9,15 +9,15 @@ export function HybridInverterNode({ data, selected }: NodeProps<HybridInverterN
   return (
     <div className={`flex flex-col items-center ${selected ? 'ring-2 ring-blue-500' : ''}`} style={{ width: 220 }}>
       {/* MPPT1 +/- u gory */}
-      <Handle type="target" position={Position.Top} id="mppt1-plus" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.DC, left: 40 }} />
-      <Handle type="target" position={Position.Top} id="mppt1-minus" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.N, left: 60 }} />
+      <Handle type="source" position={Position.Top} id="mppt1-plus" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.DC, left: 40 }} />
+      <Handle type="source" position={Position.Top} id="mppt1-minus" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.N, left: 60 }} />
       {/* MPPT2 +/- u gory */}
-      <Handle type="target" position={Position.Top} id="mppt2-plus" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.DC, left: 140 }} />
-      <Handle type="target" position={Position.Top} id="mppt2-minus" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.N, left: 160 }} />
+      <Handle type="source" position={Position.Top} id="mppt2-plus" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.DC, left: 140 }} />
+      <Handle type="source" position={Position.Top} id="mppt2-minus" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.N, left: 160 }} />
 
       {/* BAT +, BAT -, COM — lewy bok, srodek sekcji DC */}
-      <Handle type="target" position={Position.Left} id="bat-plus" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.DC, top: 60 }} />
-      <Handle type="target" position={Position.Left} id="bat-minus" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.N, top: 80 }} />
+      <Handle type="source" position={Position.Left} id="bat-plus" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.DC, top: 60 }} />
+      <Handle type="source" position={Position.Left} id="bat-minus" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.N, top: 80 }} />
       <Handle type="source" position={Position.Left} id="com" className="!w-1.5 !h-1.5" style={{ backgroundColor: '#999', top: 100 }} />
 
       {/* PE obudowy lewy bok — dol */}

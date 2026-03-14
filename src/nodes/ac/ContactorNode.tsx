@@ -7,7 +7,7 @@ type ContactorNodeType = Node<SchematicNodeData, 'contactor'>;
 export function ContactorNode({ data, selected }: NodeProps<ContactorNodeType>) {
   return (
     <div className={`flex flex-col items-center ${selected ? 'ring-2 ring-blue-500' : ''}`}>
-      <AcHandles type="target" position={Position.Top} prefix="in" />
+      <AcHandles type="source" position={Position.Top} prefix="in" />
       <svg width="70" height="60" viewBox="0 0 70 60">
         <line x1="35" y1="0" x2="35" y2="10" stroke="#333" strokeWidth="1.5" />
         <line x1="31" y1="10" x2="39" y2="10" stroke="#333" strokeWidth="1.5" />

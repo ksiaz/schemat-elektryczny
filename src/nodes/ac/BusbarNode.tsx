@@ -19,7 +19,7 @@ export function BusbarNode({ data, selected }: NodeProps<BusbarNodeType>) {
     <div className={`flex flex-col items-center ${selected ? 'ring-2 ring-blue-500' : ''}`} style={{ width: 180 }}>
       {/* 8 zaciskow u gory co 20px */}
       {Array.from({ length: 8 }).map((_, i) => (
-        <Handle key={`in-${i}`} type="target" position={Position.Top} id={`in-${i + 1}`}
+        <Handle key={`in-${i}`} type="source" position={Position.Top} id={`in-${i + 1}`}
           className="!w-1.5 !h-1.5" style={{ backgroundColor: color, left: 10 + i * 20 }} />
       ))}
 

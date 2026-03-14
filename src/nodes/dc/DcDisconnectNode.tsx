@@ -7,8 +7,8 @@ type DcDisconnectNodeType = Node<SchematicNodeData, 'dcDisconnect'>;
 export function DcDisconnectNode({ data, selected }: NodeProps<DcDisconnectNodeType>) {
   return (
     <div className={`flex flex-col items-center ${selected ? 'ring-2 ring-blue-500' : ''}`} style={{ width: 60 }}>
-      <Handle type="target" position={Position.Top} id="in-dc-plus" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.DC, left: 20 }} />
-      <Handle type="target" position={Position.Top} id="in-dc-minus" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.N, left: 40 }} />
+      <Handle type="source" position={Position.Top} id="in-dc-plus" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.DC, left: 20 }} />
+      <Handle type="source" position={Position.Top} id="in-dc-minus" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.N, left: 40 }} />
       <svg width="50" height="55" viewBox="0 0 50 55">
         <line x1="25" y1="0" x2="25" y2="14" stroke="#333" strokeWidth="1.5" />
         <line x1="21" y1="14" x2="29" y2="14" stroke="#333" strokeWidth="1.5" />

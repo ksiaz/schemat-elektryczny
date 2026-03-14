@@ -8,8 +8,8 @@ type Zug2NNodeType = Node<SchematicNodeData, 'zug2N'>;
 export function Zug2NNode({ data, selected }: NodeProps<Zug2NNodeType>) {
   return (
     <div className={`flex flex-col items-center ${selected ? 'ring-2 ring-blue-500' : ''}`} style={{ width: 40 }}>
-      <Handle type="target" position={Position.Top} id="in-1" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.N, left: 10 }} />
-      <Handle type="target" position={Position.Top} id="in-2" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.N, left: 30 }} />
+      <Handle type="source" position={Position.Top} id="in-1" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.N, left: 10 }} />
+      <Handle type="source" position={Position.Top} id="in-2" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.N, left: 30 }} />
 
       <svg width="40" height="30" viewBox="0 0 40 30">
         {/* Prostokat — zacisk */}

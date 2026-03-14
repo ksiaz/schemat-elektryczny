@@ -19,13 +19,13 @@ export function MainSwitchNode({ data, selected }: NodeProps<MainSwitchNodeType>
     <div className={`flex flex-col items-center ${selected ? 'ring-2 ring-blue-500' : ''}`} style={{ width: 100 }}>
       {/* Zaciski glowne — gora */}
       {wires.map((w) => (
-        <Handle key={`in-${w.id}`} type="target" position={Position.Top} id={`in-${w.id}`}
+        <Handle key={`in-${w.id}`} type="source" position={Position.Top} id={`in-${w.id}`}
           className="!w-1.5 !h-1.5" style={{ backgroundColor: w.color, left: w.offset }} />
       ))}
 
       {/* Zaciski cewki wybijakowej — prawy bok */}
-      <Handle type="target" position={Position.Right} id="coil-L" className="!w-1.5 !h-1.5" style={{ backgroundColor: '#FF0000', top: 20 }} />
-      <Handle type="target" position={Position.Right} id="coil-N" className="!w-1.5 !h-1.5" style={{ backgroundColor: '#0000CD', top: 40 }} />
+      <Handle type="source" position={Position.Right} id="coil-L" className="!w-1.5 !h-1.5" style={{ backgroundColor: '#FF0000', top: 20 }} />
+      <Handle type="source" position={Position.Right} id="coil-N" className="!w-1.5 !h-1.5" style={{ backgroundColor: '#0000CD', top: 40 }} />
 
       <svg width="100" height="60" viewBox="0 0 100 60">
         {/* Krzywki — po jednej na kazdy biegun */}

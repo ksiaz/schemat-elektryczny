@@ -9,7 +9,7 @@ export function MeterNode({ data, selected }: NodeProps<MeterNodeType>) {
 
   return (
     <div className={`flex flex-col items-center ${selected ? 'ring-2 ring-blue-500' : ''}`} style={{ width: 80 }}>
-      <Handle type="target" position={Position.Top} id="in" className="!w-1.5 !h-1.5" style={{ backgroundColor: '#333', left: 40 }} />
+      <Handle type="source" position={Position.Top} id="in" className="!w-1.5 !h-1.5" style={{ backgroundColor: '#333', left: 40 }} />
 
       <svg width="80" height="55" viewBox="0 0 80 55">
         <line x1="40" y1="0" x2="40" y2="4" stroke="#333" strokeWidth="1.5" />

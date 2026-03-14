@@ -7,8 +7,8 @@ type FireButtonNodeType = Node<SchematicNodeData, 'fireButton'>;
 export function FireButtonNode({ data, selected }: NodeProps<FireButtonNodeType>) {
   return (
     <div className={`flex flex-col items-center ${selected ? 'ring-2 ring-blue-500' : ''}`} style={{ width: 50 }}>
-      <Handle type="target" position={Position.Top} id="in-L" className="!w-1.5 !h-1.5" style={{ backgroundColor: '#FF0000', left: 20 }} />
-      <Handle type="target" position={Position.Top} id="in-N" className="!w-1.5 !h-1.5" style={{ backgroundColor: '#0000CD', left: 40 }} />
+      <Handle type="source" position={Position.Top} id="in-L" className="!w-1.5 !h-1.5" style={{ backgroundColor: '#FF0000', left: 20 }} />
+      <Handle type="source" position={Position.Top} id="in-N" className="!w-1.5 !h-1.5" style={{ backgroundColor: '#0000CD', left: 40 }} />
 
       <svg width="50" height="50" viewBox="0 0 50 50">
         {/* Kolko */}

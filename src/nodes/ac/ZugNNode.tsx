@@ -8,7 +8,7 @@ type ZugNNodeType = Node<SchematicNodeData, 'zugN'>;
 export function ZugNNode({ data, selected }: NodeProps<ZugNNodeType>) {
   return (
     <div className={`flex flex-col items-center ${selected ? 'ring-2 ring-blue-500' : ''}`} style={{ width: 30 }}>
-      <Handle type="target" position={Position.Top} id="in" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.N, left: 15 }} />
+      <Handle type="source" position={Position.Top} id="in" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.N, left: 15 }} />
 
       <svg width="30" height="30" viewBox="0 0 30 30">
         {/* Prostokat — zacisk */}

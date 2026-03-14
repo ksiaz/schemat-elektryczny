@@ -26,7 +26,7 @@ export function EnclosureNode({ data, selected }: NodeProps<EnclosureNodeType>) 
         handleStyle={{ width: 8, height: 8, borderRadius: 2, backgroundColor: '#3b82f6' }}
       />
 
-      <Handle type="target" position={Position.Top} id="in" className="!bg-gray-500 !w-1.5 !h-1.5" />
+      <Handle type="source" position={Position.Top} id="in" className="!bg-gray-500 !w-1.5 !h-1.5" />
 
       {/* Tytul — lewy gorny rog */}
       <div

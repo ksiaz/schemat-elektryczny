@@ -9,7 +9,7 @@ export function RcboNode({ data, selected }: NodeProps<RcboNodeType>) {
   // RCBO typowo 2P (L+N) — ale zostawiamy handle AC dla kompatybilnosci
   return (
     <div className={`flex flex-col items-center ${selected ? 'ring-2 ring-blue-500' : ''}`} style={{ width: 80 }}>
-      <AcHandles type="target" position={Position.Top} prefix="in" />
+      <AcHandles type="source" position={Position.Top} prefix="in" />
 
       <svg width="80" height="80" viewBox="0 0 80 80">
         {/* Krzywka z wyzwalaczami (jak MCB) */}
