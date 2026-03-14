@@ -10,6 +10,8 @@ import { MainSwitchNode } from './ac/MainSwitchNode.tsx';
 import { ContactorNode } from './ac/ContactorNode.tsx';
 import { FireButtonNode } from './ac/FireButtonNode.tsx';
 import { Socket32Node } from './ac/Socket32Node.tsx';
+import { ZugNNode } from './ac/ZugNNode.tsx';
+import { Zug2NNode } from './ac/Zug2NNode.tsx';
 import { BusbarNode } from './ac/BusbarNode.tsx';
 import { HybridInverterNode } from './ac/HybridInverterNode.tsx';
 import { EnclosureNode } from './enclosures/EnclosureNode.tsx';
@@ -35,6 +37,8 @@ export const nodeTypes = {
   contactor: ContactorNode,
   fireButton: FireButtonNode,
   socket32: Socket32Node,
+  zugN: ZugNNode,
+  zug2N: Zug2NNode,
   busbar: BusbarNode,
   hybridInverter: HybridInverterNode,
   // Rozdzielnice
