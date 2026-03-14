@@ -161,7 +161,7 @@ export function SchematicCanvas() {
         connectionMode={ConnectionMode.Loose}
         fitView
         snapToGrid
-        snapGrid={[20, 20]}
+        snapGrid={[10, 10]}
         defaultViewport={{ x: 0, y: 0, zoom: 1 }}
         minZoom={0.2}
         maxZoom={4}
