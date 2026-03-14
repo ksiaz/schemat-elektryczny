@@ -157,6 +157,17 @@ export const LAYOUT_ELEMENT_DEFINITIONS: ElementDefinition[] = [
     ],
   },
   {
+    id: 'corner_point',
+    name: 'Punkt narożnikowy',
+    category: 'wiring',
+    designation: '',
+    nodeType: 'cornerPoint',
+    defaultLabel: '',
+    parameters: [
+      { key: 'color', label: 'Kolor', type: 'select', options: ['#333', '#666', '#8B4513', '#FF0000'], defaultValue: '#333' },
+    ],
+  },
+  {
     id: 'free_line',
     name: 'Linia swobodna',
     category: 'wiring',

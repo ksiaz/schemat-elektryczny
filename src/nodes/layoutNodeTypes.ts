@@ -8,6 +8,7 @@ import { RulerNode } from './layout/RulerNode.tsx';
 import { CompassNode } from './layout/CompassNode.tsx';
 import { LegendNode } from './layout/LegendNode.tsx';
 import { FreeLineNode } from './layout/FreeLineNode.tsx';
+import { CornerPointNode } from './layout/CornerPointNode.tsx';
 
 export const layoutNodeTypes = {
   building: BuildingNode,
@@ -20,4 +21,5 @@ export const layoutNodeTypes = {
   compass: CompassNode,
   legend: LegendNode,
   freeLine: FreeLineNode,
+  cornerPoint: CornerPointNode,
 } as const;

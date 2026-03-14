@@ -1,10 +1,8 @@
-import { NodeResizer, type NodeProps, type Node } from '@xyflow/react';
+import { Handle, Position, NodeResizer, type NodeProps, type Node } from '@xyflow/react';
 import type { SchematicNodeData } from '../../types/index.ts';
 
 type BuildingNodeType = Node<SchematicNodeData, 'building'>;
 
-// Budynek — prostokat resizable, uzyj wielu budynkow + linii dla ksztaltow L/T
-// Lub wpisz punkty recznie w Properties
 export function BuildingNode({ data, selected }: NodeProps<BuildingNodeType>) {
   const lineWidth = Number(data.parameters.lineWidth) || 2;
   const color = String(data.parameters.color || '#333');
@@ -27,6 +25,16 @@ export function BuildingNode({ data, selected }: NodeProps<BuildingNodeType>) {
         lineStyle={{ stroke: '#3b82f6', strokeWidth: 1 }}
         handleStyle={{ width: 6, height: 6, borderRadius: 2, backgroundColor: '#3b82f6', pointerEvents: 'all' }}
       />
+
+      {/* Handle na kazdym rogu + srodkach krawedzi */}
+      <Handle type="source" position={Position.Top} id="top-l" className="!w-1 !h-1" style={{ backgroundColor: color, left: 0, opacity: 0.3 }} />
+      <Handle type="source" position={Position.Top} id="top-c" className="!w-1 !h-1" style={{ backgroundColor: color, left: '50%', opacity: 0.3 }} />
+      <Handle type="source" position={Position.Top} id="top-r" className="!w-1 !h-1" style={{ backgroundColor: color, left: '100%', opacity: 0.3 }} />
+      <Handle type="source" position={Position.Bottom} id="bot-l" className="!w-1 !h-1" style={{ backgroundColor: color, left: 0, opacity: 0.3 }} />
+      <Handle type="source" position={Position.Bottom} id="bot-c" className="!w-1 !h-1" style={{ backgroundColor: color, left: '50%', opacity: 0.3 }} />
+      <Handle type="source" position={Position.Bottom} id="bot-r" className="!w-1 !h-1" style={{ backgroundColor: color, left: '100%', opacity: 0.3 }} />
+      <Handle type="source" position={Position.Left} id="left-c" className="!w-1 !h-1" style={{ backgroundColor: color, top: '50%', opacity: 0.3 }} />
+      <Handle type="source" position={Position.Right} id="right-c" className="!w-1 !h-1" style={{ backgroundColor: color, top: '50%', opacity: 0.3 }} />
 
       {data.label && (
         <div className="absolute top-0 left-1 text-[9px] font-bold" style={{ color, pointerEvents: 'all', cursor: 'grab' }}>
