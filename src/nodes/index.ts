@@ -21,6 +21,7 @@ import { DistBlockNode } from './ac/DistBlockNode.tsx';
 import { BusbarNode } from './ac/BusbarNode.tsx';
 import { HybridInverterNode } from './ac/HybridInverterNode.tsx';
 import { EnclosureNode } from './enclosures/EnclosureNode.tsx';
+import { BlackBoxNode } from './enclosures/BlackBoxNode.tsx';
 import { PvStringNode } from './dc/PvStringNode.tsx';
 import { SpdDcNode } from './dc/SpdDcNode.tsx';
 import { DcDisconnectNode } from './dc/DcDisconnectNode.tsx';
@@ -55,6 +56,7 @@ export const nodeTypes = {
   hybridInverter: HybridInverterNode,
   // Rozdzielnice
   enclosure: EnclosureNode,
+  blackBox: BlackBoxNode,
   // DC
   pvString: PvStringNode,
   spdDc: SpdDcNode,

@@ -118,6 +118,15 @@ export const ELEMENT_DEFINITIONS: ElementDefinition[] = [
     parameters: [],
   },
   {
+    id: 'black_box',
+    name: 'Rozdzielnica (uproszczona)',
+    category: 'enclosure',
+    designation: '',
+    nodeType: 'blackBox',
+    defaultLabel: 'RG',
+    parameters: [],
+  },
+  {
     id: 'pv_dc_enclosure',
     name: 'Rozdzielnica DC PV',
     category: 'enclosure',
