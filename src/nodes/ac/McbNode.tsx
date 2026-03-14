@@ -25,7 +25,7 @@ export function McbNode({ data, selected }: NodeProps<McbNodeType>) {
           className="!w-1.5 !h-1.5" style={{ backgroundColor: w.color, left: w.offset }} />
       ))}
 
-      <svg width="80" height="55" viewBox="0 0 80 55">
+      <svg width="80" height="82" viewBox="0 0 80 82">
         {wires.map((w) => (
           <g key={w.id}>
             {/* Linia wejsciowa */}
