@@ -4,7 +4,7 @@ import type { SchematicNodeData } from '../../types/index.ts';
 type DcRouteNodeType = Node<SchematicNodeData, 'dcRoute'>;
 
 // Punkt trasy DC — czerwone kolko z 4 handlemi, laczy sie z innymi tworząc trase
-export function DcRouteNode({ data, selected }: NodeProps<DcRouteNodeType>) {
+export function DcRouteNode({ selected }: NodeProps<DcRouteNodeType>) {
   return (
     <div className={`${selected ? 'ring-1 ring-blue-400' : ''}`} style={{ width: 12, height: 12 }}>
       <Handle type="source" position={Position.Top} id="top" style={{ backgroundColor: '#FF0000', left: 6, width: 8, height: 8, opacity: 1 }} />

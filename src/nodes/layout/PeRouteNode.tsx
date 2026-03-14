@@ -4,7 +4,7 @@ import type { SchematicNodeData } from '../../types/index.ts';
 type PeRouteNodeType = Node<SchematicNodeData, 'peRoute'>;
 
 // Punkt trasy PE — zolto-zielone kolko z 4 handlemi
-export function PeRouteNode({ data, selected }: NodeProps<PeRouteNodeType>) {
+export function PeRouteNode({ selected }: NodeProps<PeRouteNodeType>) {
   return (
     <div className={`${selected ? 'ring-1 ring-blue-400' : ''}`} style={{ width: 12, height: 12 }}>
       <Handle type="source" position={Position.Top} id="top" style={{ backgroundColor: '#228B22', left: 6, width: 8, height: 8, opacity: 1 }} />
