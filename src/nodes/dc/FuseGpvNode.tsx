@@ -12,18 +12,18 @@ export function FuseGpvNode({ data, selected }: NodeProps<FuseGpvNodeType>) {
 
       <svg width="20" height="50" viewBox="0 0 20 50">
         {/* Linia wejsciowa */}
-        <line x1="10" y1="0" x2="10" y2="10" stroke="white" strokeWidth="1.5" />
+        <line x1="10" y1="0" x2="10" y2="10" stroke="#333" strokeWidth="1.5" />
         {/* Prostokat bezpiecznika */}
-        <rect x="3" y="10" width="14" height="30" fill="none" stroke="white" strokeWidth="1.5" />
+        <rect x="3" y="10" width="14" height="30" fill="none" stroke="#333" strokeWidth="1.5" />
         {/* Linia topikowa wewnatrz */}
-        <line x1="10" y1="10" x2="10" y2="40" stroke="white" strokeWidth="0.8" />
+        <line x1="10" y1="10" x2="10" y2="40" stroke="#333" strokeWidth="0.8" />
         {/* Linia wyjsciowa */}
-        <line x1="10" y1="40" x2="10" y2="50" stroke="white" strokeWidth="1.5" />
+        <line x1="10" y1="40" x2="10" y2="50" stroke="#333" strokeWidth="1.5" />
       </svg>
 
-      <div className="text-xs font-bold mt-1 text-gray-200">{data.label}</div>
+      <div className="text-xs font-bold mt-1 text-gray-800">{data.label}</div>
       {data.parameters.ratingCurrent && (
-        <div className="text-[10px] text-gray-400">{String(data.parameters.ratingCurrent)}A</div>
+        <div className="text-[10px] text-gray-500">{String(data.parameters.ratingCurrent)}A</div>
       )}
 
       <Handle type="source" position={Position.Bottom} id="out" className="!bg-red-500 !w-2 !h-2" />

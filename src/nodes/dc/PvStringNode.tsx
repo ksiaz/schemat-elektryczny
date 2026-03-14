@@ -11,20 +11,20 @@ export function PvStringNode({ data, selected }: NodeProps<PvStringNodeType>) {
   return (
     <div className={`flex flex-row items-center gap-2 ${selected ? 'ring-2 ring-blue-500' : ''}`}>
       <svg width="80" height="60" viewBox="0 0 80 60">
-        <rect x="2" y="2" width="76" height="56" fill="none" stroke="#e0e0e0" strokeWidth="2" />
+        <rect x="2" y="2" width="76" height="56" fill="none" stroke="#333" strokeWidth="2" />
         {/* Trojkat — symbol generatora PV */}
-        <polygon points="20,48 60,48 40,12" fill="none" stroke="#e0e0e0" strokeWidth="1.5" />
+        <polygon points="20,48 60,48 40,12" fill="none" stroke="#333" strokeWidth="1.5" />
         {/* Kreski promieniowania */}
-        <line x1="30" y1="8" x2="26" y2="2" stroke="#e0e0e0" strokeWidth="1" />
-        <line x1="40" y1="5" x2="40" y2="0" stroke="#e0e0e0" strokeWidth="1" />
+        <line x1="30" y1="8" x2="26" y2="2" stroke="#333" strokeWidth="1" />
+        <line x1="40" y1="5" x2="40" y2="0" stroke="#333" strokeWidth="1" />
       </svg>
 
       <div className="flex flex-col text-left">
-        <div className="text-xs text-gray-200 font-bold leading-tight">
+        <div className="text-xs text-gray-800 font-bold leading-tight">
           {panelCount && `${String(panelCount)} szt.`}
         </div>
         {model && (
-          <div className="text-[10px] text-gray-400 leading-tight">{String(model)}</div>
+          <div className="text-[10px] text-gray-500 leading-tight">{String(model)}</div>
         )}
       </div>
 

@@ -13,20 +13,20 @@ export function MeterNode({ data, selected }: NodeProps<MeterNodeType>) {
       <Handle type="target" position={Position.Left} id="in-left" className="!bg-gray-700 !w-2 !h-2" />
 
       <svg width="60" height="44" viewBox="0 0 60 44">
-        <rect x="2" y="2" width="56" height="40" fill="none" stroke="white" strokeWidth="1.5" />
-        <text x="30" y="20" textAnchor="middle" fontSize="12" fill="white" fontWeight="bold" fontFamily="monospace">kWh</text>
+        <rect x="2" y="2" width="56" height="40" fill="none" stroke="#333" strokeWidth="1.5" />
+        <text x="30" y="20" textAnchor="middle" fontSize="12" fill="#333" fontWeight="bold" fontFamily="monospace">kWh</text>
         {isBidirectional && (
           <g>
-            <line x1="14" y1="32" x2="46" y2="32" stroke="white" strokeWidth="0.8" />
-            <polygon points="14,32 18,30 18,34" fill="white" />
-            <polygon points="46,32 42,30 42,34" fill="white" />
+            <line x1="14" y1="32" x2="46" y2="32" stroke="#333" strokeWidth="0.8" />
+            <polygon points="14,32 18,30 18,34" fill="#333" />
+            <polygon points="46,32 42,30 42,34" fill="#333" />
           </g>
         )}
       </svg>
 
-      <div className="text-xs font-bold mt-1 text-gray-200">{data.label}</div>
+      <div className="text-xs font-bold mt-1 text-gray-800">{data.label}</div>
       {data.parameters.meterType && (
-        <div className="text-[10px] text-gray-400">{String(data.parameters.meterType)}</div>
+        <div className="text-[10px] text-gray-500">{String(data.parameters.meterType)}</div>
       )}
 
       <Handle type="source" position={Position.Bottom} id="out" className="!bg-gray-700 !w-2 !h-2" />

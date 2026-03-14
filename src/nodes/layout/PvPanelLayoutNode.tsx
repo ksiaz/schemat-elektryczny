@@ -40,7 +40,7 @@ export function PvPanelLayoutNode({ data, selected }: NodeProps<PvPanelLayoutNod
           );
         })}
       </svg>
-      <div className="text-xs font-bold mt-1 text-blue-800">{data.label}</div>
+      <div className="text-xs font-bold mt-1 text-blue-700">{data.label}</div>
       {data.parameters.model && (
         <div className="text-[10px] text-gray-500">{String(count)}x {String(data.parameters.model)}</div>
       )}

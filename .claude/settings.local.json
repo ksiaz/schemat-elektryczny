@@ -25,7 +25,9 @@
       "WebFetch(domain:expertce.com)",
       "WebFetch(domain:electricalom.com)",
       "WebFetch(domain:blog.maciejdolata.com)",
-      "Bash(find /home/ksiaz -maxdepth 3 -name \"*Jaromierz*\" -o -name \"*Screenshot*2026-03-14*\" 2>/dev/null | head -5)"
+      "Bash(find /home/ksiaz -maxdepth 3 -name \"*Jaromierz*\" -o -name \"*Screenshot*2026-03-14*\" 2>/dev/null | head -5)",
+      "Bash(find src/nodes -name \"*.tsx\" -exec sed -i 's/stroke=\"white\"/stroke=\"#333\"/g' {} + && find src/nodes -name \"*.tsx\" -exec sed -i 's/fill=\"white\"/fill=\"#333\"/g' {} + && find src/nodes -name \"*.tsx\" -exec sed -i 's/stroke=\"#e0e0e0\"/stroke=\"#333\"/g' {} + && echo \"done\")",
+      "Bash(find src/nodes -name \"*.tsx\" -exec sed -i 's/text-gray-200/text-gray-800/g' {} + && find src/nodes -name \"*.tsx\" -exec sed -i 's/text-gray-400/text-gray-500/g' {} + && find src/nodes -name \"*.tsx\" -exec sed -i 's/text-gray-300/text-gray-700/g' {} + && find src/nodes -name \"*.tsx\" -exec sed -i 's/text-red-400/text-red-600/g' {} + && find src/nodes -name \"*.tsx\" -exec sed -i 's/text-green-400/text-green-700/g' {} + && find src/nodes -name \"*.tsx\" -exec sed -i 's/text-blue-800/text-blue-700/g' {} + && echo \"done\")"
     ]
   }
 }

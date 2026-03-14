@@ -54,7 +54,7 @@ function App() {
 
   return (
     <ReactFlowProvider>
-      <div className="h-screen flex flex-col bg-[#1a1a2e]">
+      <div className="h-screen flex flex-col bg-white">
         <Toolbar />
         <div className="flex flex-1 overflow-hidden">
           <Sidebar />

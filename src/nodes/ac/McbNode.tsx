@@ -15,14 +15,14 @@ export function McbNode({ data, selected }: NodeProps<McbNodeType>) {
 
       {/* Styk ruchomy — symbol wylacznika */}
       <svg width="24" height="50" viewBox="0 0 24 50">
-        <line x1="12" y1="0" x2="12" y2="14" stroke="white" strokeWidth="1.5" />
-        <line x1="12" y1="14" x2="20" y2="32" stroke="white" strokeWidth="2" />
-        <circle cx="12" cy="36" r="2" fill="white" />
-        <line x1="12" y1="38" x2="12" y2="50" stroke="white" strokeWidth="1.5" />
+        <line x1="12" y1="0" x2="12" y2="14" stroke="#333" strokeWidth="1.5" />
+        <line x1="12" y1="14" x2="20" y2="32" stroke="#333" strokeWidth="2" />
+        <circle cx="12" cy="36" r="2" fill="#333" />
+        <line x1="12" y1="38" x2="12" y2="50" stroke="#333" strokeWidth="1.5" />
       </svg>
 
-      <div className="text-xs font-bold text-gray-200">{data.label}</div>
-      <div className="text-[10px] text-gray-400">{label}</div>
+      <div className="text-xs font-bold text-gray-800">{data.label}</div>
+      <div className="text-[10px] text-gray-500">{label}</div>
 
       <Handle type="source" position={Position.Bottom} id="out" className="!bg-gray-700 !w-2 !h-2" />
     </div>

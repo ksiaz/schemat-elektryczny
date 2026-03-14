@@ -16,9 +16,9 @@ export function GroundNode({ data, selected }: NodeProps<GroundNodeType>) {
         <line x1="14" y1="29" x2="26" y2="29" stroke="#22c55e" strokeWidth="1" />
       </svg>
 
-      <div className="text-xs font-bold mt-1 text-green-400">{data.label}</div>
+      <div className="text-xs font-bold mt-1 text-green-700">{data.label}</div>
       {data.parameters.resistance && (
-        <div className="text-[10px] text-gray-400">RE={String(data.parameters.resistance)}Ω</div>
+        <div className="text-[10px] text-gray-500">RE={String(data.parameters.resistance)}Ω</div>
       )}
     </div>
   );

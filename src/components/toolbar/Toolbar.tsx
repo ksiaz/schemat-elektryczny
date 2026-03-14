@@ -22,26 +22,26 @@ export function Toolbar() {
   const [templateOpen, setTemplateOpen] = useState(false);
 
   return (
-    <header className="h-12 bg-[#252540] border-b border-[#3a3a5c] flex items-center gap-4 px-4">
+    <header className="h-12 bg-white border-b border-gray-200 flex items-center gap-4 px-4">
       {/* Nazwa projektu */}
       <input
         type="text"
         value={projectName}
         onChange={(e) => setProjectName(e.target.value)}
-        className="text-sm font-semibold bg-transparent text-gray-200 border-b border-transparent hover:border-gray-500 focus:border-blue-400 focus:outline-none px-1 py-0.5 w-48"
+        className="text-sm font-semibold bg-transparent text-gray-800 border-b border-transparent hover:border-gray-500 focus:border-blue-400 focus:outline-none px-1 py-0.5 w-48"
         placeholder="Nazwa projektu"
       />
 
       {isDirty && <span className="text-xs text-orange-400">●</span>}
 
-      <div className="h-6 w-px bg-[#3a3a5c]" />
+      <div className="h-6 w-px bg-gray-200" />
 
       {/* Zakladki: Schemat / Lokalizacja */}
       <div className="flex items-center gap-1">
         <button
           onClick={() => setActiveSheet('schematic')}
           className={`px-3 py-1 text-xs rounded ${
-            !isLayout ? 'bg-gray-800 text-white' : 'bg-[#2a2a45] text-gray-400 hover:bg-[#3a3a5c]'
+            !isLayout ? 'bg-gray-800 text-white' : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
           }`}
         >
           Schemat
@@ -49,18 +49,18 @@ export function Toolbar() {
         <button
           onClick={() => setActiveSheet('layout')}
           className={`px-3 py-1 text-xs rounded ${
-            isLayout ? 'bg-amber-700 text-white' : 'bg-[#2a2a45] text-gray-400 hover:bg-[#3a3a5c]'
+            isLayout ? 'bg-amber-700 text-white' : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
           }`}
         >
           Lokalizacja
         </button>
       </div>
 
-      <div className="h-6 w-px bg-[#3a3a5c]" />
+      <div className="h-6 w-px bg-gray-200" />
 
       {/* Format arkusza */}
       <div className="flex items-center gap-1">
-        <span className="text-xs text-gray-400">Format:</span>
+        <span className="text-xs text-gray-500">Format:</span>
         {FORMATS.map((f) => (
           <button
             key={f}
@@ -68,7 +68,7 @@ export function Toolbar() {
             className={`px-2 py-0.5 text-xs rounded ${
               schematicFormat === f
                 ? 'bg-blue-500 text-white'
-                : 'bg-[#2a2a45] text-gray-400 hover:bg-[#3a3a5c]'
+                : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
             }`}
           >
             {f}
@@ -76,11 +76,11 @@ export function Toolbar() {
         ))}
       </div>
 
-      <div className="h-6 w-px bg-[#3a3a5c]" />
+      <div className="h-6 w-px bg-gray-200" />
 
       {/* Typ polaczenia */}
       <div className="flex items-center gap-1">
-        <span className="text-xs text-gray-400">Linia:</span>
+        <span className="text-xs text-gray-500">Linia:</span>
         {([
           ['multilineAc', 'AC 5-żył'],
           ['dcLine', 'DC'],
@@ -92,7 +92,7 @@ export function Toolbar() {
             className={`px-2 py-0.5 text-xs rounded ${
               edgeType === type
                 ? 'bg-green-600 text-white'
-                : 'bg-[#2a2a45] text-gray-400 hover:bg-[#3a3a5c]'
+                : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
             }`}
           >
             {label}
@@ -100,11 +100,11 @@ export function Toolbar() {
         ))}
       </div>
 
-      <div className="h-6 w-px bg-[#3a3a5c]" />
+      <div className="h-6 w-px bg-gray-200" />
 
       {/* Tryb trasowania */}
       <div className="flex items-center gap-1">
-        <span className="text-xs text-gray-400">Trasa:</span>
+        <span className="text-xs text-gray-500">Trasa:</span>
         {([
           ['auto', 'Auto'],
           ['manual', 'Ręczna'],
@@ -115,7 +115,7 @@ export function Toolbar() {
             className={`px-2 py-0.5 text-xs rounded ${
               routingMode === mode
                 ? 'bg-purple-600 text-white'
-                : 'bg-[#2a2a45] text-gray-400 hover:bg-[#3a3a5c]'
+                : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
             }`}
           >
             {label}
@@ -123,13 +123,13 @@ export function Toolbar() {
         ))}
       </div>
 
-      <div className="h-6 w-px bg-[#3a3a5c]" />
+      <div className="h-6 w-px bg-gray-200" />
 
       {/* Undo / Redo */}
       <button
         onClick={undo}
         disabled={schematicPast.length === 0}
-        className="px-2 py-1 text-sm rounded text-gray-300 hover:bg-[#3a3a5c] disabled:opacity-30 disabled:cursor-not-allowed"
+        className="px-2 py-1 text-sm rounded text-gray-600 hover:bg-gray-200 disabled:opacity-30 disabled:cursor-not-allowed"
         title="Cofnij (Ctrl+Z)"
       >
         ↩ Cofnij
@@ -137,29 +137,29 @@ export function Toolbar() {
       <button
         onClick={redo}
         disabled={schematicFuture.length === 0}
-        className="px-2 py-1 text-sm rounded text-gray-300 hover:bg-[#3a3a5c] disabled:opacity-30 disabled:cursor-not-allowed"
+        className="px-2 py-1 text-sm rounded text-gray-600 hover:bg-gray-200 disabled:opacity-30 disabled:cursor-not-allowed"
         title="Ponów (Ctrl+Y)"
       >
         ↪ Ponów
       </button>
 
-      <div className="h-6 w-px bg-[#3a3a5c]" />
+      <div className="h-6 w-px bg-gray-200" />
 
       {/* Zapis */}
       <button
         onClick={saveProject}
-        className="px-2 py-1 text-sm text-gray-300 rounded hover:bg-[#3a3a5c]"
+        className="px-2 py-1 text-sm text-gray-600 rounded hover:bg-gray-200"
         title="Zapisz (Ctrl+S)"
       >
         Zapisz
       </button>
 
-      <div className="h-6 w-px bg-[#3a3a5c]" />
+      <div className="h-6 w-px bg-gray-200" />
 
       {/* Eksport / Import */}
       <button
         onClick={() => exportToSvg(schematicFormat, projectName)}
-        className="px-2 py-1 text-xs text-gray-300 rounded hover:bg-[#3a3a5c]"
+        className="px-2 py-1 text-xs text-gray-600 rounded hover:bg-gray-200"
         title="Eksport SVG"
       >
         SVG
@@ -180,7 +180,7 @@ export function Toolbar() {
           });
           exportProjectToFile(data, state.projectName);
         }}
-        className="px-2 py-1 text-xs text-gray-300 rounded hover:bg-[#3a3a5c]"
+        className="px-2 py-1 text-xs text-gray-600 rounded hover:bg-gray-200"
         title="Eksport JSON"
       >
         JSON
@@ -194,13 +194,13 @@ export function Toolbar() {
             // Uzytkownik anulowal wybor pliku
           }
         }}
-        className="px-2 py-1 text-xs text-gray-300 rounded hover:bg-[#3a3a5c]"
+        className="px-2 py-1 text-xs text-gray-600 rounded hover:bg-gray-200"
         title="Wczytaj projekt JSON"
       >
         Wczytaj
       </button>
 
-      <div className="h-6 w-px bg-[#3a3a5c]" />
+      <div className="h-6 w-px bg-gray-200" />
 
       {/* Szablony */}
       <button

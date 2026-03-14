@@ -12,26 +12,26 @@ export function SpdAcNode({ data, selected }: NodeProps<SpdAcNodeType>) {
 
       <svg width="36" height="60" viewBox="0 0 36 60">
         {/* Linia wejsciowa */}
-        <line x1="18" y1="0" x2="18" y2="8" stroke="white" strokeWidth="1.5" />
+        <line x1="18" y1="0" x2="18" y2="8" stroke="#333" strokeWidth="1.5" />
 
         {/* Prostokat */}
-        <rect x="4" y="8" width="28" height="34" fill="none" stroke="white" strokeWidth="1.5" rx="1" />
+        <rect x="4" y="8" width="28" height="34" fill="none" stroke="#333" strokeWidth="1.5" rx="1" />
 
         {/* Blyskawica (zygzak) — symbol przepiecia */}
         <polyline
           points="21,14 15,22 21,22 13,34"
-          fill="none" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"
+          fill="none" stroke="#333" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"
         />
         {/* Grot blyskawicy */}
-        <polygon points="13,34 16,30 15,33" fill="white" />
+        <polygon points="13,34 16,30 15,33" fill="#333" />
 
         {/* Linia wyjsciowa do uziemienia */}
-        <line x1="18" y1="42" x2="18" y2="60" stroke="white" strokeWidth="1.5" />
+        <line x1="18" y1="42" x2="18" y2="60" stroke="#333" strokeWidth="1.5" />
       </svg>
 
-      <div className="text-xs font-bold mt-1 text-gray-200">{data.label}</div>
+      <div className="text-xs font-bold mt-1 text-gray-800">{data.label}</div>
       {data.parameters.spdType && (
-        <div className="text-[10px] text-gray-400">{String(data.parameters.spdType)}</div>
+        <div className="text-[10px] text-gray-500">{String(data.parameters.spdType)}</div>
       )}
 
       <Handle type="source" position={Position.Bottom} id="out" className="!bg-gray-700 !w-2 !h-2" />

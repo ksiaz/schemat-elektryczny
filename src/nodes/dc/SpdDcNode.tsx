@@ -10,16 +10,16 @@ export function SpdDcNode({ data, selected }: NodeProps<SpdDcNodeType>) {
       <Handle type="target" position={Position.Top} id="in" className="!bg-red-500 !w-2 !h-2" />
 
       <svg width="36" height="60" viewBox="0 0 36 60">
-        <line x1="18" y1="0" x2="18" y2="8" stroke="white" strokeWidth="1.5" />
-        <rect x="4" y="8" width="28" height="34" fill="none" stroke="white" strokeWidth="1.5" rx="1" />
-        <polyline points="21,14 15,22 21,22 13,34" fill="none" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-        <polygon points="13,34 16,30 15,33" fill="white" />
-        <line x1="18" y1="42" x2="18" y2="60" stroke="white" strokeWidth="1.5" />
+        <line x1="18" y1="0" x2="18" y2="8" stroke="#333" strokeWidth="1.5" />
+        <rect x="4" y="8" width="28" height="34" fill="none" stroke="#333" strokeWidth="1.5" rx="1" />
+        <polyline points="21,14 15,22 21,22 13,34" fill="none" stroke="#333" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        <polygon points="13,34 16,30 15,33" fill="#333" />
+        <line x1="18" y1="42" x2="18" y2="60" stroke="#333" strokeWidth="1.5" />
       </svg>
 
-      <div className="text-xs font-bold mt-1 text-gray-200">{data.label}</div>
+      <div className="text-xs font-bold mt-1 text-gray-800">{data.label}</div>
       {data.parameters.spdType && (
-        <div className="text-[10px] text-gray-400">
+        <div className="text-[10px] text-gray-500">
           {String(data.parameters.spdType)} {data.parameters.uc ? `${String(data.parameters.uc)}V` : ''}
         </div>
       )}

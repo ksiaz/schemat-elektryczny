@@ -160,8 +160,8 @@ export function SchematicCanvas() {
         maxZoom={4}
         style={{ width: '100%', height: '100%' }}
       >
-        <Background variant={BackgroundVariant.Lines} gap={20} size={1} color="#2a2a45" />
-        <Background id="bg-dots" variant={BackgroundVariant.Dots} gap={10} size={1.5} color="#3a3a5c" />
+        <Background variant={BackgroundVariant.Lines} gap={20} size={1} color="#e8e8e8" />
+        <Background id="bg-dots" variant={BackgroundVariant.Dots} gap={10} size={1} color="#ccc" />
         <Controls />
         <MiniMap
           pannable

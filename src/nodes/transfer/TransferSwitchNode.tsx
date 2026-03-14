@@ -13,22 +13,22 @@ export function TransferSwitchNode({ data, selected }: NodeProps<TransferSwitchN
 
       <svg width="60" height="55" viewBox="0 0 60 55">
         {/* Dwa wejscia */}
-        <line x1="18" y1="0" x2="18" y2="15" stroke="white" strokeWidth="1.5" />
-        <line x1="42" y1="0" x2="42" y2="15" stroke="white" strokeWidth="1.5" />
+        <line x1="18" y1="0" x2="18" y2="15" stroke="#333" strokeWidth="1.5" />
+        <line x1="42" y1="0" x2="42" y2="15" stroke="#333" strokeWidth="1.5" />
         {/* Styki nieruchome */}
-        <line x1="14" y1="15" x2="22" y2="15" stroke="white" strokeWidth="1.5" />
-        <circle cx="42" cy="15" r="2" fill="none" stroke="white" strokeWidth="1" />
+        <line x1="14" y1="15" x2="22" y2="15" stroke="#333" strokeWidth="1.5" />
+        <circle cx="42" cy="15" r="2" fill="none" stroke="#333" strokeWidth="1" />
         {/* Styk ruchomy przelaczajacy */}
-        <line x1="18" y1="15" x2="30" y2="32" stroke="white" strokeWidth="2" />
+        <line x1="18" y1="15" x2="30" y2="32" stroke="#333" strokeWidth="2" />
         {/* Punkt polaczenia */}
-        <circle cx="30" cy="34" r="2" fill="white" />
+        <circle cx="30" cy="34" r="2" fill="#333" />
         {/* Wyjscie */}
-        <line x1="30" y1="36" x2="30" y2="55" stroke="white" strokeWidth="1.5" />
+        <line x1="30" y1="36" x2="30" y2="55" stroke="#333" strokeWidth="1.5" />
       </svg>
 
-      <div className="text-xs font-bold mt-1 text-gray-200">{data.label}</div>
+      <div className="text-xs font-bold mt-1 text-gray-800">{data.label}</div>
       {data.parameters.switchType && (
-        <div className="text-[10px] text-gray-400">
+        <div className="text-[10px] text-gray-500">
           {String(data.parameters.switchType)} {data.parameters.ratingCurrent ? `${String(data.parameters.ratingCurrent)}A` : ''}
         </div>
       )}
