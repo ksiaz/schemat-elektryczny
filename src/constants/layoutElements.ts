@@ -4,15 +4,15 @@ import type { ElementDefinition } from '../types/index.ts';
 export const LAYOUT_ELEMENT_DEFINITIONS: ElementDefinition[] = [
   {
     id: 'building_outline',
-    name: 'Zarys budynku',
+    name: 'Prostokąt (budynek/pomieszczenie)',
     category: 'enclosure',
     designation: '',
     nodeType: 'building',
-    defaultLabel: 'Budynek',
+    defaultLabel: '',
     parameters: [
-      { key: 'floors', label: 'Piętra', type: 'number', defaultValue: 1 },
-      { key: 'lineWidth', label: 'Grubość linii', type: 'number', defaultValue: 3 },
-      { key: 'color', label: 'Kolor', type: 'select', options: ['#8B4513', '#333', '#666', '#000'], defaultValue: '#8B4513' },
+      { key: 'lineWidth', label: 'Grubość linii', type: 'number', defaultValue: 2 },
+      { key: 'color', label: 'Kolor', type: 'select', options: ['#333', '#666', '#000', '#8B4513'], defaultValue: '#333' },
+      { key: 'fill', label: 'Wypełnienie', type: 'select', options: ['none', 'rgba(200,200,200,0.1)', 'rgba(200,200,200,0.3)', 'rgba(255,248,230,0.3)'], defaultValue: 'none' },
     ],
   },
   {

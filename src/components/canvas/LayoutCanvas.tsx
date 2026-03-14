@@ -79,7 +79,7 @@ export function LayoutCanvas() {
 
     // Rozmiary poczatkowe
     if (definition.nodeType === 'building') {
-      newNode.style = { width: 300, height: 200 };
+      newNode.style = { width: 150, height: 100 };
     } else if (definition.nodeType === 'layoutLine') {
       const isH = parameters.orientation === 'pozioma';
       newNode.style = isH ? { width: 200, height: 4 } : { width: 4, height: 200 };

@@ -3,36 +3,34 @@ import type { SchematicNodeData } from '../../types/index.ts';
 
 type BuildingNodeType = Node<SchematicNodeData, 'building'>;
 
-// Zarys budynku — resizable, kontur gruba linia
+// Budynek — prostokat resizable, uzyj wielu budynkow + linii dla ksztaltow L/T
+// Lub wpisz punkty recznie w Properties
 export function BuildingNode({ data, selected }: NodeProps<BuildingNodeType>) {
-  const lineWidth = Number(data.parameters.lineWidth) || 3;
-  const color = String(data.parameters.color || '#8B4513');
+  const lineWidth = Number(data.parameters.lineWidth) || 2;
+  const color = String(data.parameters.color || '#333');
+  const fill = String(data.parameters.fill || 'none');
 
   return (
     <div
       className="w-full h-full relative"
       style={{
         border: `${lineWidth}px solid ${selected ? '#3b82f6' : color}`,
-        borderRadius: '2px',
-        background: 'rgba(255, 248, 230, 0.3)',
-        minWidth: 100,
-        minHeight: 60,
+        minWidth: 20,
+        minHeight: 20,
+        background: fill === 'none' ? 'transparent' : fill,
       }}
     >
       <NodeResizer
         isVisible={selected}
-        minWidth={100}
-        minHeight={60}
+        minWidth={20}
+        minHeight={20}
         lineStyle={{ stroke: '#3b82f6', strokeWidth: 1 }}
-        handleStyle={{ width: 8, height: 8, borderRadius: 2, backgroundColor: '#3b82f6', pointerEvents: 'all' }}
+        handleStyle={{ width: 6, height: 6, borderRadius: 2, backgroundColor: '#3b82f6', pointerEvents: 'all' }}
       />
 
-      <div className="absolute top-1 left-2 text-xs font-bold" style={{ color }}>
-        {data.label}
-      </div>
-      {data.parameters.floors && (
-        <div className="absolute bottom-1 left-2 text-[10px]" style={{ color }}>
-          Pięter: {String(data.parameters.floors)}
+      {data.label && (
+        <div className="absolute top-0 left-1 text-[9px] font-bold" style={{ color }}>
+          {data.label}
         </div>
       )}
     </div>
