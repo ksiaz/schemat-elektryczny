@@ -9,6 +9,7 @@ import { AcL3Edge } from './AcL3Edge.tsx';
 import { AcNEdge } from './AcNEdge.tsx';
 
 export const edgeTypes = {
+  multilineAc: CableEdge,  // kompatybilnosc wsteczna — stare rysunki
   dcLine: DcLineEdge,
   cable: CableEdge,
   dcPlus: DcPlusEdge,
