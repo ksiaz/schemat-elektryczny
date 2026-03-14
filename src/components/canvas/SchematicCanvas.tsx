@@ -6,7 +6,6 @@ import {
   MiniMap,
   useOnSelectionChange,
   useReactFlow,
-  addEdge,
   ConnectionMode,
   type Connection,
 } from '@xyflow/react';
@@ -39,15 +38,19 @@ export function SchematicCanvas() {
     },
   });
 
-  // Polaczenia — typ edge z toolbara
+  // Polaczenia — typ edge z toolbara, bez limitu duplikatow
   const onConnect = useCallback((connection: Connection) => {
     pushHistory();
     const newEdge = {
-      ...connection,
+      id: `e-${connection.source}-${connection.sourceHandle ?? ''}-${connection.target}-${connection.targetHandle ?? ''}-${Date.now()}`,
+      source: connection.source,
+      target: connection.target,
+      sourceHandle: connection.sourceHandle,
+      targetHandle: connection.targetHandle,
       type: edgeType,
       data: {},
     };
-    setEdges(addEdge(newEdge, useProjectStore.getState().edges));
+    setEdges([...useProjectStore.getState().edges, newEdge]);
   }, [pushHistory, setEdges, edgeType]);
 
   // Drag & drop z sidebar
