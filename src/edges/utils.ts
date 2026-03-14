@@ -1,98 +1,49 @@
-// Narzedzia do budowania sciezek z waypointami i omijaniem wezlow
+// Proste ortogonalne sciezki — pionowo, poziomo, pionowo
+// Styl jak na profesjonalnych schematach elektrycznych
 
 export interface Waypoint {
   x: number;
   y: number;
 }
 
-export interface NodeRect {
-  x: number;
-  y: number;
-  width: number;
-  height: number;
-}
-
-const MARGIN = 25; // odstep od krawedzi wezla
-
-// Sprawdza czy odcinek poziomy (y=constY, od x1 do x2) przecina prostokat
-function hLineIntersectsRect(y: number, x1: number, x2: number, rect: NodeRect): boolean {
-  const minX = Math.min(x1, x2);
-  const maxX = Math.max(x1, x2);
-  return (
-    y > rect.y - MARGIN &&
-    y < rect.y + rect.height + MARGIN &&
-    maxX > rect.x - MARGIN &&
-    minX < rect.x + rect.width + MARGIN
-  );
-}
-
-// Buduje sciezke ortogonalna omijajaca wezly
+// Sciezka: source → pionowo do midY → poziomo do targetX → pionowo do target
+// midY jest w polowie miedzy source a target (lub odskok jesli blisko siebie)
 export function buildOrthogonalPath(
   sourceX: number,
   sourceY: number,
   targetX: number,
   targetY: number,
   waypoints: Waypoint[] = [],
-  _obstacles: NodeRect[] = [],
 ): string {
-  // Jesli sa waypoints — uzyj ich bezposrednio
+  // Reczne waypoints — uzyj bezposrednio
   if (waypoints.length > 0) {
-    const points = [
-      { x: sourceX, y: sourceY },
-      ...waypoints,
-      { x: targetX, y: targetY },
-    ];
-
-    let path = `M ${points[0].x} ${points[0].y}`;
-    for (let i = 1; i < points.length; i++) {
-      const prev = points[i - 1];
-      const curr = points[i];
-      // Pionowo do polowy, poziomo, pionowo do celu
-      const midY = (prev.y + curr.y) / 2;
-      path += ` L ${prev.x} ${midY} L ${curr.x} ${midY} L ${curr.x} ${curr.y}`;
+    const pts = [{ x: sourceX, y: sourceY }, ...waypoints, { x: targetX, y: targetY }];
+    let d = `M ${pts[0].x} ${pts[0].y}`;
+    for (let i = 1; i < pts.length; i++) {
+      d += ` L ${pts[i].x} ${pts[i].y}`;
     }
-    return path;
+    return d;
   }
 
-  // Automatyczne trasowanie
-  const dx = targetX - sourceX;
+  const dx = Math.abs(targetX - sourceX);
   const dy = targetY - sourceY;
 
-  // Prosta linia pionowa
-  if (Math.abs(dx) < 3) {
+  // Prosta pionowa — elementy nad soba
+  if (dx < 5) {
     return `M ${sourceX} ${sourceY} L ${targetX} ${targetY}`;
   }
 
-  // Normalne L: source w dol -> poziomo -> w dol do target
-  if (dy > 60) {
-    const midY = sourceY + dy / 2;
-    // Sprawdz czy linia pozioma przecina jakis wezel
-    const blocked = _obstacles.some(r => hLineIntersectsRect(midY, sourceX, targetX, r));
-    if (!blocked) {
-      return `M ${sourceX} ${sourceY} L ${sourceX} ${midY} L ${targetX} ${midY} L ${targetX} ${targetY}`;
-    }
-    // Zablokowane — idz dalej w dol zeby ominac
-    const safeY = Math.max(..._obstacles.filter(r => hLineIntersectsRect(midY, sourceX, targetX, r)).map(r => r.y + r.height)) + MARGIN;
-    return `M ${sourceX} ${sourceY} L ${sourceX} ${safeY} L ${targetX} ${safeY} L ${targetX} ${targetY}`;
+  // Prosta pozioma — elementy obok siebie
+  if (Math.abs(dy) < 5) {
+    return `M ${sourceX} ${sourceY} L ${targetX} ${targetY}`;
   }
 
-  // Target jest wyzej lub na tym samym poziomie — wyjdz do gory
-  if (dy < -60) {
-    const midY = sourceY + dy / 2;
-    const blocked = _obstacles.some(r => hLineIntersectsRect(midY, sourceX, targetX, r));
-    if (!blocked) {
-      return `M ${sourceX} ${sourceY} L ${sourceX} ${midY} L ${targetX} ${midY} L ${targetX} ${targetY}`;
-    }
-    const safeY = Math.min(..._obstacles.filter(r => hLineIntersectsRect(midY, sourceX, targetX, r)).map(r => r.y)) - MARGIN;
-    return `M ${sourceX} ${sourceY} L ${sourceX} ${safeY} L ${targetX} ${safeY} L ${targetX} ${targetY}`;
-  }
-
-  // Blisko siebie — uciekaj do gory
-  const escapeY = Math.min(sourceY, targetY) - 50;
-  return `M ${sourceX} ${sourceY} L ${sourceX} ${escapeY} L ${targetX} ${escapeY} L ${targetX} ${targetY}`;
+  // Standardowe L: pionowo w dol do polowy, poziomo, pionowo do celu
+  const midY = sourceY + dy / 2;
+  return `M ${sourceX} ${sourceY} L ${sourceX} ${midY} L ${targetX} ${midY} L ${targetX} ${targetY}`;
 }
 
-// Oblicz punkt srodkowy sciezki (do etykiety)
+// Punkt srodkowy sciezki (do etykiety)
 export function getMidpoint(
   sourceX: number,
   sourceY: number,
@@ -101,19 +52,16 @@ export function getMidpoint(
   waypoints: Waypoint[] = [],
 ): { x: number; y: number } {
   if (waypoints.length > 0) {
-    const points = [
-      { x: sourceX, y: sourceY },
-      ...waypoints,
-      { x: targetX, y: targetY },
-    ];
-    const midIdx = Math.floor(points.length / 2);
-    const a = points[midIdx - 1] ?? points[0];
-    const b = points[midIdx] ?? points[points.length - 1];
-    return { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 };
+    const pts = [{ x: sourceX, y: sourceY }, ...waypoints, { x: targetX, y: targetY }];
+    const midIdx = Math.floor(pts.length / 2);
+    return {
+      x: (pts[midIdx - 1].x + pts[midIdx].x) / 2,
+      y: (pts[midIdx - 1].y + pts[midIdx].y) / 2,
+    };
   }
 
   return {
     x: (sourceX + targetX) / 2,
-    y: Math.min(sourceY, targetY) + Math.abs(targetY - sourceY) / 2,
+    y: sourceY + (targetY - sourceY) / 2,
   };
 }

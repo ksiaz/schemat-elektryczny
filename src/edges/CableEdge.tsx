@@ -1,24 +1,15 @@
 import { BaseEdge, type EdgeProps } from '@xyflow/react';
-import { useSmartPath } from './useSmartPath.ts';
-import type { Waypoint } from './utils.ts';
-import { buildOrthogonalPath, getMidpoint } from './utils.ts';
+import { buildOrthogonalPath, getMidpoint, type Waypoint } from './utils.ts';
 
 export function CableEdge({
-  id, sourceX, sourceY, targetX, targetY,
-  sourcePosition, targetPosition, data, selected,
+  id, sourceX, sourceY, targetX, targetY, data, selected,
 }: EdgeProps) {
-  const edgeData = (data ?? {}) as Record<string, unknown>;
-  const waypoints = (edgeData.waypoints ?? []) as Waypoint[];
-  const color = (edgeData.wireColor as string) || '#333';
-
-  // Waypoints = reczna trasa, bez smart routing
-  const hasWaypoints = waypoints.length > 0;
-  const smart = useSmartPath(sourceX, sourceY, targetX, targetY, sourcePosition, targetPosition);
-
-  const path = hasWaypoints ? buildOrthogonalPath(sourceX, sourceY, targetX, targetY, waypoints) : smart.path;
-  const mid = hasWaypoints ? getMidpoint(sourceX, sourceY, targetX, targetY, waypoints) : { x: smart.labelX, y: smart.labelY };
-
-  const label = [edgeData.cableType, edgeData.cableSection, edgeData.cableLength].filter(Boolean).join(' ');
+  const d = (data ?? {}) as Record<string, unknown>;
+  const waypoints = (d.waypoints ?? []) as Waypoint[];
+  const color = (d.wireColor as string) || '#333';
+  const path = buildOrthogonalPath(sourceX, sourceY, targetX, targetY, waypoints);
+  const mid = getMidpoint(sourceX, sourceY, targetX, targetY, waypoints);
+  const label = [d.cableType, d.cableSection, d.cableLength].filter(Boolean).join(' ');
 
   return (
     <g>

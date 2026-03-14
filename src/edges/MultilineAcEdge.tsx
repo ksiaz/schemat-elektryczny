@@ -1,8 +1,6 @@
 import { BaseEdge, type EdgeProps } from '@xyflow/react';
 import { WIRE_COLORS } from '../constants/index.ts';
-import { useSmartPath } from './useSmartPath.ts';
-import type { Waypoint } from './utils.ts';
-import { buildOrthogonalPath, getMidpoint } from './utils.ts';
+import { buildOrthogonalPath, getMidpoint, type Waypoint } from './utils.ts';
 
 const WIRE_SPACING = 3;
 const WIRES = [
@@ -14,19 +12,13 @@ const WIRES = [
 ];
 
 export function MultilineAcEdge({
-  id, sourceX, sourceY, targetX, targetY,
-  sourcePosition, targetPosition, data, selected,
+  id, sourceX, sourceY, targetX, targetY, data, selected,
 }: EdgeProps) {
-  const edgeData = (data ?? {}) as Record<string, unknown>;
-  const waypoints = (edgeData.waypoints ?? []) as Waypoint[];
-
-  const hasWaypoints = waypoints.length > 0;
-  const smart = useSmartPath(sourceX, sourceY, targetX, targetY, sourcePosition, targetPosition);
-
-  const basePath = hasWaypoints ? buildOrthogonalPath(sourceX, sourceY, targetX, targetY, waypoints) : smart.path;
-  const mid = hasWaypoints ? getMidpoint(sourceX, sourceY, targetX, targetY, waypoints) : { x: smart.labelX, y: smart.labelY };
-
-  const cableLabel = [edgeData.cableType, edgeData.cableSection, edgeData.cableLength].filter(Boolean).join(' ');
+  const d = (data ?? {}) as Record<string, unknown>;
+  const waypoints = (d.waypoints ?? []) as Waypoint[];
+  const basePath = buildOrthogonalPath(sourceX, sourceY, targetX, targetY, waypoints);
+  const mid = getMidpoint(sourceX, sourceY, targetX, targetY, waypoints);
+  const cableLabel = [d.cableType, d.cableSection, d.cableLength].filter(Boolean).join(' ');
 
   return (
     <g className={selected ? 'opacity-100' : 'opacity-90'}>

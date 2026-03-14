@@ -1,24 +1,16 @@
 import { BaseEdge, type EdgeProps } from '@xyflow/react';
 import { WIRE_COLORS } from '../constants/index.ts';
-import { useSmartPath } from './useSmartPath.ts';
-import type { Waypoint } from './utils.ts';
-import { buildOrthogonalPath, getMidpoint } from './utils.ts';
+import { buildOrthogonalPath, getMidpoint, type Waypoint } from './utils.ts';
 
 export function DcLineEdge({
-  id, sourceX, sourceY, targetX, targetY,
-  sourcePosition, targetPosition, data, selected,
+  id, sourceX, sourceY, targetX, targetY, data, selected,
 }: EdgeProps) {
-  const edgeData = (data ?? {}) as Record<string, unknown>;
-  const waypoints = (edgeData.waypoints ?? []) as Waypoint[];
-
-  const hasWaypoints = waypoints.length > 0;
-  const smart = useSmartPath(sourceX, sourceY, targetX, targetY, sourcePosition, targetPosition);
-
-  const path = hasWaypoints ? buildOrthogonalPath(sourceX, sourceY, targetX, targetY, waypoints) : smart.path;
-  const mid = hasWaypoints ? getMidpoint(sourceX, sourceY, targetX, targetY, waypoints) : { x: smart.labelX, y: smart.labelY };
-
-  const label = (edgeData.stringLabel ?? '') as string;
-  const cableDesc = [edgeData.cableType, edgeData.cableSection].filter(Boolean).join(' ');
+  const d = (data ?? {}) as Record<string, unknown>;
+  const waypoints = (d.waypoints ?? []) as Waypoint[];
+  const path = buildOrthogonalPath(sourceX, sourceY, targetX, targetY, waypoints);
+  const mid = getMidpoint(sourceX, sourceY, targetX, targetY, waypoints);
+  const label = (d.stringLabel ?? '') as string;
+  const cableDesc = [d.cableType, d.cableSection].filter(Boolean).join(' ');
 
   return (
     <g>
