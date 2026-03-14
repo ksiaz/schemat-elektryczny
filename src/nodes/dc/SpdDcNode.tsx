@@ -12,10 +12,10 @@ export function SpdDcNode({ data, selected }: NodeProps<SpdDcNodeType>) {
       <Handle type="source" position={Position.Top} id="dc-minus-1" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.N, left: 60 }} />
       <Handle type="source" position={Position.Top} id="dc-minus-2" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.N, left: 80 }} />
 
-      <div className="text-xs font-bold text-gray-800">{data.label}</div>
-      {data.parameters.spdType && <div className="text-[10px] text-gray-500">{String(data.parameters.spdType)}</div>}
+      <svg width="90" height="70" viewBox="0 0 90 70" style={{ overflow: 'visible' }}>
+        <text x="45" y="-14" textAnchor="middle" fontSize="11" fill="#333" fontWeight="bold">{data.label}</text>
+        <text x="45" y="-4" textAnchor="middle" fontSize="9" fill="#888">{String(data.parameters.spdType || '')}</text>
 
-      <svg width="90" height="70" viewBox="0 0 90 70">
         <text x="11" y="10" textAnchor="middle" fontSize="10" fill="#FF0000" fontWeight="bold">+</text>
         <text x="30" y="10" textAnchor="middle" fontSize="10" fill="#FF0000" fontWeight="bold">+</text>
         <text x="60" y="10" textAnchor="middle" fontSize="10" fill="#0000CD" fontWeight="bold">−</text>

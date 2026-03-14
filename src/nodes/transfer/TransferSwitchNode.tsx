@@ -14,11 +14,10 @@ export function TransferSwitchNode({ data, selected }: NodeProps<TransferSwitchN
       <Handle type="source" position={Position.Top} id="out-L3" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.L3, left: 100 }} />
       <Handle type="source" position={Position.Top} id="out-N" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.N, left: 140 }} />
 
-      <div className="text-xs font-bold text-gray-800">{data.label}</div>
-      {data.parameters.model && <div className="text-[10px] text-gray-500">{String(data.parameters.model)}</div>}
-      {data.parameters.ratingCurrent && <div className="text-[10px] text-gray-500">{String(data.parameters.ratingCurrent)}A</div>}
 
-      <svg width="180" height="100" viewBox="0 0 180 100">
+      <svg width="180" height="100" viewBox="0 0 180 100" style={{ overflow: "visible" }}>
+        <text x="90" y="-14" textAnchor="middle" fontSize="11" fill="#333" fontWeight="bold">{data.label}</text>
+        <text x="90" y="-4" textAnchor="middle" fontSize="9" fill="#888">{data.parameters.model ? String(data.parameters.model) : ""} {data.parameters.ratingCurrent ? String(data.parameters.ratingCurrent) + "A" : ""}</text>
         <rect x="4" y="4" width="172" height="92" fill="none" stroke="#333" strokeWidth="1.5" rx="1" />
         <text x="90" y="16" textAnchor="middle" fontSize="8" fill="#999" fontFamily="monospace">I-0-II  4P</text>
 

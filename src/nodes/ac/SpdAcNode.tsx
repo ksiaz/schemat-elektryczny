@@ -12,10 +12,10 @@ export function SpdAcNode({ data, selected }: NodeProps<SpdAcNodeType>) {
       <Handle type="source" position={Position.Top} id="in-L3" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.L3, left: 50 }} />
       <Handle type="source" position={Position.Top} id="in-N" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.N, left: 70 }} />
 
-      <div className="text-xs font-bold text-gray-800">{data.label}</div>
-      {data.parameters.spdType && <div className="text-[10px] text-gray-500">{String(data.parameters.spdType)}</div>}
+      <svg width="80" height="55" viewBox="0 0 80 55" style={{ overflow: 'visible' }}>
+        <text x="40" y="-14" textAnchor="middle" fontSize="11" fill="#333" fontWeight="bold">{data.label}</text>
+        <text x="40" y="-4" textAnchor="middle" fontSize="9" fill="#888">{String(data.parameters.spdType || '')}</text>
 
-      <svg width="80" height="55" viewBox="0 0 80 55">
         <line x1="40" y1="0" x2="40" y2="6" stroke="#333" strokeWidth="1.5" />
         <rect x="10" y="6" width="60" height="34" fill="none" stroke="#333" strokeWidth="1.5" rx="1" />
         <polyline points="44,12 38,22 44,22 36,34" fill="none" stroke="#333" strokeWidth="1.5" strokeLinecap="round" />
