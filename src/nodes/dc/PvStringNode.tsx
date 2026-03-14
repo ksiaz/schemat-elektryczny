@@ -1,9 +1,10 @@
 import { Handle, Position, type NodeProps, type Node } from '@xyflow/react';
 import type { SchematicNodeData } from '../../types/index.ts';
+import { WIRE_COLORS } from '../../constants/index.ts';
 
 type PvStringNodeType = Node<SchematicNodeData, 'pvString'>;
 
-// Panel/String PV — prostokat z trojkatem (symbol generatora PV)
+// Panel/String PV — prostokat z trojkatem + zaciski DC+ (czerwony) i DC- (niebieski)
 export function PvStringNode({ data, selected }: NodeProps<PvStringNodeType>) {
   const panelCount = data.parameters.panelCount || '';
   const model = data.parameters.model || '';
@@ -12,9 +13,7 @@ export function PvStringNode({ data, selected }: NodeProps<PvStringNodeType>) {
     <div className={`flex flex-row items-center gap-2 ${selected ? 'ring-2 ring-blue-500' : ''}`}>
       <svg width="80" height="60" viewBox="0 0 80 60">
         <rect x="2" y="2" width="76" height="56" fill="none" stroke="#333" strokeWidth="2" />
-        {/* Trojkat — symbol generatora PV */}
         <polygon points="20,48 60,48 40,12" fill="none" stroke="#333" strokeWidth="1.5" />
-        {/* Kreski promieniowania */}
         <line x1="30" y1="8" x2="26" y2="2" stroke="#333" strokeWidth="1" />
         <line x1="40" y1="5" x2="40" y2="0" stroke="#333" strokeWidth="1" />
       </svg>
@@ -28,8 +27,9 @@ export function PvStringNode({ data, selected }: NodeProps<PvStringNodeType>) {
         )}
       </div>
 
-      <Handle type="source" position={Position.Bottom} id="out" className="!bg-red-500 !w-2 !h-2" />
-      <Handle type="source" position={Position.Right} id="out-right" className="!bg-red-500 !w-2 !h-2" />
+      {/* DC+ czerwony, DC- niebieski */}
+      <Handle type="source" position={Position.Bottom} id="dc-plus" className="!w-2 !h-2" style={{ backgroundColor: WIRE_COLORS.DC, left: '35%' }} />
+      <Handle type="source" position={Position.Bottom} id="dc-minus" className="!w-2 !h-2" style={{ backgroundColor: WIRE_COLORS.N, left: '65%' }} />
     </div>
   );
 }
