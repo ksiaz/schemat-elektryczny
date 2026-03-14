@@ -36,6 +36,8 @@ export const LAYOUT_ELEMENT_DEFINITIONS: ElementDefinition[] = [
     defaultLabel: 'PV',
     parameters: [
       { key: 'count', label: 'Liczba paneli', type: 'number', defaultValue: 10 },
+      { key: 'cols', label: 'Paneli w rzędzie', type: 'number', defaultValue: 10 },
+      { key: 'rotation', label: 'Obrót (°)', type: 'number', defaultValue: 0 },
       { key: 'model', label: 'Model', type: 'text' },
     ],
   },
