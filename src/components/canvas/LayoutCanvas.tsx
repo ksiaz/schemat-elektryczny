@@ -45,7 +45,9 @@ export function LayoutCanvas() {
     const definition = LAYOUT_ELEMENT_DEFINITIONS.find((d) => d.id === elementId);
     if (!definition) return;
 
-    const position = screenToFlowPosition({ x: event.clientX, y: event.clientY });
+    const GRID = 20;
+    const raw = screenToFlowPosition({ x: event.clientX, y: event.clientY });
+    const position = { x: Math.round(raw.x / GRID) * GRID, y: Math.round(raw.y / GRID) * GRID };
 
     const parameters: Record<string, string | number> = {};
     for (const param of definition.parameters) {

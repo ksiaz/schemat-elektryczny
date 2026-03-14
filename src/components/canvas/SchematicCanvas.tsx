@@ -63,11 +63,13 @@ export function SchematicCanvas() {
     const definition = ELEMENT_DEFINITIONS.find((d) => d.id === elementId);
     if (!definition) return;
 
-    // Przelicz pozycje ekranowa na wspolrzedne canvas
-    const position = screenToFlowPosition({
-      x: event.clientX,
-      y: event.clientY,
-    });
+    // Przelicz pozycje ekranowa na wspolrzedne canvas, snap do siatki 20px
+    const GRID = 20;
+    const raw = screenToFlowPosition({ x: event.clientX, y: event.clientY });
+    const position = {
+      x: Math.round(raw.x / GRID) * GRID,
+      y: Math.round(raw.y / GRID) * GRID,
+    };
 
     // Domyslne wartosci parametrow
     const parameters: Record<string, string | number> = {};
@@ -154,7 +156,7 @@ export function SchematicCanvas() {
         defaultEdgeOptions={{ type: 'multilineAc' }}
         fitView
         snapToGrid
-        snapGrid={[10, 10]}
+        snapGrid={[20, 20]}
         defaultViewport={{ x: 0, y: 0, zoom: 1 }}
         minZoom={0.2}
         maxZoom={4}
