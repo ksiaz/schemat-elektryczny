@@ -292,6 +292,17 @@ export const ELEMENT_DEFINITIONS: ElementDefinition[] = [
     parameters: [],
   },
   {
+    id: 'dist_block',
+    name: 'Blok rozdzielczy 4P',
+    category: 'ac',
+    designation: 'BR',
+    nodeType: 'distBlock',
+    defaultLabel: 'BR1',
+    parameters: [
+      { key: 'ratingCurrent', label: 'In', type: 'number', unit: 'A', defaultValue: 125 },
+    ],
+  },
+  {
     id: 'text_label',
     name: 'Opis / etykieta',
     category: 'wiring',

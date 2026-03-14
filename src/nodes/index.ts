@@ -13,6 +13,7 @@ import { Socket32Node } from './ac/Socket32Node.tsx';
 import { ZugNNode } from './ac/ZugNNode.tsx';
 import { Zug2NNode } from './ac/Zug2NNode.tsx';
 import { TextLabelNode } from './ac/TextLabelNode.tsx';
+import { DistBlockNode } from './ac/DistBlockNode.tsx';
 import { BusbarNode } from './ac/BusbarNode.tsx';
 import { HybridInverterNode } from './ac/HybridInverterNode.tsx';
 import { EnclosureNode } from './enclosures/EnclosureNode.tsx';
@@ -41,6 +42,7 @@ export const nodeTypes = {
   zugN: ZugNNode,
   zug2N: Zug2NNode,
   textLabel: TextLabelNode,
+  distBlock: DistBlockNode,
   busbar: BusbarNode,
   hybridInverter: HybridInverterNode,
   // Rozdzielnice
