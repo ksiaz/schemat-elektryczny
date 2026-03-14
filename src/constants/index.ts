@@ -319,15 +319,14 @@ export const ELEMENT_DEFINITIONS: ElementDefinition[] = [
   // --- Przełączniki zasilania (Etap 5) ---
   {
     id: 'transfer_switch',
-    name: 'Przełącznik SZR',
+    name: 'Przełącznik I-0-II',
     category: 'transfer',
     designation: 'Q',
     nodeType: 'transferSwitch',
-    defaultLabel: 'SZR',
+    defaultLabel: 'Q-SZR',
     parameters: [
-      { key: 'switchType', label: 'Typ', type: 'select', options: ['ręczny', 'automatyczny'] },
-      { key: 'ratingCurrent', label: 'In', type: 'number', unit: 'A' },
-      { key: 'poles', label: 'Bieguny', type: 'select', options: ['2P', '3P', '4P'] },
+      { key: 'model', label: 'Model', type: 'text', defaultValue: 'SFT440' },
+      { key: 'ratingCurrent', label: 'In', type: 'number', unit: 'A', defaultValue: 40 },
     ],
   },
   {

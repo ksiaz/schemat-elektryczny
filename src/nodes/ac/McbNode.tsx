@@ -12,7 +12,7 @@ const POLES_MAP: Record<string, { id: string; color: string; offset: number }[]>
 };
 
 export function McbNode({ data, selected }: NodeProps<McbNodeType>) {
-  const poles = String(data.parameters.poles || '4P');
+  const poles = String(data.parameters.poles || '3P');
   const wires = POLES_MAP[poles] ?? POLES_MAP['4P'];
   const label = data.parameters.curve
     ? `${String(data.parameters.curve)}${String(data.parameters.ratingCurrent ?? '')}A`

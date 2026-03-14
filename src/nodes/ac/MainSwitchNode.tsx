@@ -12,7 +12,7 @@ const POLES_MAP: Record<string, { id: string; color: string }[]> = {
 };
 
 export function MainSwitchNode({ data, selected }: NodeProps<MainSwitchNodeType>) {
-  const poles = String(data.parameters.poles || '4P');
+  const poles = String(data.parameters.poles || '3P');
   const wires = POLES_MAP[poles] ?? POLES_MAP['4P'];
 
   return (
