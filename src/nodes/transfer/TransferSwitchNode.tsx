@@ -4,67 +4,70 @@ import { WIRE_COLORS } from '../../constants/index.ts';
 
 type TransferSwitchNodeType = Node<SchematicNodeData, 'transferSwitch'>;
 
-// Przelacznik I-0-II (Hager SFT440 style) — 4P, wspolny punkt u gory
-// Gora: wejscie wspolne (L1, L2, L3, N)
-// Dol lewo: wyjscie I (siec)
-// Dol prawo: wyjscie II (falownik/agregat)
+// Przelacznik I-0-II (Hager SFT440) — 4P, wszystkie 4 tory przelaczane
+// Gora: wspolne wyjscie (do odbiorcow)
+// Dol lewo: wejscie I (siec)
+// Dol prawo: wejscie II (falownik/agregat)
 export function TransferSwitchNode({ data, selected }: NodeProps<TransferSwitchNodeType>) {
   return (
-    <div className={`flex flex-col items-center ${selected ? 'ring-2 ring-blue-500' : ''}`} style={{ width: 120 }}>
-      {/* Wejscie wspolne — gora: L1, L2, L3, N */}
-      <Handle type="target" position={Position.Top} id="in-L1" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.L1, left: 20 }} />
-      <Handle type="target" position={Position.Top} id="in-L2" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.L2, left: 40 }} />
-      <Handle type="target" position={Position.Top} id="in-L3" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.L3, left: 60 }} />
-      <Handle type="target" position={Position.Top} id="in-N" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.N, left: 80 }} />
+    <div className={`flex flex-col items-center ${selected ? 'ring-2 ring-blue-500' : ''}`} style={{ width: 160 }}>
+      {/* Wyjscie wspolne — gora: L1, L2, L3, N */}
+      <Handle type="source" position={Position.Top} id="out-L1" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.L1, left: 30 }} />
+      <Handle type="source" position={Position.Top} id="out-L2" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.L2, left: 50 }} />
+      <Handle type="source" position={Position.Top} id="out-L3" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.L3, left: 70 }} />
+      <Handle type="source" position={Position.Top} id="out-N" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.N, left: 90 }} />
 
-      <svg width="120" height="90" viewBox="0 0 120 90">
-        {/* Ramka */}
-        <rect x="4" y="4" width="112" height="82" fill="none" stroke="#333" strokeWidth="1.5" rx="1" />
+      <svg width="160" height="100" viewBox="0 0 160 100">
+        <rect x="4" y="4" width="152" height="92" fill="none" stroke="#333" strokeWidth="1.5" rx="1" />
 
-        {/* Linie wejsciowe od gory */}
-        <line x1="30" y1="4" x2="30" y2="25" stroke="#333" strokeWidth="1.5" />
-        <line x1="60" y1="4" x2="60" y2="25" stroke="#333" strokeWidth="1.5" />
+        {/* Etykieta I-0-II */}
+        <text x="80" y="14" textAnchor="middle" fontSize="8" fill="#999" fontFamily="monospace">I-0-II  4P</text>
 
-        {/* Punkt wspolny */}
-        <circle cx="30" cy="25" r="2" fill="#333" />
-        <circle cx="60" cy="25" r="2" fill="#333" />
+        {/* 4 tory — kazdy z 2 stykami ruchomymi (I i II) */}
+        {[
+          { x: 25, color: WIRE_COLORS.L1, label: 'L1' },
+          { x: 55, color: WIRE_COLORS.L2, label: 'L2' },
+          { x: 85, color: WIRE_COLORS.L3, label: 'L3' },
+          { x: 115, color: WIRE_COLORS.N, label: 'N' },
+        ].map((tor) => (
+          <g key={tor.label}>
+            {/* Punkt wspolny u gory */}
+            <line x1={tor.x} y1="4" x2={tor.x} y2="28" stroke={tor.color} strokeWidth="1" />
+            <circle cx={tor.x} cy="28" r="2" fill={tor.color} />
 
-        {/* Styk ruchomy — pozycja 0 (srodek, rozlaczony) */}
-        <line x1="30" y1="25" x2="20" y2="50" stroke="#333" strokeWidth="2" />
-        <line x1="60" y1="25" x2="50" y2="50" stroke="#333" strokeWidth="2" />
+            {/* Styk ruchomy — pozycja 0 */}
+            <line x1={tor.x} y1="28" x2={tor.x - 8} y2="55" stroke="#333" strokeWidth="1.5" />
 
-        {/* Styk I (lewo — siec) */}
-        <circle cx="20" cy="55" r="2" fill="#333" />
-        <line x1="20" y1="57" x2="20" y2="86" stroke="#333" strokeWidth="1.5" />
+            {/* Styk I (lewo) */}
+            <circle cx={tor.x - 12} cy="60" r="2" fill="#333" />
+            <line x1={tor.x - 12} y1="62" x2={tor.x - 12} y2="96" stroke={tor.color} strokeWidth="1" />
 
-        {/* Styk II (prawo — falownik) */}
-        <circle cx="90" cy="55" r="2" fill="none" stroke="#333" strokeWidth="1" />
-        <line x1="90" y1="57" x2="90" y2="86" stroke="#333" strokeWidth="1.5" />
+            {/* Styk II (prawo) */}
+            <circle cx={tor.x + 12} cy="60" r="2" fill="none" stroke="#333" strokeWidth="1" />
+            <line x1={tor.x + 12} y1="62" x2={tor.x + 12} y2="96" stroke={tor.color} strokeWidth="1" />
+          </g>
+        ))}
 
-        {/* Etykiety I-0-II */}
-        <text x="12" y="70" fontSize="8" fill="#333" fontWeight="bold">I</text>
-        <text x="42" y="42" fontSize="8" fill="#333" fontWeight="bold">0</text>
-        <text x="95" y="70" fontSize="8" fill="#333" fontWeight="bold">II</text>
-
-        {/* Opis */}
-        <text x="60" y="14" textAnchor="middle" fontSize="7" fill="#999" fontFamily="monospace">I-0-II</text>
+        {/* Oznaczenia I i II */}
+        <text x="8" y="80" fontSize="9" fill="#333" fontWeight="bold">I</text>
+        <text x="142" y="80" fontSize="9" fill="#333" fontWeight="bold">II</text>
       </svg>
 
       <div className="text-xs font-bold text-gray-800">{data.label}</div>
       {data.parameters.model && <div className="text-[10px] text-gray-500">{String(data.parameters.model)}</div>}
-      {data.parameters.ratingCurrent && <div className="text-[10px] text-gray-500">{String(data.parameters.ratingCurrent)}A 4P</div>}
+      {data.parameters.ratingCurrent && <div className="text-[10px] text-gray-500">{String(data.parameters.ratingCurrent)}A</div>}
 
-      {/* Wyjscie I (siec) — dol lewo */}
-      <Handle type="source" position={Position.Bottom} id="out1-L1" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.L1, left: 10 }} />
-      <Handle type="source" position={Position.Bottom} id="out1-L2" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.L2, left: 20 }} />
-      <Handle type="source" position={Position.Bottom} id="out1-L3" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.L3, left: 30 }} />
-      <Handle type="source" position={Position.Bottom} id="out1-N" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.N, left: 40 }} />
+      {/* Wejscie I (siec) — dol lewo: L1, L2, L3, N */}
+      <Handle type="target" position={Position.Bottom} id="in1-L1" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.L1, left: 10 }} />
+      <Handle type="target" position={Position.Bottom} id="in1-L2" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.L2, left: 30 }} />
+      <Handle type="target" position={Position.Bottom} id="in1-L3" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.L3, left: 50 }} />
+      <Handle type="target" position={Position.Bottom} id="in1-N" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.N, left: 70 }} />
 
-      {/* Wyjscie II (falownik/agregat) — dol prawo */}
-      <Handle type="source" position={Position.Bottom} id="out2-L1" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.L1, left: 70 }} />
-      <Handle type="source" position={Position.Bottom} id="out2-L2" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.L2, left: 80 }} />
-      <Handle type="source" position={Position.Bottom} id="out2-L3" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.L3, left: 90 }} />
-      <Handle type="source" position={Position.Bottom} id="out2-N" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.N, left: 100 }} />
+      {/* Wejscie II (falownik) — dol prawo: L1, L2, L3, N */}
+      <Handle type="target" position={Position.Bottom} id="in2-L1" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.L1, left: 90 }} />
+      <Handle type="target" position={Position.Bottom} id="in2-L2" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.L2, left: 110 }} />
+      <Handle type="target" position={Position.Bottom} id="in2-L3" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.L3, left: 130 }} />
+      <Handle type="target" position={Position.Bottom} id="in2-N" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.N, left: 150 }} />
     </div>
   );
 }
