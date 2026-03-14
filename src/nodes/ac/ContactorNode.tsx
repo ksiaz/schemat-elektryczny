@@ -1,46 +1,28 @@
-import { Handle, Position, type NodeProps, type Node } from '@xyflow/react';
+import { Position, type NodeProps, type Node } from '@xyflow/react';
 import type { SchematicNodeData } from '../../types/index.ts';
+import { AcHandles } from './AcHandles.tsx';
 
 type ContactorNodeType = Node<SchematicNodeData, 'contactor'>;
 
-// Stycznik wg IEC 60617
-// Styk ruchomy z cewka elektromagnetyczna (prostokat z polkólkiem wewnatrz)
 export function ContactorNode({ data, selected }: NodeProps<ContactorNodeType>) {
   return (
-    <div className={`flex flex-col items-center ${selected ? 'ring-2 ring-blue-500 ring-offset-2' : ''}`}>
-      <Handle type="target" position={Position.Top} id="in" className="!bg-gray-700 !w-2 !h-2" />
-
-      <svg width="36" height="70" viewBox="0 0 36 70">
-        {/* Linia wejsciowa */}
-        <line x1="18" y1="0" x2="18" y2="12" stroke="#333" strokeWidth="1.5" />
-
-        {/* Styk gorny nieruchomy */}
-        <line x1="14" y1="12" x2="22" y2="12" stroke="#333" strokeWidth="1.5" />
-
-        {/* Styk ruchomy */}
-        <line x1="18" y1="12" x2="26" y2="28" stroke="#333" strokeWidth="2" />
-
-        {/* Styk dolny */}
-        <circle cx="18" cy="30" r="2" fill="#333" />
-
-        {/* Linia do cewki */}
-        <line x1="18" y1="32" x2="18" y2="38" stroke="#333" strokeWidth="1.5" />
-
-        {/* Cewka elektromagnetyczna — prostokat z polkolkiem (symbol cewki) */}
-        <rect x="8" y="38" width="20" height="16" fill="none" stroke="#333" strokeWidth="1.5" rx="1" />
-        {/* Polkolko wewnatrz cewki */}
-        <path d="M 13,46 Q 18,40 23,46" fill="none" stroke="#333" strokeWidth="1" />
-
-        {/* Linia wyjsciowa */}
-        <line x1="18" y1="54" x2="18" y2="70" stroke="#333" strokeWidth="1.5" />
+    <div className={`flex flex-col items-center ${selected ? 'ring-2 ring-blue-500' : ''}`}>
+      <AcHandles type="target" position={Position.Top} prefix="in" />
+      <svg width="70" height="60" viewBox="0 0 70 60">
+        <line x1="35" y1="0" x2="35" y2="10" stroke="#333" strokeWidth="1.5" />
+        <line x1="31" y1="10" x2="39" y2="10" stroke="#333" strokeWidth="1.5" />
+        <line x1="35" y1="10" x2="45" y2="26" stroke="#333" strokeWidth="2" />
+        <circle cx="35" cy="28" r="2" fill="#333" />
+        <line x1="35" y1="30" x2="35" y2="34" stroke="#333" strokeWidth="1.5" />
+        <rect x="25" y="34" width="20" height="14" fill="none" stroke="#333" strokeWidth="1.5" rx="1" />
+        <path d="M 30,41 Q 35,36 40,41" fill="none" stroke="#333" strokeWidth="1" />
+        <line x1="35" y1="48" x2="35" y2="60" stroke="#333" strokeWidth="1.5" />
       </svg>
-
-      <div className="text-xs font-bold mt-1 text-gray-800">{data.label}</div>
+      <div className="text-xs font-bold text-gray-800">{data.label}</div>
       {data.parameters.ratingCurrent && (
         <div className="text-[10px] text-gray-500">{String(data.parameters.ratingCurrent)}A</div>
       )}
-
-      <Handle type="source" position={Position.Bottom} id="out" className="!bg-gray-700 !w-2 !h-2" />
+      <AcHandles type="source" position={Position.Bottom} prefix="out" />
     </div>
   );
 }

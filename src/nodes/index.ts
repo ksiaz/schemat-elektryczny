@@ -9,6 +9,7 @@ import { MeterNode } from './ac/MeterNode.tsx';
 import { MainSwitchNode } from './ac/MainSwitchNode.tsx';
 import { ContactorNode } from './ac/ContactorNode.tsx';
 import { BusbarNode } from './ac/BusbarNode.tsx';
+import { HybridInverterNode } from './ac/HybridInverterNode.tsx';
 import { EnclosureNode } from './enclosures/EnclosureNode.tsx';
 import { PvStringNode } from './dc/PvStringNode.tsx';
 import { SpdDcNode } from './dc/SpdDcNode.tsx';
@@ -30,6 +31,7 @@ export const nodeTypes = {
   mainSwitch: MainSwitchNode,
   contactor: ContactorNode,
   busbar: BusbarNode,
+  hybridInverter: HybridInverterNode,
   // Rozdzielnice
   enclosure: EnclosureNode,
   // DC

@@ -25,6 +25,19 @@ export const ELEMENT_DEFINITIONS: ElementDefinition[] = [
     ],
   },
   {
+    id: 'hybrid_inverter',
+    name: 'Falownik hybrydowy',
+    category: 'inverter',
+    designation: 'U',
+    nodeType: 'hybridInverter',
+    defaultLabel: 'U1',
+    parameters: [
+      { key: 'model', label: 'Model', type: 'text' },
+      { key: 'power', label: 'Moc', type: 'number', unit: 'kW' },
+      { key: 'mppt', label: 'Liczba MPPT', type: 'number', defaultValue: 2 },
+    ],
+  },
+  {
     id: 'rcd',
     name: 'Wyłącznik RCD',
     category: 'ac',

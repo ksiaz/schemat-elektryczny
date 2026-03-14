@@ -1,37 +1,27 @@
 import { Handle, Position, type NodeProps, type Node } from '@xyflow/react';
 import type { SchematicNodeData } from '../../types/index.ts';
+import { AcHandles } from './AcHandles.tsx';
 
 type InverterNodeType = Node<SchematicNodeData, 'inverter'>;
 
-// Falownik — prostokat z "3~" (AC) i "=" (DC), sinusoida
-// Styl jak na schematach blokowych polskich instalatorow
+// Falownik ON-grid — DC wejscia (MPPT), 1 wyjscie AC z 5 zylami
 export function InverterNode({ data, selected }: NodeProps<InverterNodeType>) {
   return (
     <div className={`flex flex-col items-center ${selected ? 'ring-2 ring-blue-500' : ''}`}>
-      <Handle type="target" position={Position.Top} id="dc-in" className="!bg-red-500 !w-2 !h-2" />
-      <Handle type="target" position={Position.Left} id="dc-in-left" className="!bg-red-500 !w-2 !h-2" />
+      <Handle type="target" position={Position.Top} id="dc-mppt1" className="!bg-red-500 !w-2 !h-2" style={{ left: '30%' }} />
+      <Handle type="target" position={Position.Top} id="dc-mppt2" className="!bg-red-500 !w-2 !h-2" style={{ left: '70%' }} />
 
-      <svg width="80" height="80" viewBox="0 0 80 80">
-        {/* Prostokat obudowy */}
-        <rect x="4" y="4" width="72" height="72" fill="none" stroke="#333" strokeWidth="1.5" />
-
-        {/* Sinusoida AC u gory */}
-        <path d="M 20,25 Q 30,15 40,25 Q 50,35 60,25" fill="none" stroke="#333" strokeWidth="1.2" />
-
-        {/* 3~ — trojfazowy AC */}
-        <text x="40" y="45" textAnchor="middle" fontSize="14" fill="#333" fontWeight="bold" fontFamily="monospace">3~</text>
-
-        {/* = — DC */}
-        <line x1="25" y1="58" x2="55" y2="58" stroke="#333" strokeWidth="1.5" />
-        <line x1="25" y1="63" x2="55" y2="63" stroke="#333" strokeWidth="1.5" />
-
-        {/* Kreski hatching w rogu (styl z Budziszynskiej) */}
-        <line x1="60" y1="4" x2="76" y2="20" stroke="#333" strokeWidth="0.5" />
-        <line x1="65" y1="4" x2="76" y2="15" stroke="#333" strokeWidth="0.5" />
-        <line x1="70" y1="4" x2="76" y2="10" stroke="#333" strokeWidth="0.5" />
+      <svg width="90" height="80" viewBox="0 0 90 80">
+        <rect x="4" y="4" width="82" height="72" fill="none" stroke="#333" strokeWidth="1.5" />
+        <text x="27" y="15" textAnchor="middle" fontSize="7" fill="#999" fontFamily="monospace">MPPT1</text>
+        <text x="63" y="15" textAnchor="middle" fontSize="7" fill="#999" fontFamily="monospace">MPPT2</text>
+        <text x="45" y="30" textAnchor="middle" fontSize="12" fill="#333" fontWeight="bold" fontFamily="monospace">DC</text>
+        <line x1="4" y1="40" x2="86" y2="40" stroke="#333" strokeWidth="0.5" strokeDasharray="4,3" />
+        <text x="45" y="55" textAnchor="middle" fontSize="12" fill="#333" fontWeight="bold" fontFamily="monospace">AC</text>
+        <path d="M 25,62 Q 35,55 45,62 Q 55,69 65,62" fill="none" stroke="#333" strokeWidth="1" />
       </svg>
 
-      <div className="text-xs font-bold mt-1 text-gray-800">{data.label}</div>
+      <div className="text-xs font-bold text-gray-800 mt-1">{data.label}</div>
       {data.parameters.model && (
         <div className="text-[10px] text-gray-500">{String(data.parameters.model)}</div>
       )}
@@ -39,8 +29,7 @@ export function InverterNode({ data, selected }: NodeProps<InverterNodeType>) {
         <div className="text-[10px] text-gray-500">{String(data.parameters.power)} kW</div>
       )}
 
-      <Handle type="source" position={Position.Bottom} id="ac-out" className="!bg-gray-500 !w-2 !h-2" />
-      <Handle type="source" position={Position.Right} id="ac-out-right" className="!bg-gray-500 !w-2 !h-2" />
+      <AcHandles type="source" position={Position.Bottom} prefix="out" />
     </div>
   );
 }
