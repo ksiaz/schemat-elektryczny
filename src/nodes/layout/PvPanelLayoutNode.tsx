@@ -3,9 +3,9 @@ import type { SchematicNodeData } from '../../types/index.ts';
 
 type PvPanelLayoutNodeType = Node<SchematicNodeData, 'pvPanelLayout'>;
 
-// Panele PV widok z gory — konfigurowalny rzad z obracaniem
-const PANEL_W = 20; // szerokosc panelu w px (~1m)
-const PANEL_H = 10; // wysokosc panelu w px (~0.5m)
+// Panele PV widok z gory — 1m = 50px, panel 2m x 1m
+const PANEL_W = 100; // 2m = 100px
+const PANEL_H = 50;  // 1m = 50px
 
 export function PvPanelLayoutNode({ data, selected }: NodeProps<PvPanelLayoutNodeType>) {
   const count = Number(data.parameters.count) || 10;
