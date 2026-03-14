@@ -40,6 +40,7 @@ export function InverterNode({ data, selected }: NodeProps<InverterNodeType>) {
         <div className="text-[10px] text-gray-500">{String(data.parameters.power)} kW</div>
       )}
 
+      <Handle type="source" position={Position.Right} id="com" className="!w-2 !h-2" style={{ backgroundColor: "#999", top: "50%" }} />
       <Handle type="source" position={Position.Left} id="pe-housing" className="!w-2 !h-2" style={{ backgroundColor: "#228B22", top: "50%" }} />
       <AcHandles type="source" position={Position.Bottom} prefix="out" />
     </div>

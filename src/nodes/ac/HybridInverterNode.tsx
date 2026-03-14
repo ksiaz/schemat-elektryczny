@@ -54,6 +54,9 @@ export function HybridInverterNode({ data, selected }: NodeProps<HybridInverterN
         <div className="text-[10px] text-gray-500">{String(data.parameters.power)} kW</div>
       )}
 
+      {/* COM — komunikacja */}
+      <Handle type="source" position={Position.Right} id="com" className="!w-2 !h-2" style={{ backgroundColor: "#999", top: "30%" }} />
+
       {/* PE obudowy */}
       <Handle type="source" position={Position.Left} id="pe-housing" className="!w-2 !h-2" style={{ backgroundColor: "#228B22", top: "85%" }} />
 
