@@ -45,7 +45,7 @@ export function LayoutCanvas() {
     const definition = LAYOUT_ELEMENT_DEFINITIONS.find((d) => d.id === elementId);
     if (!definition) return;
 
-    const GRID = 20;
+    const GRID = 50; // 1m = 50px
     const raw = screenToFlowPosition({ x: event.clientX, y: event.clientY });
     const position = { x: Math.round(raw.x / GRID) * GRID, y: Math.round(raw.y / GRID) * GRID };
 
@@ -68,9 +68,15 @@ export function LayoutCanvas() {
       },
     };
 
-    // Budynek i dach sa wieksze
+    // Rozmiary poczatkowe
     if (definition.nodeType === 'building') {
       newNode.style = { width: 300, height: 200 };
+    } else if (definition.nodeType === 'layoutLine') {
+      const isH = parameters.orientation === 'pozioma';
+      newNode.style = isH ? { width: 200, height: 4 } : { width: 4, height: 200 };
+    } else if (definition.nodeType === 'ruler') {
+      const isH = parameters.orientation === 'pozioma';
+      newNode.style = isH ? { width: 50, height: 20 } : { width: 20, height: 50 };
     }
 
     pushLayoutHistory();
@@ -92,13 +98,14 @@ export function LayoutCanvas() {
         defaultEdgeOptions={{ type: 'cable' }}
         fitView
         snapToGrid
-        snapGrid={[10, 10]}
+        snapGrid={[50, 50]}
         minZoom={0.2}
         maxZoom={4}
         style={{ width: '100%', height: '100%' }}
       >
-        <Background variant={BackgroundVariant.Lines} gap={20} size={1} color="#e8e8e8" />
-        <Background id="bg-dots" variant={BackgroundVariant.Dots} gap={10} size={1} color="#ccc" />
+        {/* Siatka 1m = 50px */}
+        <Background variant={BackgroundVariant.Lines} gap={50} size={1} color="#ddd" />
+        <Background id="bg-sub" variant={BackgroundVariant.Lines} gap={250} size={1} color="#bbb" />
         <Controls />
         <MiniMap pannable zoomable className="!bg-white !border !border-gray-200" />
       </ReactFlow>

@@ -92,4 +92,52 @@ export const LAYOUT_ELEMENT_DEFINITIONS: ElementDefinition[] = [
       { key: 'description', label: 'Opis', type: 'text' },
     ],
   },
+  {
+    id: 'layout_line_h',
+    name: 'Linia pozioma',
+    category: 'wiring',
+    designation: '',
+    nodeType: 'layoutLine',
+    defaultLabel: '',
+    parameters: [
+      { key: 'orientation', label: 'Orientacja', type: 'select', options: ['pozioma', 'pionowa'], defaultValue: 'pozioma' },
+      { key: 'color', label: 'Kolor', type: 'select', options: ['#333', '#FF0000', '#0000CD', '#228B22', '#FF6600', '#808080'], defaultValue: '#333' },
+      { key: 'lineWidth', label: 'Grubość', type: 'number', defaultValue: 2 },
+    ],
+  },
+  {
+    id: 'layout_line_v',
+    name: 'Linia pionowa',
+    category: 'wiring',
+    designation: '',
+    nodeType: 'layoutLine',
+    defaultLabel: '',
+    parameters: [
+      { key: 'orientation', label: 'Orientacja', type: 'select', options: ['pozioma', 'pionowa'], defaultValue: 'pionowa' },
+      { key: 'color', label: 'Kolor', type: 'select', options: ['#333', '#FF0000', '#0000CD', '#228B22', '#FF6600', '#808080'], defaultValue: '#333' },
+      { key: 'lineWidth', label: 'Grubość', type: 'number', defaultValue: 2 },
+    ],
+  },
+  {
+    id: 'ruler_h',
+    name: 'Miara pozioma',
+    category: 'wiring',
+    designation: '',
+    nodeType: 'ruler',
+    defaultLabel: '1m',
+    parameters: [
+      { key: 'orientation', label: 'Orientacja', type: 'select', options: ['pozioma', 'pionowa'], defaultValue: 'pozioma' },
+    ],
+  },
+  {
+    id: 'ruler_v',
+    name: 'Miara pionowa',
+    category: 'wiring',
+    designation: '',
+    nodeType: 'ruler',
+    defaultLabel: '1m',
+    parameters: [
+      { key: 'orientation', label: 'Orientacja', type: 'select', options: ['pozioma', 'pionowa'], defaultValue: 'pionowa' },
+    ],
+  },
 ];
