@@ -295,6 +295,7 @@ export const ELEMENT_DEFINITIONS: ElementDefinition[] = [
     defaultLabel: 'X1',
     parameters: [
       { key: 'ratingCurrent', label: 'In', type: 'number', unit: 'A', defaultValue: 32 },
+      { key: 'orientation', label: 'Styki', type: 'select', options: ['góra', 'dół'], defaultValue: 'góra' },
     ],
   },
   {
