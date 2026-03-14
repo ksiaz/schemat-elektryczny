@@ -15,6 +15,7 @@ import { useProjectStore, generateNextLabel } from '../../store/projectStore.ts'
 import { nodeTypes } from '../../nodes/index.ts';
 import { edgeTypes } from '../../edges/index.ts';
 import { DrawingFrame } from '../drawing-frame/DrawingFrame.tsx';
+import { WaypointOverlay } from './WaypointOverlay.tsx';
 import { ELEMENT_DEFINITIONS } from '../../constants/index.ts';
 import type { SchematicNodeData } from '../../types/index.ts';
 import type { Node } from '@xyflow/react';
@@ -177,6 +178,9 @@ export function SchematicCanvas() {
         {/* Ramka rysunkowa z tabelka */}
         <DrawingFrame />
       </ReactFlow>
+
+      {/* Punkty zagiec — HTML overlay ponad wszystkim */}
+      <WaypointOverlay />
     </div>
   );
 }

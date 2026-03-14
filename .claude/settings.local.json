@@ -34,7 +34,8 @@
       "Bash(find src/nodes -name \"*.tsx\" -exec sed -i 's/!w-3 !h-3/!w-1.5 !h-1.5/g' {} +\nnpm run build 2>&1 | tail -3)",
       "Bash(find /home/ksiaz/Pobrane -name \"*nowy*\" -o -name \"*projekt*jpg\" 2>/dev/null | head -5)",
       "WebFetch(domain:github.com)",
-      "Bash(npm uninstall:*)"
+      "Bash(npm uninstall:*)",
+      "Bash(grep -rn \"<DraggableWaypoint\" src/edges/*.tsx | grep -v \"DraggableWaypoint.tsx\")"
     ]
   }
 }

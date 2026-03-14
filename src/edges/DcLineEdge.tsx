@@ -1,4 +1,3 @@
-import { DraggableWaypoint } from './DraggableWaypoint.tsx';
 import { BaseEdge, type EdgeProps } from '@xyflow/react';
 import { WIRE_COLORS } from '../constants/index.ts';
 import { buildOrthogonalPath, getMidpoint, type Waypoint } from './utils.ts';
@@ -27,9 +26,7 @@ export function DcLineEdge({
           <text textAnchor="middle" dominantBaseline="central" fontSize="8" fill="#666" fontFamily="monospace">{cableDesc}</text>
         </g>
       )}
-      {selected && waypoints.map((wp, i) => (
-        <DraggableWaypoint key={i} edgeId={id} waypointIndex={i} waypoints={waypoints} x={wp.x} y={wp.y} />
-      ))}
+      {selected && waypoints.map((wp, i) => (<circle key={i} cx={wp.x} cy={wp.y} r={4} fill="#3b82f6" stroke="white" strokeWidth="1.5" style={{ pointerEvents: "none" }} />))}
     </g>
   );
 }
