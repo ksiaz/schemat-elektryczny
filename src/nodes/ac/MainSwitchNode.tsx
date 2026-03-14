@@ -5,10 +5,10 @@ import { WIRE_COLORS } from '../../constants/index.ts';
 type MainSwitchNodeType = Node<SchematicNodeData, 'mainSwitch'>;
 
 const POLES_MAP: Record<string, { id: string; color: string; offset: number }[]> = {
-  '1P': [{ id: 'L1', color: WIRE_COLORS.L1, offset: 40 }],
-  '2P': [{ id: 'L1', color: WIRE_COLORS.L1, offset: 30 }, { id: 'N', color: WIRE_COLORS.N, offset: 50 }],
-  '3P': [{ id: 'L1', color: WIRE_COLORS.L1, offset: 20 }, { id: 'L2', color: WIRE_COLORS.L2, offset: 40 }, { id: 'L3', color: WIRE_COLORS.L3, offset: 60 }],
-  '4P': [{ id: 'L1', color: WIRE_COLORS.L1, offset: 10 }, { id: 'L2', color: WIRE_COLORS.L2, offset: 30 }, { id: 'L3', color: WIRE_COLORS.L3, offset: 50 }, { id: 'N', color: WIRE_COLORS.N, offset: 70 }],
+  '1P': [{ id: 'L1', color: WIRE_COLORS.L1, offset: 50 }],
+  '2P': [{ id: 'L1', color: WIRE_COLORS.L1, offset: 30 }, { id: 'N', color: WIRE_COLORS.N, offset: 70 }],
+  '3P': [{ id: 'L1', color: WIRE_COLORS.L1, offset: 20 }, { id: 'L2', color: WIRE_COLORS.L2, offset: 50 }, { id: 'L3', color: WIRE_COLORS.L3, offset: 80 }],
+  '4P': [{ id: 'L1', color: WIRE_COLORS.L1, offset: 10 }, { id: 'L2', color: WIRE_COLORS.L2, offset: 30 }, { id: 'L3', color: WIRE_COLORS.L3, offset: 60 }, { id: 'N', color: WIRE_COLORS.N, offset: 80 }],
 };
 
 export function MainSwitchNode({ data, selected }: NodeProps<MainSwitchNodeType>) {
@@ -28,21 +28,31 @@ export function MainSwitchNode({ data, selected }: NodeProps<MainSwitchNodeType>
       <Handle type="target" position={Position.Right} id="coil-N" className="!w-1.5 !h-1.5" style={{ backgroundColor: '#0000CD', top: 40 }} />
 
       <svg width="100" height="60" viewBox="0 0 100 60">
-        {/* Styk ruchomy */}
-        <line x1="40" y1="0" x2="40" y2="14" stroke="#333" strokeWidth="1.5" />
-        <line x1="36" y1="14" x2="44" y2="14" stroke="#333" strokeWidth="1.5" />
-        <line x1="40" y1="14" x2="52" y2="32" stroke="#333" strokeWidth="2" />
-        <circle cx="40" cy="35" r="2" fill="#333" />
-        <line x1="40" y1="37" x2="40" y2="60" stroke="#333" strokeWidth="1.5" />
+        {/* Krzywki — po jednej na kazdy biegun */}
+        {wires.map((w) => (
+          <g key={w.id}>
+            <line x1={w.offset} y1="0" x2={w.offset} y2="14" stroke={w.color} strokeWidth="1.5" />
+            <line x1={w.offset - 4} y1="14" x2={w.offset + 4} y2="14" stroke="#333" strokeWidth="1.5" />
+            <line x1={w.offset} y1="14" x2={w.offset + 10} y2="35" stroke="#333" strokeWidth="2" />
+            <circle cx={w.offset} cy="38" r="2" fill="#333" />
+            <line x1={w.offset} y1="40" x2={w.offset} y2="60" stroke={w.color} strokeWidth="1.5" />
+          </g>
+        ))}
 
-        {/* Cewka wybijakowa — prostokat z zygzakiem po prawej */}
+        {/* Linia sprzegajaca krzywki (mechaniczne polaczenie) */}
+        {wires.length > 1 && (
+          <line
+            x1={wires[0].offset + 5} y1="25"
+            x2={wires[wires.length - 1].offset + 5} y2="25"
+            stroke="#333" strokeWidth="0.8" strokeDasharray="3,2"
+          />
+        )}
+
+        {/* Cewka wybijakowa — po prawej */}
         <rect x="70" y="12" width="24" height="32" fill="none" stroke="#333" strokeWidth="1" rx="1" />
         <polyline points="78,18 82,22 78,26 82,30 78,34 82,38" fill="none" stroke="#333" strokeWidth="0.8" />
-        {/* Etykiety cewki */}
         <text x="96" y="22" fontSize="6" fill="#FF0000" fontWeight="bold">L</text>
         <text x="96" y="42" fontSize="6" fill="#0000CD" fontWeight="bold">N</text>
-        {/* Linia od cewki do styku */}
-        <line x1="70" y1="28" x2="52" y2="28" stroke="#333" strokeWidth="0.5" strokeDasharray="2,2" />
       </svg>
 
       <div className="text-xs font-bold text-gray-800">{data.label}</div>
