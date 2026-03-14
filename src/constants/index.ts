@@ -124,7 +124,9 @@ export const ELEMENT_DEFINITIONS: ElementDefinition[] = [
     designation: '',
     nodeType: 'blackBox',
     defaultLabel: 'RG',
-    parameters: [],
+    parameters: [
+      { key: 'fontSize', label: 'Rozmiar czcionki', type: 'number', defaultValue: 12 },
+    ],
   },
   {
     id: 'pv_dc_enclosure',
