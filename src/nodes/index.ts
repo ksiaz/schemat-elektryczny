@@ -18,6 +18,7 @@ import { ZugL3Node } from './ac/ZugL3Node.tsx';
 import { CtNode } from './ac/CtNode.tsx';
 import { MeterOsdNode } from './ac/MeterOsdNode.tsx';
 import { PhaseMonitorNode } from './ac/PhaseMonitorNode.tsx';
+import { SmartMeterNode } from './ac/SmartMeterNode.tsx';
 import { WirePointNode } from './ac/WirePointNode.tsx';
 import { JunctionPointNode } from './ac/JunctionPointNode.tsx';
 import { SingleLineMcbNode } from './ac/SingleLineMcbNode.tsx';
@@ -58,6 +59,7 @@ export const nodeTypes = {
   ct: CtNode,
   meterOsd: MeterOsdNode,
   phaseMonitor: PhaseMonitorNode,
+  smartMeter: SmartMeterNode,
   wirePoint: WirePointNode,
   junctionPoint: JunctionPointNode,
   singleLineMcb: SingleLineMcbNode,

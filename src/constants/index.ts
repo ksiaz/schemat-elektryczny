@@ -379,6 +379,17 @@ export const ELEMENT_DEFINITIONS: ElementDefinition[] = [
     parameters: [],
   },
   {
+    id: 'smart_meter',
+    name: 'Smart Meter (Pstryk)',
+    category: 'ac',
+    designation: 'SM',
+    nodeType: 'smartMeter',
+    defaultLabel: 'SM',
+    parameters: [
+      { key: 'model', label: 'Model', type: 'text', defaultValue: 'Pstryk' },
+    ],
+  },
+  {
     id: 'phase_monitor',
     name: 'Kontrolka faz',
     category: 'ac',

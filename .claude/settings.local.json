@@ -36,7 +36,8 @@
       "WebFetch(domain:github.com)",
       "Bash(npm uninstall:*)",
       "Bash(grep -rn \"<DraggableWaypoint\" src/edges/*.tsx | grep -v \"DraggableWaypoint.tsx\")",
-      "Bash(find /home/ksiaz/Pobrane -name \"*.json\" 2>/dev/null; find /home/ksiaz -maxdepth 2 -name \"Nowy*\" -o -name \"*projekt*json\" 2>/dev/null | grep -v node_modules)"
+      "Bash(find /home/ksiaz/Pobrane -name \"*.json\" 2>/dev/null; find /home/ksiaz -maxdepth 2 -name \"Nowy*\" -o -name \"*projekt*json\" 2>/dev/null | grep -v node_modules)",
+      "WebFetch(domain:pstryk.pl)"
     ]
   }
 }
