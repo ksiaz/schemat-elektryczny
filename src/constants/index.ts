@@ -254,6 +254,26 @@ export const ELEMENT_DEFINITIONS: ElementDefinition[] = [
     ],
   },
   {
+    id: 'fire_button',
+    name: 'Przycisk PPOŻ',
+    category: 'ac',
+    designation: 'S-PPOZ',
+    nodeType: 'fireButton',
+    defaultLabel: 'PPOŻ',
+    parameters: [],
+  },
+  {
+    id: 'socket_32a',
+    name: 'Gniazdo 32A 3f+N+PE',
+    category: 'ac',
+    designation: 'X',
+    nodeType: 'socket32',
+    defaultLabel: 'X1',
+    parameters: [
+      { key: 'ratingCurrent', label: 'In', type: 'number', unit: 'A', defaultValue: 32 },
+    ],
+  },
+  {
     id: 'contactor',
     name: 'Stycznik',
     category: 'ac',
