@@ -12,6 +12,9 @@ export function SpdDcNode({ data, selected }: NodeProps<SpdDcNodeType>) {
       <Handle type="source" position={Position.Top} id="dc-minus-1" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.N, left: 60 }} />
       <Handle type="source" position={Position.Top} id="dc-minus-2" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.N, left: 80 }} />
 
+      <div className="text-xs font-bold text-gray-800">{data.label}</div>
+      {data.parameters.spdType && <div className="text-[10px] text-gray-500">{String(data.parameters.spdType)}</div>}
+
       <svg width="90" height="70" viewBox="0 0 90 70">
         <text x="11" y="10" textAnchor="middle" fontSize="10" fill="#FF0000" fontWeight="bold">+</text>
         <text x="30" y="10" textAnchor="middle" fontSize="10" fill="#FF0000" fontWeight="bold">+</text>
@@ -26,9 +29,6 @@ export function SpdDcNode({ data, selected }: NodeProps<SpdDcNodeType>) {
         <polygon points="42,48 45,44 44,47" fill="#333" />
         <line x1="45" y1="52" x2="45" y2="70" stroke="#228B22" strokeWidth="1.5" />
       </svg>
-
-      <div className="text-xs font-bold text-gray-800">{data.label}</div>
-      {data.parameters.spdType && <div className="text-[10px] text-gray-500">{String(data.parameters.spdType)}</div>}
 
       <Handle type="source" position={Position.Bottom} id="pe" className="!w-1.5 !h-1.5" style={{ backgroundColor: WIRE_COLORS.PE, left: 50 }} />
     </div>
