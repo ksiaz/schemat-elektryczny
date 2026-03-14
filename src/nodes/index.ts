@@ -15,6 +15,7 @@ import { PvStringNode } from './dc/PvStringNode.tsx';
 import { SpdDcNode } from './dc/SpdDcNode.tsx';
 import { DcDisconnectNode } from './dc/DcDisconnectNode.tsx';
 import { FuseGpvNode } from './dc/FuseGpvNode.tsx';
+import { BatteryNode } from './dc/BatteryNode.tsx';
 import { EvChargerNode } from './ev/EvChargerNode.tsx';
 import { TransferSwitchNode } from './transfer/TransferSwitchNode.tsx';
 
@@ -39,6 +40,7 @@ export const nodeTypes = {
   spdDc: SpdDcNode,
   dcDisconnect: DcDisconnectNode,
   fuseGpv: FuseGpvNode,
+  battery: BatteryNode,
   // EV
   evCharger: EvChargerNode,
   // Przelaczniki

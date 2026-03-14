@@ -29,6 +29,11 @@ const EDGE_FIELDS: Record<string, ParameterDefinition[]> = {
     { key: 'cableSection', label: 'Przekrój', type: 'text' },
     { key: 'cableLength', label: 'Długość', type: 'text' },
   ],
+  pe: [
+    { key: 'cableType', label: 'Typ kabla', type: 'text' },
+    { key: 'cableSection', label: 'Przekrój', type: 'text' },
+    { key: 'cableLength', label: 'Długość', type: 'text' },
+  ],
 };
 
 function ParameterInput({

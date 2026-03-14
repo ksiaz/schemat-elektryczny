@@ -80,8 +80,8 @@ interface ProjectState {
   setSelectedNodeId: (id: string | null) => void;
 
   // Typ polaczenia (wybierany w toolbarze)
-  edgeType: 'multilineAc' | 'dcLine' | 'cable' | 'dcPlus' | 'dcMinus';
-  setEdgeType: (type: 'multilineAc' | 'dcLine' | 'cable' | 'dcPlus' | 'dcMinus') => void;
+  edgeType: 'multilineAc' | 'dcLine' | 'cable' | 'dcPlus' | 'dcMinus' | 'pe';
+  setEdgeType: (type: 'multilineAc' | 'dcLine' | 'cable' | 'dcPlus' | 'dcMinus' | 'pe') => void;
 
   // Tryb trasowania polaczen
   routingMode: 'auto' | 'manual';

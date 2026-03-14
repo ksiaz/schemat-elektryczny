@@ -38,6 +38,19 @@ export const ELEMENT_DEFINITIONS: ElementDefinition[] = [
     ],
   },
   {
+    id: 'battery',
+    name: 'Magazyn energii',
+    category: 'inverter',
+    designation: 'G',
+    nodeType: 'battery',
+    defaultLabel: 'BAT',
+    parameters: [
+      { key: 'model', label: 'Model', type: 'text' },
+      { key: 'capacity', label: 'Pojemność', type: 'number', unit: 'kWh' },
+      { key: 'voltage', label: 'Napięcie', type: 'number', unit: 'V' },
+    ],
+  },
+  {
     id: 'rcd',
     name: 'Wyłącznik RCD',
     category: 'ac',

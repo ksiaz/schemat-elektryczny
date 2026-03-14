@@ -87,6 +87,7 @@ export function Toolbar() {
           ['cable', 'Kabel'],
           ['dcPlus', 'DC+'],
           ['dcMinus', 'DC-'],
+          ['pe', 'PE'],
         ] as const).map(([type, label]) => (
           <button
             key={type}
