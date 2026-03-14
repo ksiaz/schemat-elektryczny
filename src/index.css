@@ -51,7 +51,7 @@ body {
 
 /* Wezly ponad przewodami — aparaty nie sa zaslanianie przez kable */
 .react-flow__nodes {
-  z-index: 10 !important;
+  z-index: 5 !important;
 }
 
 .react-flow__edges {
@@ -60,4 +60,9 @@ body {
 
 .react-flow__edge {
   pointer-events: all;
+}
+
+/* Zaznaczony edge — ponad nodami, zeby waypoints byly klikalne */
+.react-flow__edge.selected {
+  z-index: 20 !important;
 }

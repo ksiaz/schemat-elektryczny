@@ -49,11 +49,11 @@ export function DraggableWaypoint({ edgeId, waypointIndex, waypoints, x, y }: Dr
     <circle
       cx={x}
       cy={y}
-      r={5}
-      fill="white"
-      stroke="#3b82f6"
+      r={6}
+      fill="#3b82f6"
+      stroke="white"
       strokeWidth="2"
-      style={{ cursor: 'grab' }}
+      style={{ cursor: 'grab', pointerEvents: 'all' }}
       onMouseDown={onMouseDown}
     />
   );
