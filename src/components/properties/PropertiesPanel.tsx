@@ -199,6 +199,39 @@ export function PropertiesPanel() {
     );
   }
 
+  // Ramka informacyjna — pokaz formularz danych projektu
+  if (selectedNode.data.elementId === 'info_frame') {
+    return (
+      <aside className="w-60 bg-white border-l border-gray-200 p-3 overflow-y-auto">
+        <h2 className="text-sm font-bold text-gray-800 mb-2">Ramka informacyjna</h2>
+        <div className="space-y-2">
+          {([
+            ['projectName', 'Nazwa projektu'],
+            ['address', 'Adres'],
+            ['designer', 'Projektant'],
+            ['date', 'Data'],
+            ['scale', 'Skala'],
+          ] as const).map(([key, label]) => (
+            <div key={key}>
+              <label className="block text-xs text-gray-500 mb-0.5">{label}</label>
+              <input
+                type="text"
+                value={projectInfo[key]}
+                onChange={(e) => {
+                  useProjectStore.setState({
+                    projectInfo: { ...projectInfo, [key]: e.target.value },
+                    isDirty: true,
+                  });
+                }}
+                className="w-full px-1.5 py-1 text-xs border border-gray-300 rounded focus:border-blue-500 focus:outline-none"
+              />
+            </div>
+          ))}
+        </div>
+      </aside>
+    );
+  }
+
   const definition = [...ELEMENT_DEFINITIONS, ...LAYOUT_ELEMENT_DEFINITIONS].find(
     (d) => d.id === selectedNode.data.elementId
   );
