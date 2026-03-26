@@ -199,35 +199,58 @@ export function PropertiesPanel() {
     );
   }
 
-  // Ramka informacyjna — pokaz formularz danych projektu
+  // Ramka informacyjna — edycja rubryk
   if (selectedNode.data.elementId === 'info_frame') {
+    let rows: Array<{ label: string; value: string }> = [];
+    try {
+      rows = JSON.parse(String(selectedNode.data.parameters.rows || '[]'));
+    } catch { rows = []; }
+    if (rows.length === 0) {
+      rows = [
+        { label: 'Projekt', value: '' },
+        { label: 'Adres', value: '' },
+        { label: 'Projektant', value: '' },
+        { label: 'Data', value: '' },
+        { label: 'Format', value: 'A4' },
+      ];
+    }
+
+    const updateRows = (newRows: typeof rows) => {
+      updateNodeData(selectedNode.id, { parameters: { ...selectedNode.data.parameters, rows: JSON.stringify(newRows) } });
+    };
+
     return (
       <aside className="w-60 bg-white border-l border-gray-200 p-3 overflow-y-auto">
         <h2 className="text-sm font-bold text-gray-800 mb-2">Ramka informacyjna</h2>
+
+        <div className="mb-2">
+          <label className="block text-xs text-gray-500 mb-0.5">Rozmiar czcionki</label>
+          <input type="number" value={Number(selectedNode.data.parameters.fontSize) || 9}
+            onChange={(e) => updateNodeData(selectedNode.id, { parameters: { ...selectedNode.data.parameters, fontSize: Number(e.target.value) } })}
+            className="w-full px-1.5 py-1 text-xs border border-gray-300 rounded focus:border-blue-500 focus:outline-none" />
+        </div>
+
         <div className="space-y-2">
-          {([
-            ['projectName', 'Nazwa projektu'],
-            ['address', 'Adres'],
-            ['designer', 'Projektant'],
-            ['date', 'Data'],
-            ['scale', 'Skala'],
-          ] as const).map(([key, label]) => (
-            <div key={key}>
-              <label className="block text-xs text-gray-500 mb-0.5">{label}</label>
-              <input
-                type="text"
-                value={projectInfo[key]}
-                onChange={(e) => {
-                  useProjectStore.setState({
-                    projectInfo: { ...projectInfo, [key]: e.target.value },
-                    isDirty: true,
-                  });
-                }}
-                className="w-full px-1.5 py-1 text-xs border border-gray-300 rounded focus:border-blue-500 focus:outline-none"
-              />
+          {rows.map((row, i) => (
+            <div key={i} className="border border-gray-200 rounded p-1.5">
+              <div className="flex gap-1 mb-1">
+                <input type="text" value={row.label} placeholder="Etykieta"
+                  onChange={(e) => { const r = [...rows]; r[i] = { ...r[i], label: e.target.value }; updateRows(r); }}
+                  className="flex-1 px-1 py-0.5 text-xs border border-gray-300 rounded focus:border-blue-500 focus:outline-none" />
+                <button onClick={() => { const r = rows.filter((_, j) => j !== i); updateRows(r); }}
+                  className="text-xs text-red-500 hover:text-red-700 px-1">✕</button>
+              </div>
+              <input type="text" value={row.value} placeholder="Wartość"
+                onChange={(e) => { const r = [...rows]; r[i] = { ...r[i], value: e.target.value }; updateRows(r); }}
+                className="w-full px-1 py-0.5 text-xs border border-gray-300 rounded focus:border-blue-500 focus:outline-none" />
             </div>
           ))}
         </div>
+
+        <button onClick={() => updateRows([...rows, { label: 'Nowa', value: '' }])}
+          className="mt-2 w-full px-2 py-1 text-xs bg-gray-100 hover:bg-gray-200 rounded border border-gray-300">
+          + Dodaj rubrykę
+        </button>
       </aside>
     );
   }

@@ -1,57 +1,62 @@
-import { type NodeProps, type Node } from '@xyflow/react';
+import { NodeResizer, type NodeProps, type Node } from '@xyflow/react';
 import type { SchematicNodeData } from '../../types/index.ts';
-import { useProjectStore } from '../../store/projectStore.ts';
 
 type InfoFrameNodeType = Node<SchematicNodeData, 'infoFrame'>;
 
-// Ramka informacyjna — przesuwalna, edytowalna w Properties
-export function InfoFrameNode({ selected }: NodeProps<InfoFrameNodeType>) {
-  const { projectInfo, schematicFormat } = useProjectStore();
+// Ramka informacyjna — dynamiczne rubryki, resizable
+export function InfoFrameNode({ data, selected }: NodeProps<InfoFrameNodeType>) {
+  // Rubryki zapisane jako JSON string w parameters.rows
+  let rows: Array<{ label: string; value: string }> = [];
+  try {
+    rows = JSON.parse(String(data.parameters.rows || '[]'));
+  } catch {
+    rows = [
+      { label: 'Projekt', value: '' },
+      { label: 'Adres', value: '' },
+      { label: 'Projektant', value: '' },
+      { label: 'Data', value: '' },
+      { label: 'Format', value: 'A4' },
+    ];
+  }
+
+  if (rows.length === 0) {
+    rows = [
+      { label: 'Projekt', value: '' },
+      { label: 'Adres', value: '' },
+      { label: 'Projektant', value: '' },
+      { label: 'Data', value: '' },
+      { label: 'Format', value: 'A4' },
+    ];
+  }
+
+  const fontSize = Number(data.parameters.fontSize) || 9;
 
   return (
-    <div className={`${selected ? 'ring-1 ring-blue-400' : ''}`} style={{ cursor: 'move' }}>
-      <table
-        style={{
-          borderCollapse: 'collapse',
-          fontSize: '9px',
-          fontFamily: 'monospace',
-          backgroundColor: 'white',
-          border: '1px solid #999',
-          minWidth: 220,
-        }}
-      >
+    <div className={`w-full h-full ${selected ? 'ring-1 ring-blue-400' : ''}`} style={{ minWidth: 150, minHeight: 40, cursor: 'move' }}>
+      <NodeResizer isVisible={selected} minWidth={150} minHeight={40}
+        lineStyle={{ stroke: '#3b82f6', strokeWidth: 1 }}
+        handleStyle={{ width: 6, height: 6, borderRadius: 2, backgroundColor: '#3b82f6', pointerEvents: 'all' }} />
+
+      <table style={{
+        borderCollapse: 'collapse',
+        fontSize: `${fontSize}px`,
+        fontFamily: 'monospace',
+        backgroundColor: 'white',
+        border: '1px solid #999',
+        width: '100%',
+        height: '100%',
+      }}>
         <tbody>
-          <tr>
-            <td style={{ border: '1px solid #bbb', padding: '2px 5px', color: '#999', width: 50 }}>Projekt:</td>
-            <td style={{ border: '1px solid #bbb', padding: '2px 5px', fontWeight: 'bold' }} colSpan={3}>
-              {projectInfo.projectName || '—'}
-            </td>
-          </tr>
-          <tr>
-            <td style={{ border: '1px solid #bbb', padding: '2px 5px', color: '#999' }}>Adres:</td>
-            <td style={{ border: '1px solid #bbb', padding: '2px 5px' }} colSpan={2}>
-              {projectInfo.address || '—'}
-            </td>
-            <td style={{ border: '1px solid #bbb', padding: '2px 5px', color: '#999', width: 70 }}>
-              Data: <span style={{ color: '#333' }}>{projectInfo.date}</span>
-            </td>
-          </tr>
-          <tr>
-            <td style={{ border: '1px solid #bbb', padding: '2px 5px', color: '#999' }}>Proj.:</td>
-            <td style={{ border: '1px solid #bbb', padding: '2px 5px' }} colSpan={2}>
-              {projectInfo.designer || '—'}
-            </td>
-            <td style={{ border: '1px solid #bbb', padding: '2px 5px', color: '#999' }}>
-              Skala: <span style={{ color: '#333' }}>{projectInfo.scale}</span>
-            </td>
-          </tr>
-          <tr>
-            <td style={{ border: '1px solid #bbb', padding: '2px 5px', color: '#999' }}>Format:</td>
-            <td style={{ border: '1px solid #bbb', padding: '2px 5px', fontWeight: 'bold' }}>
-              {schematicFormat}
-            </td>
-            <td style={{ border: '1px solid #bbb', padding: '2px 5px' }} colSpan={2}></td>
-          </tr>
+          {rows.map((row, i) => (
+            <tr key={i}>
+              <td style={{ border: '1px solid #bbb', padding: '2px 5px', color: '#999', whiteSpace: 'nowrap', width: '30%' }}>
+                {row.label}:
+              </td>
+              <td style={{ border: '1px solid #bbb', padding: '2px 5px', fontWeight: row.label === 'Projekt' ? 'bold' : 'normal' }}>
+                {row.value || '—'}
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>
