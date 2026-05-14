@@ -12,6 +12,11 @@ const CATEGORY_NAMES: Record<ElementCategory, string> = {
   grounding: 'Uziemienie',
   enclosure: 'Rozdzielnice',
   wiring: 'Linie i szyny',
+  sldAcSource: 'SLD - Źródła AC',
+  sldAcProtection: 'SLD - Ochrona AC',
+  sldDc: 'SLD - Strona DC',
+  sldInverter: 'SLD - Falownik',
+  sldGrounding: 'SLD - Uziemienie',
 };
 
 function groupByCategory(elements: ElementDefinition[]) {

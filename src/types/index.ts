@@ -2,7 +2,11 @@ import type { Node, Edge } from '@xyflow/react';
 
 export type SheetFormat = 'A4' | 'A3' | 'A2';
 export type WireType = 'L1' | 'L2' | 'L3' | 'N' | 'PE' | 'DC';
-export type ElementCategory = 'dc' | 'ac' | 'inverter' | 'ev' | 'transfer' | 'grounding' | 'enclosure' | 'wiring';
+export type ElementCategory =
+  | 'dc' | 'ac' | 'inverter' | 'ev' | 'transfer'
+  | 'grounding' | 'enclosure' | 'wiring'
+  | 'sldAcSource' | 'sldAcProtection' | 'sldDc'
+  | 'sldInverter' | 'sldGrounding';
 
 export interface ElementDefinition {
   id: string;
@@ -53,4 +57,15 @@ export interface StorageAdapter {
   load(projectId: string): Promise<string | null>;
   list(): Promise<string[]>;
   delete(projectId: string): Promise<void>;
+}
+
+export interface SingleLineCableData {
+  cableType: string;        // 'YDY' | 'YKY' | 'YKXS' | 'NYM' | 'H1Z2Z2-K' | 'LgY' | string
+  cores: number;            // 1..7
+  crossSection: number;     // mm²
+  peCrossSection?: number;  // mm² (gdy PE chudszy)
+  circuitId?: string;       // 'W1', 'O.1'
+  length?: number;          // m
+  current?: 'AC' | 'DC';
+  waypoints?: Array<{ x: number; y: number }>;
 }
