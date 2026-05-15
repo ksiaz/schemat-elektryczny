@@ -50,6 +50,15 @@ const EDGE_FIELDS: Record<string, ParameterDefinition[]> = {
     { key: 'cableSection', label: 'Przekrój', type: 'text' },
     { key: 'cableLength', label: 'Długość', type: 'text' },
   ],
+  singleLineCable: [
+    { key: 'cableType', label: 'Typ kabla', type: 'select', options: ['YDY', 'YKY', 'YKXS', 'NYM', 'H1Z2Z2-K', 'LgY'], defaultValue: 'YDY' },
+    { key: 'cores', label: 'Liczba żył', type: 'number', defaultValue: 5 },
+    { key: 'crossSection', label: 'Przekrój [mm²]', type: 'number', defaultValue: 6 },
+    { key: 'peCrossSection', label: 'Przekrój PE [mm²]', type: 'number' },
+    { key: 'circuitId', label: 'Obwód (W1, O.1)', type: 'text' },
+    { key: 'length', label: 'Długość [m]', type: 'number' },
+    { key: 'current', label: 'Prąd', type: 'select', options: ['AC', 'DC'], defaultValue: 'AC' },
+  ],
 };
 
 function ParameterInput({
