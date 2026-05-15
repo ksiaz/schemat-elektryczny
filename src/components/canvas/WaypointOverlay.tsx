@@ -9,7 +9,14 @@ const GRID = 10;
 export function WaypointOverlay() {
   const { screenToFlowPosition, flowToScreenPosition } = useReactFlow();
   const selectedEdgeId = useProjectStore((s) => s.selectedEdgeId);
-  const edges = useProjectStore((s) => s.edges);
+  const activeSheet = useProjectStore((s) => s.activeSheet);
+  const schematicEdges = useProjectStore((s) => s.edges);
+  const singleLineEdges = useProjectStore((s) => s.singleLineEdges);
+  const layoutEdges = useProjectStore((s) => s.layoutEdges);
+  const edges =
+    activeSheet === 'singleLine' ? singleLineEdges
+    : activeSheet === 'layout' ? layoutEdges
+    : schematicEdges;
   // Subskrypcja viewport wymusza re-render przy pan/zoom
   useStore((s) => s.transform);
 
