@@ -166,3 +166,39 @@ interface ProjectStore {
 5. **Kompletna biblioteka** — Wszystkie elementy DC i AC, podpowiedź doboru SPD
 6. **Eksport** — Ramka A4, PDF z autoskalowaniem, SVG, zapis/wczytywanie JSON
 7. **Szablony** — Instalacja 3-faz. ON-grid, 1-faz. ON-grid, hybryda z magazynem
+
+## Schemat jednokreskowy (SLD)
+
+Trzeci niezależny arkusz (`activeSheet === 'singleLine'`) — schemat ideowy zgodny z PN-EN 61082-1, do dokumentacji OSD przy zgłoszeniu mikroinstalacji PV.
+
+### Architektura
+- Stan w `projectStore`: `singleLineNodes` / `singleLineEdges` / `singleLinePast` / `singleLineFuture`.
+- Canvas: `src/components/canvas/SingleLineCanvas.tsx`.
+- Symbole: `src/nodes/sld/Sld*Node.tsx` (18 elementów, prefix nodeType `sld*`).
+- Edge: `src/edges/SingleLineCableEdge.tsx` — pojedyncza linia + pęczek ukośnych kresek (`cores` sztuk) + etykieta `YDY 5×6 mm² | W1 | L=12 m`.
+- Sidebar: definicje w `src/constants/singleLineElements.ts`.
+- Templates: `src/templates/sld/` (`onGrid1Phase`, `onGrid3Phase`, `hybrid`).
+- Routing: wyłącznie manual (waypoints przez dwuklik), brak auto-routingu.
+
+### Edge data model (`singleLineCable`)
+```typescript
+{
+  cableType: 'YDY' | 'YKY' | 'YKXS' | 'NYM' | 'H1Z2Z2-K' | 'LgY' | string;
+  cores: number;            // 1..7 — źródło prawdy dla kresek
+  crossSection: number;     // mm² (główne żyły)
+  peCrossSection?: number;  // mm² (gdy PE chudszy, np. 3×2,5+1,5)
+  circuitId?: string;       // 'W1', 'O.1'
+  length?: number;          // m
+  current?: 'AC' | 'DC';
+}
+```
+
+### Lista symboli (kategoria → nodeType)
+- **sldAcSource:** sldGridSource, sldCableJunction, sldMeter, sldCt
+- **sldAcProtection:** sldMainSwitch, sldFireSwitch, sldMcb, sldRcd, sldRcbo, sldSpdAc
+- **sldDc:** sldPvString, sldDcDisconnect, sldFuseGpv, sldSpdDc
+- **sldInverter:** sldInverter, sldBattery
+- **sldGrounding:** sldGround, sldOsdBoundary
+
+### Deprecated
+- `singleLineMcb` (zarejestrowany w wielokreskowym sheecie jako orphan) — **nie używać**. Pozostawiony wyłącznie dla wstecznej kompatybilności starych JSON-ów. Nowe rysunki: używaj `sldMcb` w arkuszu „Jednokreskowy".
