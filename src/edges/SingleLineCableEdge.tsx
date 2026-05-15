@@ -23,7 +23,8 @@ function formatLabel(data: SingleLineCableData): string[] {
   const withPe = data.peCrossSection && data.peCrossSection !== data.crossSection
     ? `${data.cableType} ${data.cores - 1}×${data.crossSection}+${data.peCrossSection}`
     : main;
-  lines.push(`${withPe} mm²`);
+  const dcSuffix = data.current === 'DC' ? ' (DC)' : '';
+  lines.push(`${withPe} mm²${dcSuffix}`);
   if (data.circuitId) lines.push(data.circuitId);
   if (data.length !== undefined) lines.push(`L=${data.length} m`);
   return lines;
@@ -70,6 +71,7 @@ export function SingleLineCableEdge({
     peCrossSection: d.peCrossSection,
     circuitId: d.circuitId,
     length: d.length,
+    current: d.current,
   });
 
   // pozycja etykiety: prostopadle do linii, po prawej stronie kresek
