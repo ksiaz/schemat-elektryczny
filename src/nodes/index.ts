@@ -37,6 +37,25 @@ import { FuseGpvNode } from './dc/FuseGpvNode.tsx';
 import { BatteryNode } from './dc/BatteryNode.tsx';
 import { EvChargerNode } from './ev/EvChargerNode.tsx';
 import { TransferSwitchNode } from './transfer/TransferSwitchNode.tsx';
+// SLD — Single Line Diagram
+import { SldGridSourceNode } from './sld/SldGridSourceNode.tsx';
+import { SldCableJunctionNode } from './sld/SldCableJunctionNode.tsx';
+import { SldMeterNode } from './sld/SldMeterNode.tsx';
+import { SldCtNode } from './sld/SldCtNode.tsx';
+import { SldMainSwitchNode } from './sld/SldMainSwitchNode.tsx';
+import { SldFireSwitchNode } from './sld/SldFireSwitchNode.tsx';
+import { SldMcbNode } from './sld/SldMcbNode.tsx';
+import { SldRcdNode } from './sld/SldRcdNode.tsx';
+import { SldRcboNode } from './sld/SldRcboNode.tsx';
+import { SldSpdAcNode } from './sld/SldSpdAcNode.tsx';
+import { SldPvStringNode } from './sld/SldPvStringNode.tsx';
+import { SldDcDisconnectNode } from './sld/SldDcDisconnectNode.tsx';
+import { SldFuseGpvNode } from './sld/SldFuseGpvNode.tsx';
+import { SldSpdDcNode } from './sld/SldSpdDcNode.tsx';
+import { SldInverterNode } from './sld/SldInverterNode.tsx';
+import { SldBatteryNode } from './sld/SldBatteryNode.tsx';
+import { SldGroundNode } from './sld/SldGroundNode.tsx';
+import { SldOsdBoundaryNode } from './sld/SldOsdBoundaryNode.tsx';
 
 export const nodeTypes = {
   // AC
@@ -83,4 +102,23 @@ export const nodeTypes = {
   evCharger: EvChargerNode,
   // Przelaczniki
   transferSwitch: TransferSwitchNode,
+  // SLD — Single Line Diagram
+  sldGridSource: SldGridSourceNode,
+  sldCableJunction: SldCableJunctionNode,
+  sldMeter: SldMeterNode,
+  sldCt: SldCtNode,
+  sldMainSwitch: SldMainSwitchNode,
+  sldFireSwitch: SldFireSwitchNode,
+  sldMcb: SldMcbNode,
+  sldRcd: SldRcdNode,
+  sldRcbo: SldRcboNode,
+  sldSpdAc: SldSpdAcNode,
+  sldPvString: SldPvStringNode,
+  sldDcDisconnect: SldDcDisconnectNode,
+  sldFuseGpv: SldFuseGpvNode,
+  sldSpdDc: SldSpdDcNode,
+  sldInverter: SldInverterNode,
+  sldBattery: SldBatteryNode,
+  sldGround: SldGroundNode,
+  sldOsdBoundary: SldOsdBoundaryNode,
 } as const;
