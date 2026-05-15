@@ -21,6 +21,7 @@ export function Toolbar() {
   } = useProjectStore();
 
   const isLayout = activeSheet === 'layout';
+  const isSingleLine = activeSheet === 'singleLine';
   const [templateOpen, setTemplateOpen] = useState(false);
 
   return (
@@ -38,20 +39,28 @@ export function Toolbar() {
 
       <div className="h-6 w-px bg-gray-200" />
 
-      {/* Zakladki: Schemat / Lokalizacja */}
+      {/* Zakladki: Schemat / Jednokreskowy / Lokalizacja */}
       <div className="flex items-center gap-1">
         <button
           onClick={() => setActiveSheet('schematic')}
           className={`px-3 py-1 text-xs rounded ${
-            !isLayout ? 'bg-gray-800 text-white' : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
+            activeSheet === 'schematic' ? 'bg-gray-800 text-white' : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
           }`}
         >
-          Schemat
+          Wielokreskowy
+        </button>
+        <button
+          onClick={() => setActiveSheet('singleLine')}
+          className={`px-3 py-1 text-xs rounded ${
+            activeSheet === 'singleLine' ? 'bg-blue-700 text-white' : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
+          }`}
+        >
+          Jednokreskowy
         </button>
         <button
           onClick={() => setActiveSheet('layout')}
           className={`px-3 py-1 text-xs rounded ${
-            isLayout ? 'bg-amber-700 text-white' : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
+            activeSheet === 'layout' ? 'bg-amber-700 text-white' : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
           }`}
         >
           Lokalizacja
@@ -78,58 +87,62 @@ export function Toolbar() {
         ))}
       </div>
 
-      <div className="h-6 w-px bg-gray-200" />
+      {!isSingleLine && !isLayout && (
+        <>
+          <div className="h-6 w-px bg-gray-200" />
 
-      {/* Typ polaczenia */}
-      <div className="flex items-center gap-1">
-        <span className="text-xs text-gray-500">Linia:</span>
-        {([
-          ['acL1', 'L1'],
-          ['acL2', 'L2'],
-          ['acL3', 'L3'],
-          ['acN', 'N'],
-          ['dcLine', 'DC'],
-          ['cable', 'Kabel'],
-          ['dcPlus', 'DC+'],
-          ['dcMinus', 'DC-'],
-          ['pe', 'PE'],
-        ] as const).map(([type, label]) => (
-          <button
-            key={type}
-            onClick={() => setEdgeType(type)}
-            className={`px-2 py-0.5 text-xs rounded ${
-              edgeType === type
-                ? 'bg-green-600 text-white'
-                : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
-            }`}
-          >
-            {label}
-          </button>
-        ))}
-      </div>
+          {/* Typ polaczenia */}
+          <div className="flex items-center gap-1">
+            <span className="text-xs text-gray-500">Linia:</span>
+            {([
+              ['acL1', 'L1'],
+              ['acL2', 'L2'],
+              ['acL3', 'L3'],
+              ['acN', 'N'],
+              ['dcLine', 'DC'],
+              ['cable', 'Kabel'],
+              ['dcPlus', 'DC+'],
+              ['dcMinus', 'DC-'],
+              ['pe', 'PE'],
+            ] as const).map(([type, label]) => (
+              <button
+                key={type}
+                onClick={() => setEdgeType(type)}
+                className={`px-2 py-0.5 text-xs rounded ${
+                  edgeType === type
+                    ? 'bg-green-600 text-white'
+                    : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
+                }`}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
 
-      <div className="h-6 w-px bg-gray-200" />
+          <div className="h-6 w-px bg-gray-200" />
 
-      {/* Tryb trasowania */}
-      <div className="flex items-center gap-1">
-        <span className="text-xs text-gray-500">Trasa:</span>
-        {([
-          ['auto', 'Auto'],
-          ['manual', 'Ręczna'],
-        ] as const).map(([mode, label]) => (
-          <button
-            key={mode}
-            onClick={() => setRoutingMode(mode)}
-            className={`px-2 py-0.5 text-xs rounded ${
-              routingMode === mode
-                ? 'bg-purple-600 text-white'
-                : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
-            }`}
-          >
-            {label}
-          </button>
-        ))}
-      </div>
+          {/* Tryb trasowania */}
+          <div className="flex items-center gap-1">
+            <span className="text-xs text-gray-500">Trasa:</span>
+            {([
+              ['auto', 'Auto'],
+              ['manual', 'Ręczna'],
+            ] as const).map(([mode, label]) => (
+              <button
+                key={mode}
+                onClick={() => setRoutingMode(mode)}
+                className={`px-2 py-0.5 text-xs rounded ${
+                  routingMode === mode
+                    ? 'bg-purple-600 text-white'
+                    : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
+                }`}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+        </>
+      )}
 
       <div className="h-6 w-px bg-gray-200" />
 

@@ -4,6 +4,7 @@ import { Toolbar } from './components/toolbar/Toolbar.tsx';
 import { Sidebar } from './components/sidebar/Sidebar.tsx';
 import { SchematicCanvas } from './components/canvas/SchematicCanvas.tsx';
 import { LayoutCanvas } from './components/canvas/LayoutCanvas.tsx';
+import { SingleLineCanvas } from './components/canvas/SingleLineCanvas.tsx';
 import { PropertiesPanel } from './components/properties/PropertiesPanel.tsx';
 import { useProjectStore, startAutosave, stopAutosave } from './store/projectStore.ts';
 
@@ -58,7 +59,9 @@ function App() {
         <Toolbar />
         <div className="flex flex-1 overflow-hidden">
           <Sidebar />
-          {activeSheet === 'schematic' ? <SchematicCanvas /> : <LayoutCanvas />}
+          {activeSheet === 'schematic' && <SchematicCanvas />}
+          {activeSheet === 'singleLine' && <SingleLineCanvas />}
+          {activeSheet === 'layout' && <LayoutCanvas />}
           <PropertiesPanel />
         </div>
       </div>
