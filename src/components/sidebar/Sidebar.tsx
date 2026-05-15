@@ -1,5 +1,6 @@
 import { ELEMENT_DEFINITIONS } from '../../constants/index.ts';
 import { LAYOUT_ELEMENT_DEFINITIONS } from '../../constants/layoutElements.ts';
+import { SINGLE_LINE_ELEMENT_DEFINITIONS } from '../../constants/singleLineElements.ts';
 import { useProjectStore } from '../../store/projectStore.ts';
 import type { ElementCategory, ElementDefinition } from '../../types/index.ts';
 
@@ -12,11 +13,11 @@ const CATEGORY_NAMES: Record<ElementCategory, string> = {
   grounding: 'Uziemienie',
   enclosure: 'Rozdzielnice',
   wiring: 'Linie i szyny',
-  sldAcSource: 'SLD - Źródła AC',
-  sldAcProtection: 'SLD - Ochrona AC',
-  sldDc: 'SLD - Strona DC',
-  sldInverter: 'SLD - Falownik',
-  sldGrounding: 'SLD - Uziemienie',
+  sldAcSource: 'AC — źródło / pomiar (SLD)',
+  sldAcProtection: 'AC — aparaty / zabezpieczenia (SLD)',
+  sldDc: 'Strona DC (SLD)',
+  sldInverter: 'Falownik / magazyn (SLD)',
+  sldGrounding: 'Uziemienie + granica (SLD)',
 };
 
 function groupByCategory(elements: ElementDefinition[]) {
@@ -30,11 +31,23 @@ function groupByCategory(elements: ElementDefinition[]) {
 
 export function Sidebar() {
   const activeSheet = useProjectStore((s) => s.activeSheet);
-  const isLayout = activeSheet === 'layout';
 
-  const elements = isLayout ? LAYOUT_ELEMENT_DEFINITIONS : ELEMENT_DEFINITIONS;
+  const elements =
+    activeSheet === 'layout' ? LAYOUT_ELEMENT_DEFINITIONS
+    : activeSheet === 'singleLine' ? SINGLE_LINE_ELEMENT_DEFINITIONS
+    : ELEMENT_DEFINITIONS;
+
+  const dataType =
+    activeSheet === 'layout' ? 'application/layout-element'
+    : activeSheet === 'singleLine' ? 'application/sld-element'
+    : 'application/schematic-element';
+
+  const headerTitle =
+    activeSheet === 'layout' ? 'Elementy lokalizacji'
+    : activeSheet === 'singleLine' ? 'Elementy jednokreskowe'
+    : 'Elementy schematu';
+
   const groupedElements = groupByCategory(elements);
-  const dataType = isLayout ? 'application/layout-element' : 'application/schematic-element';
 
   const onDragStart = (event: React.DragEvent, elementId: string) => {
     event.dataTransfer.setData(dataType, elementId);
@@ -44,7 +57,7 @@ export function Sidebar() {
   return (
     <aside className="w-56 bg-white border-r border-gray-200 overflow-y-auto p-3">
       <h2 className="text-sm font-bold text-gray-800 mb-3">
-        {isLayout ? 'Elementy lokalizacji' : 'Elementy schematu'}
+        {headerTitle}
       </h2>
 
       {Object.entries(groupedElements).map(([category, elems]) => (
