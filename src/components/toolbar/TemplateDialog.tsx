@@ -1,4 +1,5 @@
 import { TEMPLATES } from '../../templates/index.ts';
+import { SLD_TEMPLATES } from '../../templates/sld/index.ts';
 import { useProjectStore } from '../../store/projectStore.ts';
 
 interface TemplateDialogProps {
@@ -7,30 +8,42 @@ interface TemplateDialogProps {
 }
 
 export function TemplateDialog({ open, onClose }: TemplateDialogProps) {
+  const activeSheet = useProjectStore((s) => s.activeSheet);
+  const isSld = activeSheet === 'singleLine';
+
   if (!open) return null;
+  const templates = isSld ? SLD_TEMPLATES : TEMPLATES;
 
   const applyTemplate = (templateId: string) => {
-    const template = TEMPLATES.find((t) => t.id === templateId);
+    const template = templates.find((t) => t.id === templateId);
     if (!template) return;
 
     const { nodes, edges } = template.generate();
     const store = useProjectStore.getState();
-    store.pushHistory();
-    store.setNodes(nodes);
-    store.setEdges(edges);
+    if (isSld) {
+      store.pushSingleLineHistory();
+      store.setSingleLineNodes(nodes);
+      store.setSingleLineEdges(edges);
+    } else {
+      store.pushHistory();
+      store.setNodes(nodes);
+      store.setEdges(edges);
+    }
     onClose();
   };
 
   return (
     <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
       <div className="bg-white rounded-lg shadow-xl p-6 w-[480px] max-h-[80vh] overflow-y-auto border border-gray-200">
-        <h2 className="text-lg font-bold text-gray-800 mb-4">Wybierz szablon</h2>
+        <h2 className="text-lg font-bold text-gray-800 mb-4">
+          {isSld ? 'Szablony jednokreskowe' : 'Wybierz szablon'}
+        </h2>
         <p className="text-sm text-gray-500 mb-4">
-          Szablon zastąpi aktualny schemat. Użyj Ctrl+Z aby cofnąć.
+          Szablon zastąpi aktualny arkusz. Użyj Ctrl+Z aby cofnąć.
         </p>
 
         <div className="space-y-3">
-          {TEMPLATES.map((tpl) => (
+          {templates.map((tpl) => (
             <button
               key={tpl.id}
               onClick={() => applyTemplate(tpl.id)}
