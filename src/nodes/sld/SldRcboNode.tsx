@@ -13,7 +13,7 @@ export function SldRcboNode({ data, selected }: NodeProps<T>) {
     <div className={`flex flex-col items-center ${selected ? 'ring-2 ring-blue-500' : ''}`} style={{ width: 60, height: 60 }}>
       <Handle type="source" position={Position.Top} id="in" className="!w-1.5 !h-1.5" style={{ backgroundColor: '#333', left: 30 }} />
       <svg width="50" height="60" viewBox="0 0 50 60" style={{ overflow: 'visible' }}>
-        <text x="25" y="-4" textAnchor="middle" fontSize="9" fontWeight="bold" fill="#333">{data.label || 'F1'}</text>
+        <text x="25" y="-4" textAnchor="middle" fontSize="9" fontWeight="bold" fill="#333">{data.label}</text>
         <line x1="25" y1="0" x2="25" y2="10" stroke="#222" strokeWidth="1.5" />
         <line x1="25" y1="10" x2="35" y2="22" stroke="#222" strokeWidth="2" />
         <rect x="31" y="16" width="4" height="3" fill="none" stroke="#222" strokeWidth="0.8" />

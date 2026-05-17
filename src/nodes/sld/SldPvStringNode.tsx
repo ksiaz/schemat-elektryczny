@@ -12,7 +12,7 @@ export function SldPvStringNode({ data, selected }: NodeProps<T>) {
     <div className={`flex flex-col items-center ${selected ? 'ring-2 ring-blue-500' : ''}`} style={{ width: 80, height: 50 }}>
       <Handle type="source" position={Position.Top} id="in" className="!w-1.5 !h-1.5" style={{ backgroundColor: '#333', left: 40 }} />
       <svg width="70" height="50" viewBox="0 0 70 50" style={{ overflow: 'visible' }}>
-        <text x="35" y="-4" textAnchor="middle" fontSize="9" fontWeight="bold" fill="#333">{data.label || 'PV1'}</text>
+        <text x="35" y="-4" textAnchor="middle" fontSize="9" fontWeight="bold" fill="#333">{data.label}</text>
         <rect x="14" y="6" width="42" height="28" fill="#eef" stroke="#222" strokeWidth="1.5" />
         <line x1="14" y1="6" x2="56" y2="34" stroke="#222" strokeWidth="0.8" />
         <line x1="56" y1="6" x2="14" y2="34" stroke="#222" strokeWidth="0.8" />

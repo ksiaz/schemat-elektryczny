@@ -11,7 +11,7 @@ export function SldDcDisconnectNode({ data, selected }: NodeProps<T>) {
     <div className={`flex flex-col items-center ${selected ? 'ring-2 ring-blue-500' : ''}`} style={{ width: 60, height: 50 }}>
       <Handle type="source" position={Position.Top} id="in" className="!w-1.5 !h-1.5" style={{ backgroundColor: '#333', left: 30 }} />
       <svg width="50" height="50" viewBox="0 0 50 50" style={{ overflow: 'visible' }}>
-        <text x="25" y="-4" textAnchor="middle" fontSize="9" fontWeight="bold" fill="#333">{data.label || 'QS1'}</text>
+        <text x="25" y="-4" textAnchor="middle" fontSize="9" fontWeight="bold" fill="#333">{data.label}</text>
         <line x1="25" y1="0" x2="25" y2="12" stroke="#222" strokeWidth="1.5" />
         <line x1="25" y1="12" x2="35" y2="28" stroke="#222" strokeWidth="2" />
         <circle cx="25" cy="12" r="1.5" fill="#222" />

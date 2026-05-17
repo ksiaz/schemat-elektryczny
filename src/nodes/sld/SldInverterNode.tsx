@@ -35,7 +35,7 @@ export function SldInverterNode({ data, selected }: NodeProps<T>) {
           style={{ backgroundColor: '#1d4ed8', top: 40 }} />
 
         <svg width={W} height={H} viewBox={`0 0 ${W} ${H}`} style={{ overflow: 'visible' }}>
-          <text x={cx} y="-4" textAnchor="middle" fontSize="9" fontWeight="bold" fill="#333">{data.label || 'U1'}</text>
+          <text x={cx} y="-4" textAnchor="middle" fontSize="9" fontWeight="bold" fill="#333">{data.label}</text>
 
           {/* doprowadzenia PV (DC) */}
           {pvX.map((x, i) => (
@@ -71,7 +71,7 @@ export function SldInverterNode({ data, selected }: NodeProps<T>) {
       ))}
 
       <svg width={W} height={H} viewBox={`0 0 ${W} ${H}`} style={{ overflow: 'visible' }}>
-        <text x={cx} y="-4" textAnchor="middle" fontSize="9" fontWeight="bold" fill="#333">{data.label || 'U1'}</text>
+        <text x={cx} y="-4" textAnchor="middle" fontSize="9" fontWeight="bold" fill="#333">{data.label}</text>
 
         {pvX.map((x, i) => (
           <line key={i} x1={x} y1="0" x2={x} y2="10" stroke="#b91c1c" strokeWidth="1.5" />
