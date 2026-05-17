@@ -74,11 +74,16 @@ export function SingleLineCableEdge({
     current: d.current,
   });
 
-  // pozycja etykiety: prostopadle do linii, po prawej stronie kresek
-  const perpX = -uy;
-  const perpY = ux;
-  const labelX = midX + perpX * LABEL_OFFSET;
-  const labelY = midY + perpY * LABEL_OFFSET;
+  // Etykieta — zawsze obok linii, nigdy na niej.
+  // Pionowy kabel: blok po prawej, wysrodkowany pionowo.
+  // Poziomy kabel: blok nad linia, wysrodkowany poziomo.
+  const LINE_H = 11;
+  const isVertical = Math.abs(dy) >= Math.abs(dx);
+  const labelX = isVertical ? midX + LABEL_OFFSET : midX;
+  const labelY = isVertical
+    ? midY - ((labelLines.length - 1) * LINE_H) / 2
+    : midY - LABEL_OFFSET - (labelLines.length - 1) * LINE_H;
+  const labelAnchor: 'start' | 'middle' = isVertical ? 'start' : 'middle';
 
   return (
     <g>
@@ -101,10 +106,10 @@ export function SingleLineCableEdge({
         <text
           key={i}
           x={labelX}
-          y={labelY + i * 11}
+          y={labelY + i * LINE_H}
           fontSize="9"
           fill="#222"
-          textAnchor="start"
+          textAnchor={labelAnchor}
           style={{ userSelect: 'none', pointerEvents: 'none' }}
         >
           {text}
