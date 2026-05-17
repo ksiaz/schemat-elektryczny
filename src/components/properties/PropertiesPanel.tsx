@@ -1,6 +1,7 @@
 import { useProjectStore } from '../../store/projectStore.ts';
 import { ELEMENT_DEFINITIONS } from '../../constants/index.ts';
 import { LAYOUT_ELEMENT_DEFINITIONS } from '../../constants/layoutElements.ts';
+import { SINGLE_LINE_ELEMENT_DEFINITIONS } from '../../constants/singleLineElements.ts';
 import type { ParameterDefinition } from '../../types/index.ts';
 
 // Pola edycji przewodu (wspolne dla edge'ow)
@@ -104,13 +105,20 @@ export function PropertiesPanel() {
     selectedNodeId, selectedEdgeId,
     nodes, edges,
     layoutNodes, layoutEdges,
+    singleLineNodes, singleLineEdges,
     activeSheet,
     updateNodeData, updateEdgeData,
     projectInfo,
   } = useProjectStore();
 
-  const allNodes = activeSheet === 'layout' ? layoutNodes as typeof nodes : nodes;
-  const allEdges = activeSheet === 'layout' ? layoutEdges : edges;
+  const allNodes =
+    activeSheet === 'layout' ? layoutNodes as typeof nodes
+    : activeSheet === 'singleLine' ? singleLineNodes
+    : nodes;
+  const allEdges =
+    activeSheet === 'layout' ? layoutEdges
+    : activeSheet === 'singleLine' ? singleLineEdges
+    : edges;
 
   const selectedNode = selectedNodeId
     ? allNodes.find((n) => n.id === selectedNodeId)
@@ -264,7 +272,7 @@ export function PropertiesPanel() {
     );
   }
 
-  const definition = [...ELEMENT_DEFINITIONS, ...LAYOUT_ELEMENT_DEFINITIONS].find(
+  const definition = [...ELEMENT_DEFINITIONS, ...LAYOUT_ELEMENT_DEFINITIONS, ...SINGLE_LINE_ELEMENT_DEFINITIONS].find(
     (d) => d.id === selectedNode.data.elementId
   );
 
