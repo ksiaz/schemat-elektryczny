@@ -75,7 +75,14 @@ function withRotation<P extends { id: string; data: { rotation?: number } }>(
     if (!rotation) return createElement(Inner, props);
     return createElement(
       'div',
-      { style: { transform: `rotate(${rotation}deg)`, display: 'inline-block' } },
+      {
+        className: 'sld-rotated',
+        style: {
+          transform: `rotate(${rotation}deg)`,
+          display: 'inline-block',
+          '--sld-counter-rot': `${-rotation}deg`,
+        },
+      },
       createElement(Inner, props),
     );
   };
