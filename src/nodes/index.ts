@@ -56,6 +56,7 @@ import { SldInverterNode } from './sld/SldInverterNode.tsx';
 import { SldBatteryNode } from './sld/SldBatteryNode.tsx';
 import { SldGroundNode } from './sld/SldGroundNode.tsx';
 import { SldOsdBoundaryNode } from './sld/SldOsdBoundaryNode.tsx';
+import { SldTransferSwitchNode } from './sld/SldTransferSwitchNode.tsx';
 
 export const nodeTypes = {
   // AC
@@ -121,4 +122,5 @@ export const nodeTypes = {
   sldBattery: SldBatteryNode,
   sldGround: SldGroundNode,
   sldOsdBoundary: SldOsdBoundaryNode,
+  sldTransferSwitch: SldTransferSwitchNode,
 } as const;

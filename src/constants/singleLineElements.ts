@@ -69,6 +69,18 @@ export const SINGLE_LINE_ELEMENT_DEFINITIONS: ElementDefinition[] = [
     parameters: [],
   },
   {
+    id: 'sld_transfer_switch',
+    name: 'Przełącznik zasilania 1-0-2',
+    category: 'sldAcProtection',
+    designation: 'Q',
+    nodeType: 'sldTransferSwitch',
+    defaultLabel: 'Q1',
+    parameters: [
+      { key: 'poles', label: 'Bieguny', type: 'select', options: ['1P', '2P', '3P', '4P'], defaultValue: '4P' },
+      { key: 'ratingCurrent', label: 'In', type: 'number', unit: 'A', defaultValue: 63 },
+    ],
+  },
+  {
     id: 'sld_mcb',
     name: 'Wyłącznik MCB',
     category: 'sldAcProtection',
