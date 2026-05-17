@@ -32,6 +32,7 @@ export interface SchematicNodeData {
   elementId: string;
   designation: string;
   parameters: Record<string, string | number>;
+  rotation?: number;
   [key: string]: unknown;
 }
 

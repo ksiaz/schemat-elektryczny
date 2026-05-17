@@ -1,3 +1,5 @@
+import { createElement, useEffect, type ComponentType } from 'react';
+import { useUpdateNodeInternals } from '@xyflow/react';
 import { InverterNode } from './ac/InverterNode.tsx';
 import { RcdNode } from './ac/RcdNode.tsx';
 import { McbNode } from './ac/McbNode.tsx';
@@ -59,6 +61,26 @@ import { SldOsdBoundaryNode } from './sld/SldOsdBoundaryNode.tsx';
 import { SldTransferSwitchNode } from './sld/SldTransferSwitchNode.tsx';
 import { SldDistBoardNode } from './sld/SldDistBoardNode.tsx';
 
+// HOC — obrot symbolu o wielokrotnosc 90° wg data.rotation.
+// updateNodeInternals wymusza ponowny pomiar uchwytow, by przewody podazaly za obrotem.
+function withRotation<P extends { id: string; data: { rotation?: number } }>(
+  Inner: ComponentType<P>,
+): ComponentType<P> {
+  return function RotatableNode(props: P) {
+    const rotation = Number(props.data?.rotation ?? 0);
+    const updateNodeInternals = useUpdateNodeInternals();
+    useEffect(() => {
+      updateNodeInternals(props.id);
+    }, [rotation, props.id, updateNodeInternals]);
+    if (!rotation) return createElement(Inner, props);
+    return createElement(
+      'div',
+      { style: { transform: `rotate(${rotation}deg)`, display: 'inline-block' } },
+      createElement(Inner, props),
+    );
+  };
+}
+
 export const nodeTypes = {
   // AC
   inverter: InverterNode,
@@ -104,25 +126,25 @@ export const nodeTypes = {
   evCharger: EvChargerNode,
   // Przelaczniki
   transferSwitch: TransferSwitchNode,
-  // SLD — Single Line Diagram
-  sldGridSource: SldGridSourceNode,
-  sldCableJunction: SldCableJunctionNode,
-  sldMeter: SldMeterNode,
-  sldCt: SldCtNode,
-  sldMainSwitch: SldMainSwitchNode,
-  sldFireSwitch: SldFireSwitchNode,
-  sldMcb: SldMcbNode,
-  sldRcd: SldRcdNode,
-  sldRcbo: SldRcboNode,
-  sldSpdAc: SldSpdAcNode,
-  sldPvString: SldPvStringNode,
-  sldDcDisconnect: SldDcDisconnectNode,
-  sldFuseGpv: SldFuseGpvNode,
-  sldSpdDc: SldSpdDcNode,
-  sldInverter: SldInverterNode,
-  sldBattery: SldBatteryNode,
-  sldGround: SldGroundNode,
-  sldOsdBoundary: SldOsdBoundaryNode,
-  sldTransferSwitch: SldTransferSwitchNode,
-  sldDistBoard: SldDistBoardNode,
+  // SLD — Single Line Diagram (owijane withRotation — obrot o 90°)
+  sldGridSource: withRotation(SldGridSourceNode),
+  sldCableJunction: withRotation(SldCableJunctionNode),
+  sldMeter: withRotation(SldMeterNode),
+  sldCt: withRotation(SldCtNode),
+  sldMainSwitch: withRotation(SldMainSwitchNode),
+  sldFireSwitch: withRotation(SldFireSwitchNode),
+  sldMcb: withRotation(SldMcbNode),
+  sldRcd: withRotation(SldRcdNode),
+  sldRcbo: withRotation(SldRcboNode),
+  sldSpdAc: withRotation(SldSpdAcNode),
+  sldPvString: withRotation(SldPvStringNode),
+  sldDcDisconnect: withRotation(SldDcDisconnectNode),
+  sldFuseGpv: withRotation(SldFuseGpvNode),
+  sldSpdDc: withRotation(SldSpdDcNode),
+  sldInverter: withRotation(SldInverterNode),
+  sldBattery: withRotation(SldBatteryNode),
+  sldGround: withRotation(SldGroundNode),
+  sldOsdBoundary: withRotation(SldOsdBoundaryNode),
+  sldTransferSwitch: withRotation(SldTransferSwitchNode),
+  sldDistBoard: withRotation(SldDistBoardNode),
 } as const;

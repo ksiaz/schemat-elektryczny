@@ -297,6 +297,19 @@ export function PropertiesPanel() {
           />
         </div>
 
+        {/* Obrot symbolu — tylko schemat jednokreskowy */}
+        {activeSheet === 'singleLine' && (
+          <button
+            onClick={() => {
+              const cur = Number(selectedNode.data.rotation ?? 0);
+              updateNodeData(selectedNode.id, { rotation: (cur + 90) % 360 });
+            }}
+            className="w-full px-2 py-1 text-xs bg-gray-100 hover:bg-gray-200 rounded border border-gray-300"
+          >
+            ↻ Obróć 90° ({Number(selectedNode.data.rotation ?? 0)}°)
+          </button>
+        )}
+
         {/* Oznaczenie (read-only) */}
         {selectedNode.data.designation && (
           <div className="text-xs text-gray-500">
