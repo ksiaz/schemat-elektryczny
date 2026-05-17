@@ -251,4 +251,25 @@ export const SINGLE_LINE_ELEMENT_DEFINITIONS: ElementDefinition[] = [
     defaultLabel: 'RG',
     parameters: [],
   },
+
+  // ===== Ramka rysunkowa =====
+  {
+    id: 'info_frame',
+    name: 'Ramka informacyjna',
+    category: 'wiring',
+    designation: '',
+    nodeType: 'infoFrame',
+    defaultLabel: '',
+    parameters: [
+      { key: 'fontSize', label: 'Rozmiar czcionki', type: 'number', defaultValue: 9 },
+      { key: 'rows', label: 'Rubryki', type: 'text', defaultValue: JSON.stringify([
+        { label: 'Projekt', value: '' },
+        { label: 'Adres', value: '' },
+        { label: 'Projektant', value: '' },
+        { label: 'Data', value: '' },
+        { label: 'Skala', value: 'bez skali' },
+        { label: 'Format', value: 'A4' },
+      ]) },
+    ],
+  },
 ];
