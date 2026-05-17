@@ -170,7 +170,7 @@ export const nodeTypes = {
   sldCt: withRotation(SldCtNode),
   sldMainSwitch: withRotation(SldMainSwitchNode),
   sldFireSwitch: withRotation(SldFireSwitchNode),
-  sldMcb: withRotation(SldMcbNode),
+  sldMcb: SldMcbNode, // natywny obrot — bez HOC withRotation (pilot)
   sldRcd: withRotation(SldRcdNode),
   sldRcbo: withRotation(SldRcboNode),
   sldSpdAc: withRotation(SldSpdAcNode),
