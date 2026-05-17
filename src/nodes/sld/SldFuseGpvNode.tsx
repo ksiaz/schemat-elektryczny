@@ -7,7 +7,7 @@ export function SldFuseGpvNode({ data, selected }: NodeProps<T>) {
   const In = data.parameters.ratingCurrent ? `${data.parameters.ratingCurrent}A` : '';
   const Un = data.parameters.ratingVoltage ? `${data.parameters.ratingVoltage}V` : '';
   return (
-    <div className={`flex flex-col items-center ${selected ? 'ring-2 ring-blue-500' : ''}`} style={{ width: 30, height: 50 }}>
+    <div className={`flex flex-col items-center ${selected ? 'ring-2 ring-blue-500' : ''}`} style={{ width: 40, height: 50 }}>
       <Handle type="source" position={Position.Top} id="in" className="!w-1.5 !h-1.5" style={{ backgroundColor: '#333' }} />
       <svg width="30" height="50" viewBox="0 0 30 50" style={{ overflow: 'visible' }}>
         <text x="15" y="-4" textAnchor="middle" fontSize="9" fontWeight="bold" fill="#333">{data.label || 'F1'}</text>

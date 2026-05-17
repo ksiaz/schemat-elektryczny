@@ -9,8 +9,8 @@ export function SldPvStringNode({ data, selected }: NodeProps<T>) {
   const isc = data.parameters.isc ?? '';
   const mpp = data.parameters.mpp ?? '';
   return (
-    <div className={`flex flex-col items-center ${selected ? 'ring-2 ring-blue-500' : ''}`} style={{ width: 70, height: 50 }}>
-      <Handle type="source" position={Position.Top} id="in" className="!w-1.5 !h-1.5" style={{ backgroundColor: '#333', left: 35 }} />
+    <div className={`flex flex-col items-center ${selected ? 'ring-2 ring-blue-500' : ''}`} style={{ width: 80, height: 50 }}>
+      <Handle type="source" position={Position.Top} id="in" className="!w-1.5 !h-1.5" style={{ backgroundColor: '#333', left: 40 }} />
       <svg width="70" height="50" viewBox="0 0 70 50" style={{ overflow: 'visible' }}>
         <text x="35" y="-4" textAnchor="middle" fontSize="9" fontWeight="bold" fill="#333">{data.label || 'PV1'}</text>
         <rect x="14" y="6" width="42" height="28" fill="#eef" stroke="#222" strokeWidth="1.5" />
@@ -23,7 +23,7 @@ export function SldPvStringNode({ data, selected }: NodeProps<T>) {
         </text>
         {mpp && <text x="35" y="68" textAnchor="middle" fontSize="7" fill="#888">{`Pmpp=${mpp}W`}</text>}
       </svg>
-      <Handle type="source" position={Position.Bottom} id="out" className="!w-1.5 !h-1.5" style={{ backgroundColor: '#333', left: 35 }} />
+      <Handle type="source" position={Position.Bottom} id="out" className="!w-1.5 !h-1.5" style={{ backgroundColor: '#333', left: 40 }} />
     </div>
   );
 }
