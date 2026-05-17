@@ -207,10 +207,13 @@ export function Toolbar() {
             projectInfo: state.projectInfo,
             schematicFormat: state.schematicFormat,
             layoutFormat: state.layoutFormat,
+            singleLineFormat: state.singleLineFormat,
             nodes: state.nodes,
             edges: state.edges,
             layoutNodes: state.layoutNodes,
             layoutEdges: state.layoutEdges,
+            singleLineNodes: state.singleLineNodes,
+            singleLineEdges: state.singleLineEdges,
             labelCounters: state.labelCounters,
           });
           exportProjectToFile(data, state.projectName);
