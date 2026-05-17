@@ -186,8 +186,9 @@ export const SINGLE_LINE_ELEMENT_DEFINITIONS: ElementDefinition[] = [
     defaultLabel: 'U1',
     parameters: [
       { key: 'type', label: 'Typ', type: 'select', options: ['string', 'hybrid', 'mikro'], defaultValue: 'string' },
+      { key: 'strings', label: 'Liczba stringów', type: 'number', defaultValue: 2 },
       { key: 'power', label: 'Moc', type: 'number', unit: 'kW', defaultValue: 10 },
-      { key: 'mppt', label: 'MPPT', type: 'number', defaultValue: 2 },
+      { key: 'description', label: 'Opis', type: 'text' },
     ],
   },
   {
