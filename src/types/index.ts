@@ -6,7 +6,7 @@ export type ElementCategory =
   | 'dc' | 'ac' | 'inverter' | 'ev' | 'transfer'
   | 'grounding' | 'enclosure' | 'wiring'
   | 'sldAcSource' | 'sldAcProtection' | 'sldDc'
-  | 'sldInverter' | 'sldGrounding';
+  | 'sldInverter' | 'sldGrounding' | 'sldEnclosure';
 
 export interface ElementDefinition {
   id: string;

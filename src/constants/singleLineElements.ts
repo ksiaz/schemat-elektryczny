@@ -240,4 +240,15 @@ export const SINGLE_LINE_ELEMENT_DEFINITIONS: ElementDefinition[] = [
       { key: 'label', label: 'Etykieta', type: 'text', defaultValue: 'Granica własności OSD' },
     ],
   },
+
+  // ===== Rozdzielnice =====
+  {
+    id: 'sld_dist_board',
+    name: 'Rozdzielnica (RG)',
+    category: 'sldEnclosure',
+    designation: '',
+    nodeType: 'sldDistBoard',
+    defaultLabel: 'RG',
+    parameters: [],
+  },
 ];

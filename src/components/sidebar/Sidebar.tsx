@@ -18,6 +18,7 @@ const CATEGORY_NAMES: Record<ElementCategory, string> = {
   sldDc: 'Strona DC (SLD)',
   sldInverter: 'Falownik / magazyn (SLD)',
   sldGrounding: 'Uziemienie + granica (SLD)',
+  sldEnclosure: 'Rozdzielnice (SLD)',
 };
 
 function groupByCategory(elements: ElementDefinition[]) {
