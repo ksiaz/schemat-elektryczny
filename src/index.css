@@ -109,10 +109,3 @@ body {
 .react-flow__edge.selected {
   z-index: 20 !important;
 }
-
-/* Obrocone symbole SLD — tekst (etykiety, opisy) pozostaje poziomy i czytelny */
-.sld-rotated text {
-  transform: rotate(var(--sld-counter-rot, 0deg));
-  transform-box: fill-box;
-  transform-origin: center;
-}

@@ -1,5 +1,3 @@
-import { createElement, useEffect, useLayoutEffect, useRef, useState, type ComponentType } from 'react';
-import { useUpdateNodeInternals } from '@xyflow/react';
 import { InverterNode } from './ac/InverterNode.tsx';
 import { RcdNode } from './ac/RcdNode.tsx';
 import { McbNode } from './ac/McbNode.tsx';
@@ -61,63 +59,6 @@ import { SldOsdBoundaryNode } from './sld/SldOsdBoundaryNode.tsx';
 import { SldTransferSwitchNode } from './sld/SldTransferSwitchNode.tsx';
 import { SldDistBoardNode } from './sld/SldDistBoardNode.tsx';
 
-// HOC — obrot symbolu o wielokrotnosc 90° wg data.rotation.
-// Obrot wokol naroznika (0 0) + kompensacja przesunieciem o szerokosc/wysokosc:
-// punkt obrotu lezy na siatce, wiec uchwyty na siatce po obrocie tez sa na siatce.
-// updateNodeInternals wymusza ponowny pomiar uchwytow, by przewody podazaly za obrotem.
-function withRotation<P extends { id: string; data: { rotation?: number } }>(
-  Inner: ComponentType<P>,
-): ComponentType<P> {
-  return function RotatableNode(props: P) {
-    const rotation = ((Number(props.data?.rotation ?? 0) % 360) + 360) % 360;
-    const updateNodeInternals = useUpdateNodeInternals();
-    const ref = useRef<HTMLDivElement>(null);
-    const [size, setSize] = useState({ w: 0, h: 0 });
-
-    useLayoutEffect(() => {
-      const el = ref.current;
-      if (!el) return;
-      const measure = () => setSize((s) => {
-        const w = el.offsetWidth;
-        const h = el.offsetHeight;
-        return w !== s.w || h !== s.h ? { w, h } : s;
-      });
-      measure();
-      const ro = new ResizeObserver(measure);
-      ro.observe(el);
-      return () => ro.disconnect();
-    }, []);
-
-    useEffect(() => {
-      updateNodeInternals(props.id);
-    }, [rotation, size.w, size.h, props.id, updateNodeInternals]);
-
-    if (!rotation) {
-      return createElement('div', { ref, style: { display: 'inline-block' } }, createElement(Inner, props));
-    }
-
-    // przesuniecie kompensujace obrot wokol naroznika (0 0)
-    const { w, h } = size;
-    const tx = rotation === 90 ? h : rotation === 180 ? w : 0;
-    const ty = rotation === 270 ? w : rotation === 180 ? h : 0;
-
-    return createElement(
-      'div',
-      {
-        ref,
-        className: 'sld-rotated',
-        style: {
-          transform: `translate(${tx}px, ${ty}px) rotate(${rotation}deg)`,
-          transformOrigin: '0 0',
-          display: 'inline-block',
-          '--sld-counter-rot': `${-rotation}deg`,
-        },
-      },
-      createElement(Inner, props),
-    );
-  };
-}
-
 export const nodeTypes = {
   // AC
   inverter: InverterNode,
@@ -163,25 +104,25 @@ export const nodeTypes = {
   evCharger: EvChargerNode,
   // Przelaczniki
   transferSwitch: TransferSwitchNode,
-  // SLD — Single Line Diagram (owijane withRotation — obrot o 90°)
-  sldGridSource: withRotation(SldGridSourceNode),
-  sldCableJunction: withRotation(SldCableJunctionNode),
-  sldMeter: withRotation(SldMeterNode),
-  sldCt: withRotation(SldCtNode),
-  sldMainSwitch: withRotation(SldMainSwitchNode),
-  sldFireSwitch: withRotation(SldFireSwitchNode),
-  sldMcb: SldMcbNode, // natywny obrot — bez HOC withRotation (pilot)
-  sldRcd: withRotation(SldRcdNode),
-  sldRcbo: withRotation(SldRcboNode),
-  sldSpdAc: withRotation(SldSpdAcNode),
-  sldPvString: withRotation(SldPvStringNode),
-  sldDcDisconnect: withRotation(SldDcDisconnectNode),
-  sldFuseGpv: withRotation(SldFuseGpvNode),
-  sldSpdDc: withRotation(SldSpdDcNode),
-  sldInverter: withRotation(SldInverterNode),
-  sldBattery: withRotation(SldBatteryNode),
-  sldGround: withRotation(SldGroundNode),
-  sldOsdBoundary: withRotation(SldOsdBoundaryNode),
-  sldTransferSwitch: withRotation(SldTransferSwitchNode),
-  sldDistBoard: withRotation(SldDistBoardNode),
+  // SLD — Single Line Diagram (natywny obrot symboli o 90°)
+  sldGridSource: SldGridSourceNode,
+  sldCableJunction: SldCableJunctionNode,
+  sldMeter: SldMeterNode,
+  sldCt: SldCtNode,
+  sldMainSwitch: SldMainSwitchNode,
+  sldFireSwitch: SldFireSwitchNode,
+  sldMcb: SldMcbNode,
+  sldRcd: SldRcdNode,
+  sldRcbo: SldRcboNode,
+  sldSpdAc: SldSpdAcNode,
+  sldPvString: SldPvStringNode,
+  sldDcDisconnect: SldDcDisconnectNode,
+  sldFuseGpv: SldFuseGpvNode,
+  sldSpdDc: SldSpdDcNode,
+  sldInverter: SldInverterNode,
+  sldBattery: SldBatteryNode,
+  sldGround: SldGroundNode,
+  sldOsdBoundary: SldOsdBoundaryNode,
+  sldTransferSwitch: SldTransferSwitchNode,
+  sldDistBoard: SldDistBoardNode,
 } as const;
