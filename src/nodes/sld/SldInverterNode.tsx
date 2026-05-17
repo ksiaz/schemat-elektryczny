@@ -30,11 +30,9 @@ export function SldInverterNode({ data, selected }: NodeProps<T>) {
         <Handle type="source" position={Position.Left} id="bat" className="!w-1.5 !h-1.5"
           style={{ backgroundColor: '#ea580c', top: 30 }} />
         <Handle type="source" position={Position.Right} id="ac1" className="!w-1.5 !h-1.5"
-          style={{ backgroundColor: '#1d4ed8', top: 10 }} />
+          style={{ backgroundColor: '#1d4ed8', top: 20 }} />
         <Handle type="source" position={Position.Right} id="ac2" className="!w-1.5 !h-1.5"
-          style={{ backgroundColor: '#1d4ed8', top: 30 }} />
-        <Handle type="source" position={Position.Right} id="pe" className="!w-1.5 !h-1.5"
-          style={{ backgroundColor: '#228B22', top: 50 }} />
+          style={{ backgroundColor: '#1d4ed8', top: 40 }} />
 
         <svg width={W} height={H} viewBox={`0 0 ${W} ${H}`} style={{ overflow: 'visible' }}>
           <text x={cx} y="-4" textAnchor="middle" fontSize="9" fontWeight="bold" fill="#333">{data.label || 'U1'}</text>
@@ -54,11 +52,9 @@ export function SldInverterNode({ data, selected }: NodeProps<T>) {
           <line x1="8" y1="30" x2="-2" y2="30" stroke="#ea580c" strokeWidth="1.5" />
           <text x="-4" y="27" textAnchor="end" fontSize="6" fill="#ea580c">BAT</text>
 
-          {/* we/wy AC + PE — prawa */}
-          <line x1={W - 8} y1="10" x2={W + 2} y2="10" stroke="#1d4ed8" strokeWidth="1.5" />
-          <line x1={W - 8} y1="30" x2={W + 2} y2="30" stroke="#1d4ed8" strokeWidth="1.5" />
-          <line x1={W - 8} y1="50" x2={W + 2} y2="50" stroke="#228B22" strokeWidth="1.5" />
-          <text x={W + 4} y="48" fontSize="6" fill="#228B22">PE</text>
+          {/* we/wy AC — prawa */}
+          <line x1={W - 8} y1="20" x2={W + 2} y2="20" stroke="#1d4ed8" strokeWidth="1.5" />
+          <line x1={W - 8} y1="40" x2={W + 2} y2="40" stroke="#1d4ed8" strokeWidth="1.5" />
 
           {desc && <text x={cx} y="64" textAnchor="middle" fontSize="7" fill="#888">{desc}</text>}
         </svg>
