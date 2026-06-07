@@ -1,5 +1,7 @@
-import { useState } from 'react';
-import { useProjectStore } from '../../store/projectStore.ts';
+import { useState, useEffect } from 'react';
+import { signIn, signOut, isSignedIn, getEmail, onAuthChange } from '../../services/googleAuth.ts';
+import { DriveProjectStorage } from '../../services/driveProjectStorage.ts';
+import { setDriveStorage, useProjectStore } from '../../store/projectStore.ts';
 import { exportToSvg } from '../../utils/exportSvg.ts';
 import { exportToJpg } from '../../utils/exportJpg.ts';
 import { exportToPdf } from '../../utils/exportPdf.ts';
@@ -25,6 +27,25 @@ export function Toolbar() {
   const isSingleLine = activeSheet === 'singleLine';
   const [templateOpen, setTemplateOpen] = useState(false);
   const [projectsOpen, setProjectsOpen] = useState(false);
+  const [authed, setAuthed] = useState(isSignedIn());
+  const setStorageMode = useProjectStore((s) => s.setStorageMode);
+
+  useEffect(() => onAuthChange(() => setAuthed(isSignedIn())), []);
+
+  const handleSignIn = async () => {
+    try {
+      await signIn();
+      setDriveStorage(new DriveProjectStorage());
+      setStorageMode('drive');
+    } catch (e) {
+      alert('Logowanie nieudane: ' + (e as Error).message);
+    }
+  };
+  const handleSignOut = () => {
+    signOut();
+    setDriveStorage(null);
+    setStorageMode('local');
+  };
 
   return (
     <header className="h-12 bg-white border-b border-gray-200 flex items-center gap-4 px-4">
@@ -258,6 +279,16 @@ export function Toolbar() {
       >
         Projekty
       </button>
+
+      {authed ? (
+        <button onClick={handleSignOut} className="px-2 py-1 text-xs bg-gray-100 rounded border border-gray-300 hover:bg-gray-200">
+          {getEmail() ?? 'Konto'} · Wyloguj
+        </button>
+      ) : (
+        <button onClick={handleSignIn} className="px-2 py-1 text-xs bg-blue-600 text-white rounded hover:bg-blue-700">
+          Zaloguj Google
+        </button>
+      )}
 
       <TemplateDialog open={templateOpen} onClose={() => setTemplateOpen(false)} />
       <ProjectsModal open={projectsOpen} onClose={() => setProjectsOpen(false)} />
