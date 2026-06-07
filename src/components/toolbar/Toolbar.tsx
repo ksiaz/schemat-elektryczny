@@ -5,6 +5,7 @@ import { exportToJpg } from '../../utils/exportJpg.ts';
 import { exportToPdf } from '../../utils/exportPdf.ts';
 import { exportProjectToFile, importProjectFromFile } from '../../utils/fileIO.ts';
 import { TemplateDialog } from './TemplateDialog.tsx';
+import { ProjectsModal } from '../projects/ProjectsModal.tsx';
 import type { SheetFormat } from '../../types/index.ts';
 
 const FORMATS: SheetFormat[] = ['A4', 'A3', 'A2'];
@@ -23,6 +24,7 @@ export function Toolbar() {
   const isLayout = activeSheet === 'layout';
   const isSingleLine = activeSheet === 'singleLine';
   const [templateOpen, setTemplateOpen] = useState(false);
+  const [projectsOpen, setProjectsOpen] = useState(false);
 
   return (
     <header className="h-12 bg-white border-b border-gray-200 flex items-center gap-4 px-4">
@@ -249,7 +251,16 @@ export function Toolbar() {
         Szablony
       </button>
 
+      {/* Projekty */}
+      <button
+        onClick={() => setProjectsOpen(true)}
+        className="px-2 py-1 text-xs bg-gray-100 rounded border border-gray-300 hover:bg-gray-200"
+      >
+        Projekty
+      </button>
+
       <TemplateDialog open={templateOpen} onClose={() => setTemplateOpen(false)} />
+      <ProjectsModal open={projectsOpen} onClose={() => setProjectsOpen(false)} />
     </header>
   );
 }
