@@ -14,7 +14,13 @@ import type {
   SheetFormat,
   HistoryEntry,
 } from '../types/index.ts';
-import type { ProjectData } from '../types/project.ts';
+import type { ProjectData, ProjectStorage } from '../types/project.ts';
+import { LocalProjectStorage } from '../services/localProjectStorage.ts';
+
+// Ustawiane przez warstwe Drive po zalogowaniu; null = brak.
+let driveStorageRef: ProjectStorage | null = null;
+export function setDriveStorage(s: ProjectStorage | null) { driveStorageRef = s; }
+const localStorageBackend = new LocalProjectStorage();
 
 const MAX_HISTORY = 50;
 const AUTOSAVE_INTERVAL = 30_000;
@@ -107,6 +113,17 @@ interface ProjectState {
 
   // Autonumeracja
   labelCounters: Record<string, number>;
+
+  // Biblioteka projektow
+  currentProjectId: string | null;
+  currentProjectUpdatedAt: string | null;
+  storageMode: 'local' | 'drive';
+  setStorageMode: (m: 'local' | 'drive') => void;
+  getActiveStorage: () => ProjectStorage;
+  newProject: (name: string) => Promise<void>;
+  openProject: (id: string) => Promise<void>;
+  saveCurrent: () => Promise<{ conflict?: boolean }>;
+  saveAsProject: (name: string) => Promise<void>;
 }
 
 // Pomocnicza — generuje nastepna etykiete bez side effects
@@ -155,6 +172,10 @@ export const useProjectStore = create<ProjectState>((set, get) => ({
   edgeType: 'cable',
   routingMode: 'auto',
   labelCounters: {},
+
+  currentProjectId: null,
+  currentProjectUpdatedAt: null,
+  storageMode: 'local',
 
   setNodes: (nodes) => set({ nodes, isDirty: true }),
   setEdges: (edges) => set({ edges, isDirty: true }),
@@ -534,6 +555,47 @@ export const useProjectStore = create<ProjectState>((set, get) => ({
   setSelectedNodeId: (id) => set({ selectedNodeId: id }),
   setEdgeType: (type) => set({ edgeType: type }),
   setRoutingMode: (mode) => set({ routingMode: mode }),
+
+  // --- Biblioteka projektow ---
+  setStorageMode: (m) => set({ storageMode: m }),
+
+  getActiveStorage: () => (get().storageMode === 'drive' && driveStorageRef)
+    ? driveStorageRef
+    : localStorageBackend,
+
+  newProject: async (name) => {
+    get().applyProjectData({
+      projectName: name, projectInfo: get().projectInfo,
+      schematicFormat: 'A4', layoutFormat: 'A4', singleLineFormat: 'A4',
+      nodes: [], edges: [], layoutNodes: [], layoutEdges: [],
+      singleLineNodes: [], singleLineEdges: [], labelCounters: {},
+    });
+    const meta = await get().getActiveStorage().create(name, get().getProjectData());
+    set({ currentProjectId: meta.id, currentProjectUpdatedAt: meta.updatedAt, projectName: name });
+  },
+
+  openProject: async (id) => {
+    const file = await get().getActiveStorage().load(id);
+    get().applyProjectData(file.data);
+    set({ currentProjectId: file.id, currentProjectUpdatedAt: file.updatedAt });
+  },
+
+  saveCurrent: async () => {
+    const { currentProjectId, currentProjectUpdatedAt } = get();
+    if (!currentProjectId) return {};
+    const res = await get().getActiveStorage().save(
+      currentProjectId, get().projectName, get().getProjectData(),
+      currentProjectUpdatedAt ?? undefined,
+    );
+    if (res.conflict) return { conflict: true };
+    set({ currentProjectUpdatedAt: res.updatedAt, isDirty: false });
+    return {};
+  },
+
+  saveAsProject: async (name) => {
+    const meta = await get().getActiveStorage().create(name, { ...get().getProjectData(), projectName: name });
+    set({ currentProjectId: meta.id, currentProjectUpdatedAt: meta.updatedAt, projectName: name, isDirty: false });
+  },
 }));
 
 // --- Auto-zapis ---
@@ -543,8 +605,11 @@ export function startAutosave() {
   if (autosaveTimer) return;
   autosaveTimer = setInterval(() => {
     const state = useProjectStore.getState();
-    if (state.isDirty) {
-      state.saveProject();
+    if (!state.isDirty) return;
+    if (state.currentProjectId) {
+      state.saveCurrent().catch((e) => console.error('Autozapis nieudany', e));
+    } else {
+      state.saveProject(); // legacy draft (offline buffer) gdy brak projektu
     }
   }, AUTOSAVE_INTERVAL);
 }
