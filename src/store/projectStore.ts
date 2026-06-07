@@ -118,7 +118,9 @@ interface ProjectState {
   currentProjectId: string | null;
   currentProjectUpdatedAt: string | null;
   storageMode: 'local' | 'drive';
+  saveConflict: boolean;
   setStorageMode: (m: 'local' | 'drive') => void;
+  setSaveConflict: (v: boolean) => void;
   getActiveStorage: () => ProjectStorage;
   newProject: (name: string) => Promise<void>;
   openProject: (id: string) => Promise<void>;
@@ -176,6 +178,7 @@ export const useProjectStore = create<ProjectState>((set, get) => ({
   currentProjectId: null,
   currentProjectUpdatedAt: null,
   storageMode: 'local',
+  saveConflict: false,
 
   setNodes: (nodes) => set({ nodes, isDirty: true }),
   setEdges: (edges) => set({ edges, isDirty: true }),
@@ -558,6 +561,7 @@ export const useProjectStore = create<ProjectState>((set, get) => ({
 
   // --- Biblioteka projektow ---
   setStorageMode: (m) => set({ storageMode: m }),
+  setSaveConflict: (v) => set({ saveConflict: v }),
 
   getActiveStorage: () => (get().storageMode === 'drive' && driveStorageRef)
     ? driveStorageRef
@@ -577,7 +581,7 @@ export const useProjectStore = create<ProjectState>((set, get) => ({
   openProject: async (id) => {
     const file = await get().getActiveStorage().load(id);
     get().applyProjectData(file.data);
-    set({ currentProjectId: file.id, currentProjectUpdatedAt: file.updatedAt });
+    set({ currentProjectId: file.id, currentProjectUpdatedAt: file.updatedAt, saveConflict: false });
   },
 
   saveCurrent: async () => {
@@ -587,8 +591,8 @@ export const useProjectStore = create<ProjectState>((set, get) => ({
       currentProjectId, get().projectName, get().getProjectData(),
       currentProjectUpdatedAt ?? undefined,
     );
-    if (res.conflict) return { conflict: true };
-    set({ currentProjectUpdatedAt: res.updatedAt, isDirty: false });
+    if (res.conflict) { set({ saveConflict: true }); return { conflict: true }; }
+    set({ currentProjectUpdatedAt: res.updatedAt, isDirty: false, saveConflict: false });
     return {};
   },
 
@@ -607,7 +611,9 @@ export function startAutosave() {
     const state = useProjectStore.getState();
     if (!state.isDirty) return;
     if (state.currentProjectId) {
-      state.saveCurrent().catch((e) => console.error('Autozapis nieudany', e));
+      state.saveCurrent()
+        .then((r) => { if (r.conflict) useProjectStore.setState({ saveConflict: true }); })
+        .catch((e) => console.error('Autozapis nieudany', e));
     } else {
       state.saveProject(); // legacy draft (offline buffer) gdy brak projektu
     }

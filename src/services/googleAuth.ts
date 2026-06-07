@@ -92,3 +92,5 @@ export async function ensureToken(): Promise<string> {
 export function signOut(): void {
   accessToken = null; tokenExpiry = 0; userEmail = null; emit()
 }
+
+export function invalidateToken(): void { accessToken = null; tokenExpiry = 0 }

@@ -29,6 +29,7 @@ export function Toolbar() {
   const [projectsOpen, setProjectsOpen] = useState(false);
   const [authed, setAuthed] = useState(isSignedIn());
   const setStorageMode = useProjectStore((s) => s.setStorageMode);
+  const saveConflict = useProjectStore((s) => s.saveConflict);
 
   useEffect(() => onAuthChange(() => setAuthed(isSignedIn())), []);
 
@@ -279,6 +280,13 @@ export function Toolbar() {
       >
         Projekty
       </button>
+
+      {saveConflict && (
+        <button onClick={() => setProjectsOpen(true)}
+          className="px-2 py-1 text-xs bg-red-600 text-white rounded hover:bg-red-700">
+          ⚠ Konflikt zapisu — rozwiąż
+        </button>
+      )}
 
       {authed ? (
         <button onClick={handleSignOut} className="px-2 py-1 text-xs bg-gray-100 rounded border border-gray-300 hover:bg-gray-200">
