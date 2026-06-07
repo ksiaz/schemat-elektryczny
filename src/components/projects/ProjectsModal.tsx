@@ -7,6 +7,7 @@ export function ProjectsModal({ open, onClose }: { open: boolean; onClose: () =>
     storageMode, setStorageMode, getActiveStorage,
     newProject, openProject, currentProjectId,
   } = useProjectStore();
+  const saveCurrent = useProjectStore((s) => s.saveCurrent);
   const [items, setItems] = useState<ProjectMeta[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -41,6 +42,18 @@ export function ProjectsModal({ open, onClose }: { open: boolean; onClose: () =>
   const onDelete = async (m: ProjectMeta) => {
     if (!confirm(`Usunąć projekt „${m.name}"? Tej operacji nie można cofnąć.`)) return;
     await getActiveStorage().remove(m.id); refresh();
+  };
+  const onSaveNow = async () => {
+    const res = await saveCurrent();
+    if (res.conflict && currentProjectId) {
+      if (confirm('Ten projekt zmienił się w międzyczasie. OK = nadpisz mimo to, Anuluj = wczytaj nowszą wersję.')) {
+        useProjectStore.setState({ currentProjectUpdatedAt: null });
+        await saveCurrent();
+      } else {
+        await openProject(currentProjectId);
+      }
+    }
+    refresh();
   };
 
   return (
@@ -81,6 +94,7 @@ export function ProjectsModal({ open, onClose }: { open: boolean; onClose: () =>
         </div>
 
         <div className="p-2 border-t border-gray-200 text-right">
+          <button onClick={onSaveNow} className="px-3 py-1 text-xs bg-blue-600 text-white rounded hover:bg-blue-700 mr-2">Zapisz teraz</button>
           <button onClick={onClose} className="px-3 py-1 text-xs bg-gray-100 rounded hover:bg-gray-200">Zamknij</button>
         </div>
       </div>
