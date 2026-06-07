@@ -14,6 +14,7 @@ import type {
   SheetFormat,
   HistoryEntry,
 } from '../types/index.ts';
+import type { ProjectData } from '../types/project.ts';
 
 const MAX_HISTORY = 50;
 const AUTOSAVE_INTERVAL = 30_000;
@@ -89,6 +90,8 @@ interface ProjectState {
   setActiveSheet: (sheet: 'schematic' | 'singleLine' | 'layout') => void;
   saveProject: () => void;
   loadProject: (json: string) => void;
+  getProjectData: () => ProjectData;
+  applyProjectData: (data: ProjectData) => void;
 
   // Zaznaczenie
   selectedNodeId: string | null;
@@ -424,30 +427,48 @@ export const useProjectStore = create<ProjectState>((set, get) => ({
     }
   },
 
+  getProjectData: () => {
+    const s = get();
+    return {
+      projectName: s.projectName,
+      projectInfo: s.projectInfo,
+      schematicFormat: s.schematicFormat,
+      layoutFormat: s.layoutFormat,
+      nodes: s.nodes,
+      edges: s.edges,
+      layoutNodes: s.layoutNodes,
+      layoutEdges: s.layoutEdges,
+      singleLineNodes: s.singleLineNodes,
+      singleLineEdges: s.singleLineEdges,
+      singleLineFormat: s.singleLineFormat,
+      labelCounters: s.labelCounters,
+    };
+  },
+
+  applyProjectData: (data) => {
+    set({
+      projectName: data.projectName ?? 'Nowy projekt',
+      projectInfo: data.projectInfo ?? get().projectInfo,
+      schematicFormat: data.schematicFormat ?? 'A4',
+      layoutFormat: data.layoutFormat ?? 'A4',
+      nodes: data.nodes ?? [],
+      edges: data.edges ?? [],
+      layoutNodes: data.layoutNodes ?? [],
+      layoutEdges: data.layoutEdges ?? [],
+      singleLineNodes: data.singleLineNodes ?? [],
+      singleLineEdges: data.singleLineEdges ?? [],
+      singleLineFormat: data.singleLineFormat ?? 'A4',
+      singleLinePast: [], singleLineFuture: [],
+      labelCounters: data.labelCounters ?? {},
+      schematicPast: [], schematicFuture: [],
+      layoutPast: [], layoutFuture: [],
+      isDirty: false,
+    });
+  },
+
   loadProject: (json) => {
     try {
-      const data = JSON.parse(json);
-      set({
-        projectName: data.projectName ?? 'Nowy projekt',
-        projectInfo: data.projectInfo ?? get().projectInfo,
-        schematicFormat: data.schematicFormat ?? 'A4',
-        layoutFormat: data.layoutFormat ?? 'A4',
-        nodes: data.nodes ?? [],
-        edges: data.edges ?? [],
-        layoutNodes: data.layoutNodes ?? [],
-        layoutEdges: data.layoutEdges ?? [],
-        singleLineNodes: data.singleLineNodes ?? [],
-        singleLineEdges: data.singleLineEdges ?? [],
-        singleLineFormat: data.singleLineFormat ?? 'A4',
-        singleLinePast: [],
-        singleLineFuture: [],
-        labelCounters: data.labelCounters ?? {},
-        schematicPast: [],
-        schematicFuture: [],
-        layoutPast: [],
-        layoutFuture: [],
-        isDirty: false,
-      });
+      get().applyProjectData(JSON.parse(json) as ProjectData);
     } catch {
       console.error('Blad wczytywania projektu');
     }
