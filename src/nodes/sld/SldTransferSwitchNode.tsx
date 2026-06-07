@@ -38,10 +38,10 @@ export function SldTransferSwitchNode({ data, selected }: NodeProps<T>) {
           <line x1="60" y1="0" x2="60" y2="14" stroke="#222" strokeWidth="1.5" />
           <circle cx="20" cy="15" r="1.8" fill="#222" />
           <circle cx="60" cy="15" r="1.8" fill="#222" />
-          {/* etykiety pozycji 1 - 0 - 2 */}
-          <text x="14" y="13" textAnchor="end" fontSize="7" fontWeight="bold" fill="#222">1</text>
-          <text x="66" y="13" fontSize="7" fontWeight="bold" fill="#222">2</text>
-          <text x="40" y="10" textAnchor="middle" fontSize="7" fontWeight="bold" fill="#888">0</text>
+          {/* etykiety pozycji 1 - 0 - 2 — kontr-obrot, by zawsze byly czytelne */}
+          <text x="14" y="13" textAnchor="end" fontSize="7" fontWeight="bold" fill="#222" transform={`rotate(${-rot} 14 13)`}>1</text>
+          <text x="66" y="13" fontSize="7" fontWeight="bold" fill="#222" transform={`rotate(${-rot} 66 13)`}>2</text>
+          <text x="40" y="10" textAnchor="middle" fontSize="7" fontWeight="bold" fill="#888" transform={`rotate(${-rot} 40 10)`}>0</text>
           {/* mozliwe polozenia styku ruchomego */}
           <line x1="40" y1="18" x2="20" y2="16" stroke="#222" strokeWidth="0.6" strokeDasharray="2,1.5" />
           <line x1="40" y1="18" x2="60" y2="16" stroke="#222" strokeWidth="0.6" strokeDasharray="2,1.5" />
