@@ -7,6 +7,8 @@ import { LayoutCanvas } from './components/canvas/LayoutCanvas.tsx';
 import { SingleLineCanvas } from './components/canvas/SingleLineCanvas.tsx';
 import { PropertiesPanel } from './components/properties/PropertiesPanel.tsx';
 import { useProjectStore, startAutosave, stopAutosave } from './store/projectStore.ts';
+import { migrateLegacyProject } from './services/migration.ts';
+import { LocalProjectStorage } from './services/localProjectStorage.ts';
 
 function App() {
   const { undo, redo, saveProject, deleteSelectedNodes, activeSheet } = useProjectStore();
@@ -23,6 +25,13 @@ function App() {
     if (saved) {
       useProjectStore.getState().loadProject(saved);
     }
+  }, []);
+
+  // Migracja legacy project
+  useEffect(() => {
+    migrateLegacyProject(new LocalProjectStorage())
+      .then((meta) => { if (meta) useProjectStore.getState().openProject(meta.id); })
+      .catch((e) => console.error('Migracja nieudana', e));
   }, []);
 
   // Skroty klawiaturowe
