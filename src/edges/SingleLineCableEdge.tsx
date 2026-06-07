@@ -5,7 +5,8 @@ const HATCH_LEN = 6;       // dlugosc ukosnej kreski [px]
 const HATCH_SPACING = 3;   // odstep miedzy kreskami
 const HATCH_ANGLE_DEG = 60;
 const MIN_LINE_LEN_FOR_HATCH = 60;
-const LABEL_OFFSET = 14;
+const LABEL_OFFSET = 8;     // opis tuz obok symbolu liczby zyl
+const LABEL_FONT_SIZE = 7;
 
 function buildPath(sx: number, sy: number, tx: number, ty: number, waypoints?: Array<{x:number;y:number}>) {
   if (!waypoints || waypoints.length === 0) {
@@ -19,14 +20,21 @@ function buildPath(sx: number, sy: number, tx: number, ty: number, waypoints?: A
 
 function formatLabel(data: SingleLineCableData): string[] {
   const lines: string[] = [];
-  const main = `${data.cableType} ${data.cores}×${data.crossSection}`;
-  const withPe = data.peCrossSection && data.peCrossSection !== data.crossSection
-    ? `${data.cableType} ${data.cores - 1}×${data.crossSection}+${data.peCrossSection}`
-    : main;
+  // Bednarka (plaskownik uziemiajacy) — wymiary w mm, bez podzialu na PE.
+  const unit = data.cableType === 'bednarka' ? 'mm' : 'mm²';
   const dcSuffix = data.current === 'DC' ? ' (DC)' : '';
-  lines.push(`${withPe} mm²${dcSuffix}`);
+  if (data.showCrossSection === 'Nie') {
+    // Opis przekroju wylaczony — sama nazwa typu kabla.
+    if (data.cableType) lines.push(`${data.cableType}${dcSuffix}`);
+  } else {
+    const main = `${data.cableType} ${data.cores}×${data.crossSection}`;
+    const withPe = unit === 'mm²' && data.peCrossSection && data.peCrossSection !== data.crossSection
+      ? `${data.cableType} ${data.cores - 1}×${data.crossSection}+${data.peCrossSection}`
+      : main;
+    lines.push(`${withPe} ${unit}${dcSuffix}`);
+  }
   if (data.circuitId) lines.push(data.circuitId);
-  if (data.length !== undefined) lines.push(`L=${data.length} m`);
+  if (data.length !== undefined && data.showLength !== 'Nie') lines.push(`L=${data.length} m`);
   return lines;
 }
 
@@ -37,6 +45,7 @@ export function SingleLineCableEdge({
   const cableType = d.cableType ?? 'YDY';
   const cores = d.cores ?? 5;
   const crossSection = d.crossSection ?? 6;
+  const wireColor = d.color || '#222';
   const waypoints = (d as { waypoints?: Array<{x:number;y:number}> }).waypoints;
 
   const path = buildPath(sourceX, sourceY, targetX, targetY, waypoints);
@@ -72,12 +81,14 @@ export function SingleLineCableEdge({
     circuitId: d.circuitId,
     length: d.length,
     current: d.current,
+    showCrossSection: d.showCrossSection,
+    showLength: d.showLength,
   });
 
   // Etykieta — zawsze obok linii, nigdy na niej.
   // Pionowy kabel: blok po prawej, wysrodkowany pionowo.
   // Poziomy kabel: blok nad linia, wysrodkowany poziomo.
-  const LINE_H = 11;
+  const LINE_H = LABEL_FONT_SIZE + 2;
   const isVertical = Math.abs(dy) >= Math.abs(dx);
   const labelX = isVertical ? midX + LABEL_OFFSET : midX;
   const labelY = isVertical
@@ -88,7 +99,7 @@ export function SingleLineCableEdge({
   return (
     <g>
       <BaseEdge id={id} path={path} style={{
-        stroke: selected ? '#1d4ed8' : '#222',
+        stroke: selected ? '#1d4ed8' : wireColor,
         strokeWidth: selected ? 2.5 : 1.5,
       }} />
 
@@ -99,7 +110,7 @@ export function SingleLineCableEdge({
         const y1 = cy - (hy * HATCH_LEN) / 2;
         const x2 = cx + (hx * HATCH_LEN) / 2;
         const y2 = cy + (hy * HATCH_LEN) / 2;
-        return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="#222" strokeWidth="1" />;
+        return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke={selected ? '#1d4ed8' : wireColor} strokeWidth="1" />;
       })}
 
       {labelLines.map((text, i) => (
@@ -107,7 +118,7 @@ export function SingleLineCableEdge({
           key={i}
           x={labelX}
           y={labelY + i * LINE_H}
-          fontSize="9"
+          fontSize={LABEL_FONT_SIZE}
           fill="#222"
           textAnchor={labelAnchor}
           style={{ userSelect: 'none', pointerEvents: 'none' }}

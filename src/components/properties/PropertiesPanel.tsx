@@ -52,13 +52,16 @@ const EDGE_FIELDS: Record<string, ParameterDefinition[]> = {
     { key: 'cableLength', label: 'Długość', type: 'text' },
   ],
   singleLineCable: [
-    { key: 'cableType', label: 'Typ kabla', type: 'select', options: ['YDY', 'YKY', 'YKXS', 'NYM', 'H1Z2Z2-K', 'LgY'], defaultValue: 'YDY' },
+    { key: 'cableType', label: 'Typ kabla', type: 'select', options: ['YDY', 'YKY', 'YKXS', 'NYM', 'H1Z2Z2-K', 'LgY', 'bednarka'], defaultValue: 'YDY' },
     { key: 'cores', label: 'Liczba żył', type: 'number', defaultValue: 5 },
     { key: 'crossSection', label: 'Przekrój [mm²]', type: 'number', defaultValue: 6 },
     { key: 'peCrossSection', label: 'Przekrój PE [mm²]', type: 'number' },
     { key: 'circuitId', label: 'Obwód (W1, O.1)', type: 'text' },
     { key: 'length', label: 'Długość [m]', type: 'number' },
     { key: 'current', label: 'Prąd', type: 'select', options: ['AC', 'DC'], defaultValue: 'AC' },
+    { key: 'showCrossSection', label: 'Opis przekroju', type: 'select', options: ['Tak', 'Nie'], defaultValue: 'Tak' },
+    { key: 'showLength', label: 'Opis długości', type: 'select', options: ['Tak', 'Nie'], defaultValue: 'Tak' },
+    { key: 'color', label: 'Kolor przewodu', type: 'color', defaultValue: '#222222' },
   ],
 };
 
@@ -71,6 +74,26 @@ function ParameterInput({
   value: string | number;
   onChange: (val: string | number) => void;
 }) {
+  if (param.type === 'color') {
+    const color = String(value || '#222222');
+    return (
+      <div className="flex items-center gap-2">
+        <input
+          type="color"
+          value={color}
+          onChange={(e) => onChange(e.target.value)}
+          className="h-7 w-9 p-0 border border-gray-300 rounded cursor-pointer bg-white"
+        />
+        <input
+          type="text"
+          value={color}
+          onChange={(e) => onChange(e.target.value)}
+          className="flex-1 px-1.5 py-1 text-xs border border-gray-300 rounded focus:border-blue-500 focus:outline-none"
+        />
+      </div>
+    );
+  }
+
   if (param.type === 'select' && param.options) {
     return (
       <select

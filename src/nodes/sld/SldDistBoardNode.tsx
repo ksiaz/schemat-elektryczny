@@ -26,10 +26,10 @@ export function SldDistBoardNode({ data, selected }: NodeProps<T>) {
         );
       })}
       <svg width={box.w} height={box.h} viewBox={`0 0 ${box.w} ${box.h}`} style={{ overflow: 'visible', display: 'block' }}>
-        <text x={box.w / 2} y={box.h / 2 + 4} textAnchor="middle" fontSize="14" fontWeight="bold" fill="#222">{data.label}</text>
         <g transform={gTransform(rot, W, H)}>
           <rect x="1" y="1" width="78" height="38" rx="2" fill="white" stroke="#222" strokeWidth="1.8" />
         </g>
+        <text x={box.w / 2} y={box.h / 2 + 4} textAnchor="middle" fontSize="14" fontWeight="bold" fill="#222">{data.label}</text>
       </svg>
     </div>
   );

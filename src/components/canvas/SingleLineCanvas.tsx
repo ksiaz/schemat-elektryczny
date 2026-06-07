@@ -1,10 +1,10 @@
 import {
   ReactFlow, Background, BackgroundVariant, Controls, MiniMap,
-  useOnSelectionChange, useReactFlow, ConnectionMode,
+  useOnSelectionChange, useReactFlow, useUpdateNodeInternals, ConnectionMode,
   type Connection,
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
-import { useCallback, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { useProjectStore, generateNextLabel } from '../../store/projectStore.ts';
 import { nodeTypes } from '../../nodes/index.ts';
 import { edgeTypes } from '../../edges/index.ts';
@@ -24,6 +24,20 @@ export function SingleLineCanvas() {
   } = useProjectStore();
 
   const { screenToFlowPosition } = useReactFlow();
+
+  // Po obrocie symbolu uchwyty zmieniaja krawedz — wymus przeliczenie pozycji
+  // uchwytow, aby podlaczone kable snapowaly do nowej lokalizacji punktu.
+  const updateNodeInternals = useUpdateNodeInternals();
+  const prevRot = useRef<Record<string, number>>({});
+  useEffect(() => {
+    for (const n of singleLineNodes) {
+      const rot = Number((n.data as SchematicNodeData).rotation ?? 0);
+      if (prevRot.current[n.id] !== rot) {
+        prevRot.current[n.id] = rot;
+        updateNodeInternals(n.id);
+      }
+    }
+  }, [singleLineNodes, updateNodeInternals]);
 
   useOnSelectionChange({
     onChange: ({ nodes: sel, edges: selE }) => {

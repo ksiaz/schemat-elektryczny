@@ -58,6 +58,10 @@ import { SldGroundNode } from './sld/SldGroundNode.tsx';
 import { SldOsdBoundaryNode } from './sld/SldOsdBoundaryNode.tsx';
 import { SldTransferSwitchNode } from './sld/SldTransferSwitchNode.tsx';
 import { SldDistBoardNode } from './sld/SldDistBoardNode.tsx';
+import { SldWindTurbineNode } from './sld/SldWindTurbineNode.tsx';
+import { SldGridInverterNode } from './sld/SldGridInverterNode.tsx';
+import { SldControllerNode } from './sld/SldControllerNode.tsx';
+import { SldResistorNode } from './sld/SldResistorNode.tsx';
 
 export const nodeTypes = {
   // AC
@@ -125,4 +129,8 @@ export const nodeTypes = {
   sldOsdBoundary: SldOsdBoundaryNode,
   sldTransferSwitch: SldTransferSwitchNode,
   sldDistBoard: SldDistBoardNode,
+  sldWindTurbine: SldWindTurbineNode,
+  sldGridInverter: SldGridInverterNode,
+  sldController: SldControllerNode,
+  sldResistor: SldResistorNode,
 } as const;

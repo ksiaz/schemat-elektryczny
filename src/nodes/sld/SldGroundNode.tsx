@@ -26,6 +26,9 @@ export function SldGroundNode({ data, selected }: NodeProps<T>) {
         );
       })}
       <svg width={box.w} height={box.h} viewBox={`0 0 ${box.w} ${box.h}`} style={{ overflow: 'visible', display: 'block' }}>
+        {data.label && (
+          <text x={box.w + 3} y={box.h / 2 + 3} textAnchor="start" fontSize="9" fontWeight="bold" fill="#333">{data.label}</text>
+        )}
         <text x={box.w / 2} y={box.h + 8} textAnchor="middle" fontSize="7" fill="#888">{re}</text>
         <g transform={gTransform(rot, W, H)}>
           <line x1="20" y1="0" x2="20" y2="12" stroke="#228B22" strokeWidth="1.5" />

@@ -21,7 +21,7 @@ export interface ElementDefinition {
 export interface ParameterDefinition {
   key: string;
   label: string;
-  type: 'text' | 'number' | 'select';
+  type: 'text' | 'number' | 'select' | 'color';
   unit?: string;
   options?: string[];
   defaultValue?: string | number;
@@ -68,5 +68,8 @@ export interface SingleLineCableData {
   circuitId?: string;       // 'W1', 'O.1'
   length?: number;          // m
   current?: 'AC' | 'DC';
+  showCrossSection?: string; // 'Tak' | 'Nie' — 'Nie' ukrywa opis przekroju
+  showLength?: string;       // 'Tak' | 'Nie' — 'Nie' ukrywa opis dlugosci
+  color?: string;            // kolor przewodu (hex), domyslnie #222
   waypoints?: Array<{ x: number; y: number }>;
 }

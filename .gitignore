@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Lokalna konfiguracja narzedzi (prywatna)
+.claude/settings.local.json

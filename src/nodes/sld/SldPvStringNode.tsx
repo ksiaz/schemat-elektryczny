@@ -36,13 +36,13 @@ export function SldPvStringNode({ data, selected }: NodeProps<T>) {
           {voc && `Voc=${voc}V`} {isc && `Isc=${isc}A`}
         </text>
         {mpp && <text x={box.w / 2} y={box.h + 18} textAnchor="middle" fontSize="7" fill="#888">{`Pmpp=${mpp}W`}</text>}
+        <text x={box.w + 4} y={box.h / 2 + 4} textAnchor="start" fontSize="11" fontWeight="bold" fill="#222">{n}×</text>
         <g transform={gTransform(rot, W, H)}>
           <g transform={`translate(${SHIFT} 0)`}>
             <line x1="35" y1="0" x2="35" y2="6" stroke="#222" strokeWidth="1.5" />
             <rect x="14" y="6" width="42" height="28" fill="#eef" stroke="#222" strokeWidth="1.5" />
             <line x1="14" y1="6" x2="56" y2="34" stroke="#222" strokeWidth="0.8" />
             <line x1="56" y1="6" x2="14" y2="34" stroke="#222" strokeWidth="0.8" />
-            <text x="35" y="24" textAnchor="middle" fontSize="10" fontWeight="bold" fill="#222">{n}×</text>
             <line x1="35" y1="34" x2="35" y2="50" stroke="#222" strokeWidth="1.5" />
           </g>
         </g>
