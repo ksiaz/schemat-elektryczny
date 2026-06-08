@@ -55,6 +55,19 @@ export class DriveProjectStorage implements ProjectStorage {
     return { schemaVersion: 1, id, name: baseName(f.name), updatedAt: f.modifiedTime, data }
   }
 
+  // Wczytanie pliku wskazanego w Pickerze (po realnym ID pliku Drive).
+  async loadByFileId(fileId: string): Promise<ProjectFile> {
+    const meta = await this.request(`${API}/files/${fileId}?fields=id,name,modifiedTime,appProperties`)
+    if (!meta.ok) throw new Error(`Drive meta: ${meta.status}`)
+    const f = await meta.json() as DriveFile
+    const r = await this.request(`${API}/files/${fileId}?alt=media`)
+    if (!r.ok) throw new Error(`Drive get: ${r.status}`)
+    const data = await r.json() as ProjectData
+    const id = f.appProperties?.projectId ?? f.id
+    this.idCache.set(id, f.id)
+    return { schemaVersion: 1, id, name: baseName(f.name), updatedAt: f.modifiedTime, data }
+  }
+
   async create(name: string, data: ProjectData): Promise<ProjectMeta> {
     const id = crypto.randomUUID()
     const metadata = { name: nameFor(name), parents: [DRIVE_FOLDER_ID], mimeType: 'application/json', appProperties: { projectId: id } }

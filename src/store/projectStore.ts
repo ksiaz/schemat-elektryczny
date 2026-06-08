@@ -16,6 +16,7 @@ import type {
 } from '../types/index.ts';
 import type { ProjectData, ProjectStorage } from '../types/project.ts';
 import { LocalProjectStorage } from '../services/localProjectStorage.ts';
+import type { DriveProjectStorage } from '../services/driveProjectStorage.ts';
 
 // Ustawiane przez warstwe Drive po zalogowaniu; null = brak.
 let driveStorageRef: ProjectStorage | null = null;
@@ -124,6 +125,7 @@ interface ProjectState {
   getActiveStorage: () => ProjectStorage;
   newProject: (name: string) => Promise<void>;
   openProject: (id: string) => Promise<void>;
+  openDriveFileId: (fileId: string) => Promise<void>;
   saveCurrent: () => Promise<{ conflict?: boolean }>;
   saveAsProject: (name: string) => Promise<void>;
 }
@@ -580,6 +582,14 @@ export const useProjectStore = create<ProjectState>((set, get) => ({
 
   openProject: async (id) => {
     const file = await get().getActiveStorage().load(id);
+    get().applyProjectData(file.data);
+    set({ currentProjectId: file.id, currentProjectUpdatedAt: file.updatedAt, saveConflict: false });
+  },
+
+  // Otwarcie projektu wskazanego w Google Pickerze (po realnym ID pliku Drive).
+  openDriveFileId: async (fileId) => {
+    if (!driveStorageRef) throw new Error('Google Drive nie jest aktywny — zaloguj się.');
+    const file = await (driveStorageRef as DriveProjectStorage).loadByFileId(fileId);
     get().applyProjectData(file.data);
     set({ currentProjectId: file.id, currentProjectUpdatedAt: file.updatedAt, saveConflict: false });
   },

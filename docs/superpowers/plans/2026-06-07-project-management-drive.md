@@ -525,7 +525,7 @@ import { LocalProjectStorage, LOCAL_PROJECTS_KEY } from './localProjectStorage.t
 import type { ProjectData, ProjectMeta } from '../types/project.ts'
 
 // Musi byc identyczne ze STORAGE_KEY w projectStore.ts:
-export const LEGACY_KEY = 'schemat-elektryczny:project'
+export const LEGACY_KEY = 'schemat-pv-project'
 
 export async function migrateLegacyProject(storage: LocalProjectStorage): Promise<ProjectMeta | null> {
   if (localStorage.getItem(LOCAL_PROJECTS_KEY)) return null // biblioteka juz istnieje

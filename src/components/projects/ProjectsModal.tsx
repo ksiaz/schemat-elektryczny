@@ -1,12 +1,13 @@
 import { useEffect, useState, useCallback } from 'react';
 import { useProjectStore } from '../../store/projectStore.ts';
 import { isSignedIn, getEmail } from '../../services/googleAuth.ts';
+import { pickProjectFile } from '../../services/googlePicker.ts';
 import type { ProjectMeta } from '../../types/project.ts';
 
 export function ProjectsModal({ open, onClose }: { open: boolean; onClose: () => void }) {
   const {
     storageMode, setStorageMode, getActiveStorage,
-    newProject, openProject, currentProjectId, saveAsProject,
+    newProject, openProject, currentProjectId, saveAsProject, openDriveFileId,
   } = useProjectStore();
   const saveCurrent = useProjectStore((s) => s.saveCurrent);
   const [items, setItems] = useState<ProjectMeta[]>([]);
@@ -50,6 +51,17 @@ export function ProjectsModal({ open, onClose }: { open: boolean; onClose: () =>
   const onOpen = async (id: string) => {
     try { await openProject(id); onClose(); }
     catch (e) { alert('Błąd otwierania: ' + ((e as Error)?.message ?? e)); }
+  };
+
+  const onPickFromDrive = async () => {
+    try {
+      const picked = await pickProjectFile();
+      if (!picked) return;
+      await openDriveFileId(picked.id);
+      onClose();
+    } catch (e) {
+      alert('Błąd otwierania z Drive: ' + ((e as Error)?.message ?? e));
+    }
   };
 
   const onRename = async (m: ProjectMeta) => {
@@ -118,13 +130,18 @@ export function ProjectsModal({ open, onClose }: { open: boolean; onClose: () =>
         <div className="px-3 py-1.5 text-[11px] border-b border-gray-100">
           {storageMode === 'drive'
             ? (signedIn
-                ? <span className="text-green-700">Drive — zalogowano{getEmail() ? ` jako ${getEmail()}` : ''}. Zapisy trafiają do współdzielonego folderu.</span>
+                ? <span className="text-green-700">Drive — zalogowano{getEmail() ? ` jako ${getEmail()}` : ''}. Lista pokazuje Twoje projekty; cudze otwórz przez „Otwórz z Drive…".</span>
                 : <span className="text-red-600">Drive wybrany, ale NIE jesteś zalogowany — kliknij „Zaloguj Google" w pasku.</span>)
             : <span className="text-gray-600">Tryb lokalny (zapis w przeglądarce). Zaloguj się i wybierz „Drive", aby zapisać na Google Drive.</span>}
         </div>
 
         <div className="flex items-center justify-between p-2 border-b border-gray-100">
-          <button onClick={onNew} className="px-2 py-1 text-xs bg-green-600 text-white rounded hover:bg-green-700">+ Nowy projekt</button>
+          <div className="flex gap-1">
+            <button onClick={onNew} className="px-2 py-1 text-xs bg-green-600 text-white rounded hover:bg-green-700">+ Nowy projekt</button>
+            {storageMode === 'drive' && (
+              <button onClick={onPickFromDrive} className="px-2 py-1 text-xs bg-gray-100 rounded border border-gray-300 hover:bg-gray-200">Otwórz z Drive…</button>
+            )}
+          </div>
           <button onClick={refresh} className="px-2 py-1 text-xs bg-gray-100 rounded hover:bg-gray-200">Odśwież</button>
         </div>
 
