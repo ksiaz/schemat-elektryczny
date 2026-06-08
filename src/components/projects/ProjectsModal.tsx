@@ -1,16 +1,19 @@
 import { useEffect, useState, useCallback } from 'react';
 import { useProjectStore } from '../../store/projectStore.ts';
+import { isSignedIn, getEmail } from '../../services/googleAuth.ts';
 import type { ProjectMeta } from '../../types/project.ts';
 
 export function ProjectsModal({ open, onClose }: { open: boolean; onClose: () => void }) {
   const {
     storageMode, setStorageMode, getActiveStorage,
-    newProject, openProject, currentProjectId,
+    newProject, openProject, currentProjectId, saveAsProject,
   } = useProjectStore();
   const saveCurrent = useProjectStore((s) => s.saveCurrent);
   const [items, setItems] = useState<ProjectMeta[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  const where = () => (storageMode === 'drive' ? 'Google Drive' : 'lokalnie (w przeglądarce)');
 
   const refresh = useCallback(() => {
     setLoading(true); setError(null);
@@ -24,37 +27,79 @@ export function ProjectsModal({ open, onClose }: { open: boolean; onClose: () =>
 
   if (!open) return null;
 
+  const goDrive = () => {
+    if (!isSignedIn()) {
+      alert('Aby użyć Google Drive, najpierw kliknij „Zaloguj Google" w pasku narzędzi.');
+      return;
+    }
+    setStorageMode('drive');
+  };
+
   const onNew = async () => {
     const name = prompt('Nazwa nowego projektu:', 'Nowy projekt');
     if (!name) return;
-    await newProject(name);
-    onClose();
+    try {
+      await newProject(name);
+      alert(`Utworzono „${name}" — ${where()}.`);
+      onClose();
+    } catch (e) {
+      alert('Błąd tworzenia projektu: ' + ((e as Error)?.message ?? e));
+    }
   };
-  const onOpen = async (id: string) => { await openProject(id); onClose(); };
+
+  const onOpen = async (id: string) => {
+    try { await openProject(id); onClose(); }
+    catch (e) { alert('Błąd otwierania: ' + ((e as Error)?.message ?? e)); }
+  };
+
   const onRename = async (m: ProjectMeta) => {
     const name = prompt('Nowa nazwa:', m.name);
     if (!name) return;
-    await getActiveStorage().rename(m.id, name); refresh();
+    try { await getActiveStorage().rename(m.id, name); refresh(); }
+    catch (e) { alert('Błąd zmiany nazwy: ' + ((e as Error)?.message ?? e)); }
   };
+
   const onDuplicate = async (m: ProjectMeta) => {
-    await getActiveStorage().duplicate(m.id, `${m.name} (kopia)`); refresh();
+    try { await getActiveStorage().duplicate(m.id, `${m.name} (kopia)`); refresh(); }
+    catch (e) { alert('Błąd duplikowania: ' + ((e as Error)?.message ?? e)); }
   };
+
   const onDelete = async (m: ProjectMeta) => {
     if (!confirm(`Usunąć projekt „${m.name}"? Tej operacji nie można cofnąć.`)) return;
-    await getActiveStorage().remove(m.id); refresh();
+    try { await getActiveStorage().remove(m.id); refresh(); }
+    catch (e) { alert('Błąd usuwania: ' + ((e as Error)?.message ?? e)); }
   };
+
   const onSaveNow = async () => {
-    const res = await saveCurrent();
-    if (res.conflict && currentProjectId) {
-      if (confirm('Ten projekt zmienił się w międzyczasie. OK = nadpisz mimo to, Anuluj = wczytaj nowszą wersję.')) {
-        useProjectStore.setState({ currentProjectUpdatedAt: null });
-        await saveCurrent();
-      } else {
-        await openProject(currentProjectId);
+    try {
+      // Brak aktywnego projektu — utworz nowy plik zamiast cichego nic-nie-robienia.
+      if (!currentProjectId) {
+        const name = prompt('Nazwa projektu do zapisania:', 'Nowy projekt');
+        if (!name) return;
+        await saveAsProject(name);
+        alert(`Zapisano „${name}" — ${where()}.`);
+        refresh();
+        return;
       }
+      const res = await saveCurrent();
+      if (res.conflict) {
+        if (confirm('Ten projekt zmienił się w międzyczasie. OK = nadpisz mimo to, Anuluj = wczytaj nowszą wersję.')) {
+          useProjectStore.setState({ currentProjectUpdatedAt: null });
+          await saveCurrent();
+        } else {
+          await openProject(currentProjectId);
+          refresh();
+          return;
+        }
+      }
+      alert(`Zapisano — ${where()}.`);
+      refresh();
+    } catch (e) {
+      alert('Błąd zapisu: ' + ((e as Error)?.message ?? e));
     }
-    refresh();
   };
+
+  const signedIn = isSignedIn();
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40" onClick={onClose}>
@@ -64,9 +109,18 @@ export function ProjectsModal({ open, onClose }: { open: boolean; onClose: () =>
           <div className="flex gap-1 text-xs">
             <button onClick={() => setStorageMode('local')}
               className={`px-2 py-1 rounded ${storageMode === 'local' ? 'bg-blue-600 text-white' : 'bg-gray-100'}`}>Lokalne</button>
-            <button onClick={() => setStorageMode('drive')}
+            <button onClick={goDrive}
               className={`px-2 py-1 rounded ${storageMode === 'drive' ? 'bg-blue-600 text-white' : 'bg-gray-100'}`}>Drive</button>
           </div>
+        </div>
+
+        {/* Status trybu / logowania — dla jasnosci gdzie trafia zapis */}
+        <div className="px-3 py-1.5 text-[11px] border-b border-gray-100">
+          {storageMode === 'drive'
+            ? (signedIn
+                ? <span className="text-green-700">Drive — zalogowano{getEmail() ? ` jako ${getEmail()}` : ''}. Zapisy trafiają do współdzielonego folderu.</span>
+                : <span className="text-red-600">Drive wybrany, ale NIE jesteś zalogowany — kliknij „Zaloguj Google" w pasku.</span>)
+            : <span className="text-gray-600">Tryb lokalny (zapis w przeglądarce). Zaloguj się i wybierz „Drive", aby zapisać na Google Drive.</span>}
         </div>
 
         <div className="flex items-center justify-between p-2 border-b border-gray-100">
