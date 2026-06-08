@@ -113,19 +113,8 @@ export function SingleLineCanvas() {
     updateEdgeData(edge.id, { waypoints: [...existing, snapped] });
   }, [screenToFlowPosition, updateEdgeData]);
 
-  const { zoomTo, getViewport } = useReactFlow();
-  const zoomTimeout = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
-  const onWheel = useCallback((e: React.WheelEvent) => {
-    e.preventDefault();
-    clearTimeout(zoomTimeout.current);
-    const currentZoom = getViewport().zoom;
-    const delta = e.deltaY > 0 ? -0.03 : 0.03;
-    const newZoom = Math.min(4, Math.max(0.1, currentZoom + delta));
-    zoomTo(newZoom, { duration: 50 });
-  }, [zoomTo, getViewport]);
-
   return (
-    <div className="flex-1 relative" onWheel={onWheel}>
+    <div className="flex-1 relative">
       <ReactFlow
         nodes={singleLineNodes}
         edges={singleLineEdges}
@@ -144,7 +133,6 @@ export function SingleLineCanvas() {
         snapToGrid
         snapGrid={[10, 10]}
         defaultViewport={{ x: 0, y: 0, zoom: 1 }}
-        zoomOnScroll={false}
         minZoom={0.1}
         maxZoom={4}
         style={{ width: '100%', height: '100%' }}
