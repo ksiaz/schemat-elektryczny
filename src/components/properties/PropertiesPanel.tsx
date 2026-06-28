@@ -52,7 +52,7 @@ const EDGE_FIELDS: Record<string, ParameterDefinition[]> = {
     { key: 'cableLength', label: 'Długość', type: 'text' },
   ],
   singleLineCable: [
-    { key: 'cableType', label: 'Typ kabla', type: 'select', options: ['YDY', 'YKY', 'YKXS', 'NYM', 'H1Z2Z2-K', 'LgY', 'bednarka'], defaultValue: 'YDY' },
+    { key: 'cableType', label: 'Typ kabla', type: 'select', options: ['YDY', 'YKY', 'YKXS', 'NYM', 'OWY', 'H1Z2Z2-K', 'LgY', 'bednarka'], defaultValue: 'YDY' },
     { key: 'cores', label: 'Liczba żył', type: 'number', defaultValue: 5 },
     { key: 'crossSection', label: 'Przekrój [mm²]', type: 'number', defaultValue: 6 },
     { key: 'peCrossSection', label: 'Przekrój PE [mm²]', type: 'number' },

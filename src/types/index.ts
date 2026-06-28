@@ -66,7 +66,7 @@ export interface StorageAdapter {
 }
 
 export interface SingleLineCableData {
-  cableType: string;        // 'YDY' | 'YKY' | 'YKXS' | 'NYM' | 'H1Z2Z2-K' | 'LgY' | string
+  cableType: string;        // 'YDY' | 'YKY' | 'YKXS' | 'NYM' | 'OWY' | 'H1Z2Z2-K' | 'LgY' | string
   cores: number;            // 1..7
   crossSection: number;     // mm²
   peCrossSection?: number;  // mm² (gdy PE chudszy)
