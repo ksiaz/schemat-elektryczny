@@ -1,6 +1,8 @@
-import { Handle, Position, type NodeProps, type Node } from '@xyflow/react';
+import { Position, type NodeProps, type Node } from '@xyflow/react';
 import type { SchematicNodeData } from '../../types/index.ts';
-import { normRot, boxDims, gTransform, rotHandle, type BaseHandle } from './rotate.ts';
+import { normRot, type BaseHandle } from './rotate.ts';
+import { SldSymbol } from './SldSymbol.tsx';
+import { INK, STROKE, FINE } from './sldStyle.ts';
 
 type T = Node<SchematicNodeData, 'sldFuseGpv'>;
 
@@ -17,30 +19,17 @@ export function SldFuseGpvNode({ data, selected }: NodeProps<T>) {
   const Un = data.parameters.ratingVoltage ? `${data.parameters.ratingVoltage}V` : '';
 
   const rot = normRot(data.rotation);
-  const box = boxDims(rot, W, H);
 
   return (
-    <div className={selected ? 'ring-2 ring-blue-500' : ''} style={{ width: box.w, height: box.h, position: 'relative' }}>
-      {BASE.map((b) => {
-        const r = rotHandle(b, rot, W, H);
-        return (
-          <Handle key={b.id} type="source" id={r.id} position={r.position}
-            className="!w-1.5 !h-1.5" style={{ backgroundColor: r.color, left: r.left, top: r.top }} />
-        );
-      })}
-      <svg width={box.w} height={box.h} viewBox={`0 0 ${box.w} ${box.h}`} style={{ overflow: 'visible', display: 'block' }}>
-        <text x={box.w / 2} y="-4" textAnchor="middle" fontSize="9" fontWeight="bold" fill="#333">{data.label}</text>
-        <text x={box.w / 2} y={box.h + 8} textAnchor="middle" fontSize="7" fill="#888">{In} {Un}</text>
-        <g transform={gTransform(rot, W, H)}>
-          <g transform={`translate(${SHIFT} 0)`}>
-            <line x1="15" y1="0" x2="15" y2="14" stroke="#222" strokeWidth="1.5" />
-            <rect x="9" y="14" width="12" height="22" fill="white" stroke="#222" strokeWidth="1.5" />
-            <line x1="15" y1="14" x2="15" y2="36" stroke="#222" strokeWidth="1.2" />
-            <text x="15" y="29" textAnchor="middle" fontSize="7" fontWeight="bold" fill="#222">gPV</text>
-            <line x1="15" y1="36" x2="15" y2="50" stroke="#222" strokeWidth="1.5" />
-          </g>
-        </g>
-      </svg>
-    </div>
+    <SldSymbol selected={selected} rot={rot} w={W} h={H} handles={BASE}
+      label={data.label} rating={`${In} ${Un}`.trim()}>
+      <g transform={`translate(${SHIFT} 0)`}>
+        <line x1="15" y1="0" x2="15" y2="14" stroke={INK} strokeWidth={STROKE} />
+        <rect x="9" y="14" width="12" height="22" fill="white" stroke={INK} strokeWidth={STROKE} />
+        <line x1="15" y1="14" x2="15" y2="36" stroke={INK} strokeWidth={FINE} />
+        <text x="15" y="29" textAnchor="middle" fontSize="7" fontWeight="bold" fill={INK}>gPV</text>
+        <line x1="15" y1="36" x2="15" y2="50" stroke={INK} strokeWidth={STROKE} />
+      </g>
+    </SldSymbol>
   );
 }

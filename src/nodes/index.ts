@@ -62,6 +62,7 @@ import { SldWindTurbineNode } from './sld/SldWindTurbineNode.tsx';
 import { SldGridInverterNode } from './sld/SldGridInverterNode.tsx';
 import { SldControllerNode } from './sld/SldControllerNode.tsx';
 import { SldResistorNode } from './sld/SldResistorNode.tsx';
+import { SldEStopNode } from './sld/SldEStopNode.tsx';
 
 export const nodeTypes = {
   // AC
@@ -133,4 +134,5 @@ export const nodeTypes = {
   sldGridInverter: SldGridInverterNode,
   sldController: SldControllerNode,
   sldResistor: SldResistorNode,
+  sldEStop: SldEStopNode,
 } as const;

@@ -21,6 +21,7 @@ export function Toolbar() {
     schematicPast, schematicFuture, isDirty,
     edgeType, setEdgeType,
     routingMode, setRoutingMode,
+    projectInfo, setSldLabelFontSize,
   } = useProjectStore();
 
   const isLayout = activeSheet === 'layout';
@@ -110,6 +111,26 @@ export function Toolbar() {
           </button>
         ))}
       </div>
+
+      {isSingleLine && (
+        <>
+          <div className="h-6 w-px bg-gray-200" />
+          {/* Globalna wielkosc czcionki opisow przewodow */}
+          <div className="flex items-center gap-1">
+            <span className="text-xs text-gray-500" title="Wielkość czcionki opisów przewodów (globalnie)">Opisy:</span>
+            <input
+              type="number"
+              min={3}
+              max={20}
+              step={0.5}
+              value={projectInfo.sldLabelFontSize ?? 7}
+              onChange={(e) => setSldLabelFontSize(Number(e.target.value) || 7)}
+              className="w-14 px-1.5 py-0.5 text-xs border border-gray-300 rounded focus:border-blue-500 focus:outline-none"
+            />
+            <span className="text-xs text-gray-400">px</span>
+          </div>
+        </>
+      )}
 
       {!isSingleLine && !isLayout && (
         <>

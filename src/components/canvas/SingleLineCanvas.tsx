@@ -10,6 +10,8 @@ import { nodeTypes } from '../../nodes/index.ts';
 import { edgeTypes } from '../../edges/index.ts';
 import { DrawingFrame } from '../drawing-frame/DrawingFrame.tsx';
 import { WaypointOverlay } from './WaypointOverlay.tsx';
+import { SldConnectionOverlay } from './SldConnectionOverlay.tsx';
+import { SldLabelOverlay } from './SldLabelOverlay.tsx';
 import { SINGLE_LINE_ELEMENT_DEFINITIONS } from '../../constants/singleLineElements.ts';
 import type { SchematicNodeData } from '../../types/index.ts';
 import type { Node } from '@xyflow/react';
@@ -142,6 +144,8 @@ export function SingleLineCanvas() {
         <Controls />
         <MiniMap pannable zoomable className="!bg-white !border !border-gray-200" />
         <DrawingFrame />
+        <SldConnectionOverlay />
+        <SldLabelOverlay />
       </ReactFlow>
       <WaypointOverlay />
     </div>

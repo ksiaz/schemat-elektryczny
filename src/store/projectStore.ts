@@ -95,6 +95,7 @@ interface ProjectState {
   setProjectName: (name: string) => void;
   setSchematicFormat: (format: SheetFormat) => void;
   setActiveSheet: (sheet: 'schematic' | 'singleLine' | 'layout') => void;
+  setSldLabelFontSize: (size: number) => void;
   saveProject: () => void;
   loadProject: (json: string) => void;
   getProjectData: () => ProjectData;
@@ -150,6 +151,7 @@ export const useProjectStore = create<ProjectState>((set, get) => ({
     date: new Date().toLocaleDateString('pl-PL'),
     scale: 'bez skali',
     format: 'A4',
+    sldLabelFontSize: 7,
   },
   activeSheet: 'schematic',
   schematicFormat: 'A4',
@@ -419,10 +421,35 @@ export const useProjectStore = create<ProjectState>((set, get) => ({
 
   setProjectName: (name) => set({ projectName: name, isDirty: true }),
   setSchematicFormat: (format) => set({ schematicFormat: format, isDirty: true }),
+  setSldLabelFontSize: (size) => set((s) => ({ projectInfo: { ...s.projectInfo, sldLabelFontSize: size }, isDirty: true })),
   setActiveSheet: (sheet) => set({ activeSheet: sheet }),
 
   saveProject: () => {
     const state = get();
+
+    // ZABEZPIECZENIE: nie nadpisuj niepustego zapisu pustym stanem (np. po
+    // nieudanym wczytaniu / resecie) — chroni przed utrata danych przez autozapis.
+    const isEmpty =
+      state.nodes.length === 0 && state.edges.length === 0 &&
+      state.layoutNodes.length === 0 && state.layoutEdges.length === 0 &&
+      state.singleLineNodes.length === 0 && state.singleLineEdges.length === 0;
+    if (isEmpty) {
+      try {
+        const existing = localStorage.getItem(STORAGE_KEY);
+        if (existing) {
+          const prev = JSON.parse(existing);
+          const prevHas =
+            (prev.nodes?.length || prev.edges?.length ||
+             prev.layoutNodes?.length || prev.layoutEdges?.length ||
+             prev.singleLineNodes?.length || prev.singleLineEdges?.length);
+          if (prevHas) {
+            console.warn('[saveProject] Pominieto zapis pustego stanu — chronie istniejacy projekt w localStorage.');
+            return;
+          }
+        }
+      } catch { /* parsowanie nieudane — kontynuuj normalny zapis */ }
+    }
+
     const data = JSON.stringify({
       projectName: state.projectName,
       projectInfo: state.projectInfo,

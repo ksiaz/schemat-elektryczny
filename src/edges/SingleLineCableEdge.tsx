@@ -1,12 +1,12 @@
+import { useEffect } from 'react';
 import { BaseEdge, type EdgeProps } from '@xyflow/react';
 import type { SingleLineCableData } from '../types/index.ts';
+import { useSldGeomStore } from '../store/sldGeomStore.ts';
 
 const HATCH_LEN = 6;       // dlugosc ukosnej kreski [px]
 const HATCH_SPACING = 3;   // odstep miedzy kreskami
 const HATCH_ANGLE_DEG = 60;
 const MIN_LINE_LEN_FOR_HATCH = 60;
-const LABEL_OFFSET = 8;     // opis tuz obok symbolu liczby zyl
-const LABEL_FONT_SIZE = 7;
 
 function buildPath(sx: number, sy: number, tx: number, ty: number, waypoints?: Array<{x:number;y:number}>) {
   if (!waypoints || waypoints.length === 0) {
@@ -50,31 +50,6 @@ export function SingleLineCableEdge({
 
   const path = buildPath(sourceX, sourceY, targetX, targetY, waypoints);
 
-  // srodek pierwszego segmentu (sourceX/Y -> waypoint[0] lub target)
-  const next = waypoints && waypoints.length > 0 ? waypoints[0] : { x: targetX, y: targetY };
-  const midX = (sourceX + next.x) / 2;
-  const midY = (sourceY + next.y) / 2;
-  const dx = next.x - sourceX;
-  const dy = next.y - sourceY;
-  const segLen = Math.hypot(dx, dy);
-
-  // kierunek prostopadly do linii — do rozkladania pęczka kresek wzdluz linii
-  const ux = segLen > 0 ? dx / segLen : 1;
-  const uy = segLen > 0 ? dy / segLen : 0;
-
-  // ukosna kreska pod katem 60deg wzgledem linii
-  const angleRad = (HATCH_ANGLE_DEG * Math.PI) / 180;
-  // kierunek kreski w lokalnym ukladzie linii: (cos a, sin a)
-  // przeloz na globalny:
-  const hx = ux * Math.cos(angleRad) - uy * Math.sin(angleRad);
-  const hy = ux * Math.sin(angleRad) + uy * Math.cos(angleRad);
-
-  const totalWidth = (cores - 1) * HATCH_SPACING;
-  const startX = midX - (ux * totalWidth) / 2;
-  const startY = midY - (uy * totalWidth) / 2;
-
-  const showHatches = segLen >= MIN_LINE_LEN_FOR_HATCH;
-
   const labelLines = formatLabel({
     cableType, cores, crossSection,
     peCrossSection: d.peCrossSection,
@@ -84,17 +59,38 @@ export function SingleLineCableEdge({
     showCrossSection: d.showCrossSection,
     showLength: d.showLength,
   });
+  const labelKey = labelLines.join('');
 
-  // Etykieta — zawsze obok linii, nigdy na niej.
-  // Pionowy kabel: blok po prawej, wysrodkowany pionowo.
-  // Poziomy kabel: blok nad linia, wysrodkowany poziomo.
-  const LINE_H = LABEL_FONT_SIZE + 2;
-  const isVertical = Math.abs(dy) >= Math.abs(dx);
-  const labelX = isVertical ? midX + LABEL_OFFSET : midX;
-  const labelY = isVertical
-    ? midY - ((labelLines.length - 1) * LINE_H) / 2
-    : midY - LABEL_OFFSET - (labelLines.length - 1) * LINE_H;
-  const labelAnchor: 'start' | 'middle' = isVertical ? 'start' : 'middle';
+  // Raportuj polilinie + opis do ulotnego store'a — nakladki rysuja wezly,
+  // omijki i OPISY (globalnie, z unikaniem nakladania).
+  useEffect(() => {
+    const pts = [{ x: sourceX, y: sourceY }, ...(waypoints ?? []), { x: targetX, y: targetY }];
+    useSldGeomStore.getState().report(id, pts, wireColor, labelLines);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id, sourceX, sourceY, targetX, targetY, waypoints, wireColor, labelKey]);
+  useEffect(() => () => useSldGeomStore.getState().remove(id), [id]);
+
+  // srodek pierwszego segmentu (do rozkladania pęczka kresek liczby zyl)
+  const next = waypoints && waypoints.length > 0 ? waypoints[0] : { x: targetX, y: targetY };
+  const midX = (sourceX + next.x) / 2;
+  const midY = (sourceY + next.y) / 2;
+  const dx = next.x - sourceX;
+  const dy = next.y - sourceY;
+  const segLen = Math.hypot(dx, dy);
+
+  const ux = segLen > 0 ? dx / segLen : 1;
+  const uy = segLen > 0 ? dy / segLen : 0;
+
+  // ukosna kreska pod katem 60deg wzgledem linii
+  const angleRad = (HATCH_ANGLE_DEG * Math.PI) / 180;
+  const hx = ux * Math.cos(angleRad) - uy * Math.sin(angleRad);
+  const hy = ux * Math.sin(angleRad) + uy * Math.cos(angleRad);
+
+  const totalWidth = (cores - 1) * HATCH_SPACING;
+  const startX = midX - (ux * totalWidth) / 2;
+  const startY = midY - (uy * totalWidth) / 2;
+
+  const showHatches = segLen >= MIN_LINE_LEN_FOR_HATCH;
 
   return (
     <g>
@@ -112,20 +108,6 @@ export function SingleLineCableEdge({
         const y2 = cy + (hy * HATCH_LEN) / 2;
         return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke={selected ? '#1d4ed8' : wireColor} strokeWidth="1" />;
       })}
-
-      {labelLines.map((text, i) => (
-        <text
-          key={i}
-          x={labelX}
-          y={labelY + i * LINE_H}
-          fontSize={LABEL_FONT_SIZE}
-          fill="#222"
-          textAnchor={labelAnchor}
-          style={{ userSelect: 'none', pointerEvents: 'none' }}
-        >
-          {text}
-        </text>
-      ))}
     </g>
   );
 }

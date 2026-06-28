@@ -69,6 +69,15 @@ export const SINGLE_LINE_ELEMENT_DEFINITIONS: ElementDefinition[] = [
     parameters: [],
   },
   {
+    id: 'sld_estop',
+    name: 'Wyłącznik awaryjny (ESTOP)',
+    category: 'sldAcProtection',
+    designation: 'S',
+    nodeType: 'sldEStop',
+    defaultLabel: 'ESTOP',
+    parameters: [],
+  },
+  {
     id: 'sld_transfer_switch',
     name: 'Przełącznik zasilania 1-0-2',
     category: 'sldAcProtection',

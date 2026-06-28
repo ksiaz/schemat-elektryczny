@@ -333,6 +333,40 @@ export function PropertiesPanel() {
           </button>
         )}
 
+        {/* Lokalizacja opisu — tylko schemat jednokreskowy */}
+        {activeSheet === 'singleLine' && (
+          <div>
+            <label className="block text-xs text-gray-500 mb-0.5">Pozycja opisu</label>
+            <div className="flex gap-1">
+              {([
+                ['left', '← lewo'],
+                ['right', '→ prawo'],
+                ['top', '↑ góra'],
+                ['bottom', '↓ dół'],
+              ] as const).map(([pos, txt]) => {
+                const active = (selectedNode.data.labelPos ?? 'right') === pos;
+                return (
+                  <button
+                    key={pos}
+                    title={txt}
+                    onClick={() => updateNodeData(selectedNode.id, { labelPos: pos, labelOffset: { x: 0, y: 0 } })}
+                    className={`flex-1 px-1 py-1 text-xs rounded border ${active ? 'bg-blue-100 border-blue-400 text-blue-800' : 'bg-gray-100 hover:bg-gray-200 border-gray-300'}`}
+                  >
+                    {txt.split(' ')[0]}
+                  </button>
+                );
+              })}
+            </div>
+            <button
+              onClick={() => updateNodeData(selectedNode.id, { labelPos: 'right', labelOffset: { x: 0, y: 0 } })}
+              className="mt-1 w-full px-2 py-1 text-xs bg-gray-100 hover:bg-gray-200 rounded border border-gray-300"
+            >
+              Reset opisu
+            </button>
+            <p className="text-[10px] text-gray-400 mt-0.5 italic">Możesz też złapać opis i przeciągnąć na schemacie.</p>
+          </div>
+        )}
+
         {/* Oznaczenie (read-only) */}
         {selectedNode.data.designation && (
           <div className="text-xs text-gray-500">

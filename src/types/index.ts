@@ -27,12 +27,16 @@ export interface ParameterDefinition {
   defaultValue?: string | number;
 }
 
+export type LabelPos = 'right' | 'left' | 'top' | 'bottom';
+
 export interface SchematicNodeData {
   label: string;
   elementId: string;
   designation: string;
   parameters: Record<string, string | number>;
   rotation?: number;
+  labelPos?: LabelPos;              // strona opisu wzgledem symbolu (domyslnie 'right')
+  labelOffset?: { x: number; y: number }; // dostrojenie przeciaganiem (jedn. projektowe)
   [key: string]: unknown;
 }
 
@@ -46,6 +50,7 @@ export interface ProjectInfo {
   scale: string;
   format: SheetFormat;
   companyLogo?: string;
+  sldLabelFontSize?: number; // globalna wielkosc czcionki opisow przewodow SLD (domyslnie 7)
 }
 
 export interface HistoryEntry {
